@@ -4,6 +4,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 2s infinite;
+}
+
 :root {
   --color-background: #000000;
   --color-text: #ffffff;
