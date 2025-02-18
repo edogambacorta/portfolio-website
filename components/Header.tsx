@@ -36,21 +36,23 @@ const Header: React.FC = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="text-white text-2xl font-bold pl-16 md:pl-24">TheFactory</div>
-        <NavBar 
-          items={navItems}
-          className="flex-grow justify-center"
-          onItemClick={handleScroll}
-        />
-        <ShimmerButton
-          onClick={() => window.open("https://calendly.com/edoardo-gambacorta/", "_blank")}
-          className="text-black font-semibold"
-          shimmerColor="rgba(255, 255, 255, 0.4)"
-          shimmerDuration="2s"
-        >
-          Book Call
-        </ShimmerButton>
+      <div className="container mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center">
+        <div className="text-white text-2xl font-bold mb-4 sm:mb-0">TheFactory</div>
+        <div className="flex flex-col sm:flex-row items-center">
+          <NavBar 
+            items={navItems}
+            className="mb-4 sm:mb-0 sm:mr-4"
+            onItemClick={handleScroll}
+          />
+          <ShimmerButton
+            onClick={() => window.open("https://calendly.com/edoardo-gambacorta/", "_blank")}
+            className="text-black font-semibold text-sm w-full sm:w-auto"
+            shimmerColor="rgba(255, 255, 255, 0.4)"
+            shimmerDuration="2s"
+          >
+            Book Call
+          </ShimmerButton>
+        </div>
       </div>
     </header>
   )
