@@ -37,7 +37,7 @@ const Header: React.FC = () => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="text-white text-2xl font-bold">TheFactory</div>
+        <div className="text-white text-2xl font-bold pl-16 md:pl-24">TheFactory</div>
         <NavBar 
           items={navItems}
           className="flex-grow justify-center"
