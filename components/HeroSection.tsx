@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { SplineSceneBasic } from "./SplineSceneBasic";
 import { ShimmerButton } from "./ui/shimmer-button";
 import { Spotlight } from "./ui/spotlight";
+
 export function HeroSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
@@ -32,18 +33,18 @@ export function HeroSection() {
   };
 
   return (
-    <div ref={containerRef} className="relative w-full h-screen overflow-hidden pt-20">
+    <div ref={containerRef} className="relative w-full min-h-screen overflow-hidden bg-black">
       <Spotlight
         className="absolute inset-0"
         size={350}
         mousePosition={mousePosition}
       />
-      <div className="flex flex-col md:flex-row h-full">
-        <div className="flex-1 flex flex-col justify-center p-8 z-10">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white text-left">
+      <div className="flex flex-col lg:flex-row h-full items-center relative z-10">
+        <div className="flex-1 flex flex-col justify-center p-8 lg:max-w-2xl">
+          <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-white text-left">
             Accelerate Your Brand with Swiss AI Expertise
           </h1>
-          <p className="text-xl mb-8 text-white text-left max-w-2xl">
+          <p className="text-xl mb-8 text-gray-300 text-left">
             Cutting-Edge Marketing Powered by RAG Workflows & Bespoke AI Solutions
           </p>
           <div>
@@ -57,8 +58,8 @@ export function HeroSection() {
             </ShimmerButton>
           </div>
         </div>
-        <div className="flex-1 relative overflow-hidden">
-          <SplineSceneBasic scale={1.1} />
+        <div className="flex-1 w-full lg:w-1/2 h-[50vh] lg:h-screen relative z-0">
+          <SplineSceneBasic scale={1} />
         </div>
       </div>
     </div>
