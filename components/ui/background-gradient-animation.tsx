@@ -5,14 +5,14 @@ import { useEffect, useRef, useState } from "react";
 export const BackgroundGradientAnimation = ({
   gradientBackgroundStart = "rgb(0, 0, 0)",
   gradientBackgroundEnd = "rgb(0, 0, 0)",
-  firstColor = "255, 102, 0",
-  secondColor = "255, 153, 0",
-  thirdColor = "255, 204, 0",
-  fourthColor = "255, 102, 0",
-  fifthColor = "255, 153, 0",
-  pointerColor = "255, 204, 0",
-  size = "80%",
-  blendingValue = "hard-light",
+  firstColor = "255, 69, 0",    // Deep Orange
+  secondColor = "255, 99, 71",  // Tomato
+  thirdColor = "255, 140, 0",   // Dark Orange
+  fourthColor = "255, 165, 0",  // Orange
+  fifthColor = "255, 103, 0",   // Darker Orange
+  pointerColor = "255, 69, 0",  // Deep Orange (same as firstColor for consistency)
+  size = "85%",
+  blendingValue = "overlay",
   children,
   className,
   interactive = true,
