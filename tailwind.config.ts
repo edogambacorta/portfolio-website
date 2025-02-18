@@ -7,9 +7,12 @@ export default {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {
-    extend: {
-      colors: {
+theme: {
+  extend: {
+    fontFamily: {
+      'jetbrains-mono': ['JetBrains Mono', 'monospace'],
+    },
+    colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
