@@ -2,9 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import { SplineSceneBasic } from "./SplineSceneBasic";
-import { CTAButton } from "./CTAButton";
+import { ShimmerButton } from "./ui/shimmer-button";
 import { Spotlight } from "./ui/spotlight";
-
 export function HeroSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
@@ -26,7 +25,7 @@ export function HeroSection() {
     };
   }, []);
 
-  const handleGetStarted = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleGetStarted = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const servicesSection = document.getElementById('services');
     servicesSection?.scrollIntoView({ behavior: 'smooth' });
@@ -48,9 +47,14 @@ export function HeroSection() {
             Cutting-Edge Marketing Powered by RAG Workflows & Bespoke AI Solutions
           </p>
           <div>
-            <CTAButton href="#services" onClick={handleGetStarted}>
+            <ShimmerButton
+              onClick={handleGetStarted}
+              className="text-black font-semibold"
+              shimmerColor="rgba(255, 255, 255, 0.4)"
+              shimmerDuration="2s"
+            >
               Get Started
-            </CTAButton>
+            </ShimmerButton>
           </div>
         </div>
         <div className="flex-1 relative overflow-hidden">

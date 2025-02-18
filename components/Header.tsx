@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
-import { CTAButton } from './CTAButton'
+import { ShimmerButton } from './ui/shimmer-button'
 
 const Header: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false)
@@ -47,9 +47,14 @@ const Header: React.FC = () => {
             </li>
           </ul>
         </nav>
-        <CTAButton href="https://calendly.com/edoardo-gambacorta/" className="shadow-white shadow-lg hover:shadow-xl transition-all duration-300">
+        <ShimmerButton
+          onClick={() => window.open("https://calendly.com/edoardo-gambacorta/", "_blank")}
+          className="text-black font-semibold"
+          shimmerColor="rgba(255, 255, 255, 0.4)"
+          shimmerDuration="2s"
+        >
           Book Call
-        </CTAButton>
+        </ShimmerButton>
       </div>
     </header>
   )
