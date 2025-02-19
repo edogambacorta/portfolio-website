@@ -20,7 +20,7 @@ export const Card = React.memo(
       onMouseEnter={() => setHovered(index)}
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "rounded-lg relative bg-gray-100 dark:bg-neutral-900 overflow-hidden h-60 md:h-96 w-full transition-all duration-300 ease-out",
+        "rounded-lg relative bg-gray-100 dark:bg-neutral-900 overflow-hidden h-60 md:h-96 w-full transition-all duration-500 ease-in-out flex flex-col",
         hovered === index && "outline outline-2 outline-accent scale-105 z-10",
         hovered !== null && hovered !== index && "blur-sm scale-95"
       )}
@@ -31,24 +31,42 @@ export const Card = React.memo(
         fill
         className="object-cover absolute inset-0"
       />
-      <div className="absolute top-4 left-4 text-white">
-        <card.icon size={24} />
-      </div>
-      <div
-        className={cn(
-          "absolute text-white text-xl md:text-2xl font-medium transition-all duration-300",
-          hovered === index ? "top-12 left-4" : "bottom-4 left-4"
-        )}
-      >
-        {card.title}
-      </div>
-      <div
-        className={cn(
-          "absolute bottom-4 left-4 right-4 text-white text-sm md:text-base transition-all duration-300 opacity-0",
-          hovered === index && "animate-fadeInDelayed"
-        )}
-      >
-        {card.description}
+      <div className="relative z-10 p-4 flex flex-col h-full">
+        <div className="flex items-start mb-2">
+          <div className="text-white mr-2">
+            <card.icon size={24} />
+          </div>
+          <div
+            className={cn(
+              "text-white text-xl md:text-2xl font-medium transition-all duration-500 ease-in-out",
+              hovered === index
+                ? "animate-headerMoveUp"
+                : "opacity-0"
+            )}
+          >
+            {card.title}
+          </div>
+        </div>
+        <div className="mt-auto">
+          <div
+            className={cn(
+              "text-white text-xl md:text-2xl font-medium transition-all duration-500 ease-in-out",
+              hovered === index
+                ? "opacity-0"
+                : "opacity-100"
+            )}
+          >
+            {card.title}
+          </div>
+          <div
+            className={cn(
+              "text-white text-sm md:text-base transition-opacity duration-500 ease-in-out",
+              hovered === index ? "animate-subheaderFadeIn" : "opacity-0 pointer-events-none"
+            )}
+          >
+            {card.description}
+          </div>
+        </div>
       </div>
     </div>
   )

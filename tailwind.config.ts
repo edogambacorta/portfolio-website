@@ -1,18 +1,18 @@
 import type { Config } from "tailwindcss";
 
-export default {
+const config: Config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-theme: {
-  extend: {
-    fontFamily: {
-      'jetbrains-mono': ['JetBrains Mono', 'monospace'],
-    },
-    colors: {
+  theme: {
+    extend: {
+      fontFamily: {
+        'jetbrains-mono': ['JetBrains Mono', 'monospace'],
+      },
+      colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
@@ -54,27 +54,24 @@ theme: {
           '5': 'hsl(var(--chart-5))'
         }
       },
-      animation: {
-        first: "moveVertical 30s ease infinite",
-        second: "moveInCircle 20s reverse infinite",
-        third: "moveInCircle 40s linear infinite",
-        fourth: "moveHorizontal 40s ease infinite",
-        fifth: "moveInCircle 20s ease infinite",
-        'star-movement-bottom': 'star-movement-bottom linear infinite alternate',
-        'star-movement-top': 'star-movement-top linear infinite alternate',
-        fadeIn: 'fadeIn 0.3s ease-out forwards',
-        fadeInDelayed: 'fadeInDelayed 0.6s ease-out forwards',
-      },
       keyframes: {
-        moveHorizontal: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        moveVertical: {
           "0%": {
-            transform: "translateX(-50%) translateY(-10%)",
+            transform: "translateY(-50%)",
           },
           "50%": {
-            transform: "translateX(50%) translateY(10%)",
+            transform: "translateY(50%)",
           },
           "100%": {
-            transform: "translateX(-50%) translateY(-10%)",
+            transform: "translateY(-50%)",
           },
         },
         moveInCircle: {
@@ -88,15 +85,15 @@ theme: {
             transform: "rotate(360deg)",
           },
         },
-        moveVertical: {
+        moveHorizontal: {
           "0%": {
-            transform: "translateY(-50%)",
+            transform: "translateX(-50%)",
           },
           "50%": {
-            transform: "translateY(50%)",
+            transform: "translateX(50%)",
           },
           "100%": {
-            transform: "translateY(-50%)",
+            transform: "translateX(-50%)",
           },
         },
         'star-movement-bottom': {
@@ -127,13 +124,43 @@ theme: {
           '0%, 50%': { opacity: '0', transform: 'translateY(10px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        titleMoveUp: {
+          '0%': { transform: 'translateY(0)' },
+          '100%': { transform: 'translateY(calc(-100% + 4rem))' }
+        },
+        headerMoveUp: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' }
+        },
+        subheaderFadeIn: {
+          '0%, 75%': { opacity: '0' },
+          '100%': { opacity: '1' }
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+        first: "moveVertical 30s ease infinite",
+        second: "moveInCircle 20s reverse infinite",
+        third: "moveInCircle 40s linear infinite",
+        fourth: "moveHorizontal 40s ease infinite",
+        fifth: "moveInCircle 20s ease infinite",
+        'star-movement-bottom': 'star-movement-bottom linear infinite alternate',
+        'star-movement-top': 'star-movement-top linear infinite alternate',
+        fadeIn: 'fadeIn 0.3s ease-out forwards',
+        fadeInDelayed: 'fadeInDelayed 0.6s ease-out forwards',
+        titleMoveUp: 'titleMoveUp 0.5s ease-out forwards',
+        headerMoveUp: 'headerMoveUp 0.5s ease-out forwards',
+        subheaderFadeIn: 'subheaderFadeIn 0.5s ease-out 0.5s forwards',
       },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)'
       }
-    }
+    },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+};
+
+export default config;
