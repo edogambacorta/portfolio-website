@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { ShimmerButton } from './ui/shimmer-button'
 import { NavBar } from './ui/tubelight-navbar'
 import { Home, Briefcase, Lightbulb, Users } from 'lucide-react'
+import CenteredContainer from './CenteredContainer'
 
 const Header: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false)
@@ -36,24 +37,26 @@ const Header: React.FC = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="container mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center">
-        <div className="text-white text-2xl font-bold mb-4 sm:mb-0 font-jetbrains-mono">thefactory</div>
-        <div className="flex flex-col sm:flex-row items-center">
-          <NavBar 
-            items={navItems}
-            className="mb-4 sm:mb-0 sm:mr-4"
-            onItemClick={handleScroll}
-          />
-          <ShimmerButton
-            onClick={() => window.open("https://calendly.com/edoardo-gambacorta/", "_blank")}
-            className="text-black font-semibold text-sm w-full sm:w-auto"
-            shimmerColor="rgba(255, 255, 255, 0.4)"
-            shimmerDuration="2s"
-          >
-            Book Call
-          </ShimmerButton>
+      <CenteredContainer>
+        <div className="py-4 flex flex-col sm:flex-row justify-between items-center">
+          <div className="text-white text-2xl font-bold mb-4 sm:mb-0 font-jetbrains-mono">thefactory</div>
+          <div className="flex flex-col sm:flex-row items-center">
+            <NavBar 
+              items={navItems}
+              className="mb-4 sm:mb-0 sm:mr-4"
+              onItemClick={handleScroll}
+            />
+            <ShimmerButton
+              onClick={() => window.open("https://calendly.com/edoardo-gambacorta/", "_blank")}
+              className="text-black font-semibold text-sm w-full sm:w-auto"
+              shimmerColor="rgba(255, 255, 255, 0.4)"
+              shimmerDuration="2s"
+            >
+              Book Call
+            </ShimmerButton>
+          </div>
         </div>
-      </div>
+      </CenteredContainer>
     </header>
   )
 }

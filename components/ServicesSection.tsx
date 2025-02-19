@@ -1,6 +1,7 @@
 "use client";
 
 import { ServiceCard } from "./ServiceCard";
+import CenteredContainer from "./CenteredContainer";
 
 export function ServicesSection() {
   const services = [
@@ -31,13 +32,15 @@ export function ServicesSection() {
   ];
 
   return (
-    <section id="services" className="py-16 px-8 bg-gray-900">
-      <h2 className="text-3xl font-bold mb-8 text-center">Our Services</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {services.map((service, index) => (
-          <ServiceCard key={index} {...service} />
-        ))}
-      </div>
+    <section id="services" className="py-16 bg-gray-900">
+      <CenteredContainer>
+        <h2 className="text-3xl font-bold mb-8 text-center">Our Services</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service, index) => (
+            <ServiceCard key={index} {...service} />
+          ))}
+        </div>
+      </CenteredContainer>
     </section>
   );
 }
