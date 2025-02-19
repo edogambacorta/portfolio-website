@@ -20,7 +20,10 @@
 :root {
   --color-background: #000000;
   --color-text: #ffffff;
-  --color-accent: #FFA500; /* Orange for accents */
+  --color-accent: #FF6600; /* Updated Orange for accents */
+  --color-new-background: #000000;
+  --color-new-foreground: #FFFFFF;
+  --color-new-accent: #FF6600;
 }
 
 html {
@@ -40,6 +43,21 @@ body {
 html, body {
   height: 100%;
   width: 100%;
+}
+
+/* New styles for sections below the hero */
+.new-section {
+  background-color: var(--color-new-background);
+  color: var(--color-new-foreground);
+}
+
+.new-section-alt {
+  background-color: var(--color-new-foreground);
+  color: var(--color-new-background);
+}
+
+.new-accent {
+  color: var(--color-new-accent);
 }
 
 @layer base {
@@ -108,6 +126,10 @@ html, body {
   
   .btn-primary {
     @apply bg-white text-black hover:bg-[var(--color-accent)];
+  }
+
+  .new-btn {
+    @apply px-4 py-2 rounded font-bold transition-colors duration-200 bg-newBackground text-newForeground hover:bg-newAccent hover:text-newBackground;
   }
 }
 
