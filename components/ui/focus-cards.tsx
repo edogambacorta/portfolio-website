@@ -3,8 +3,73 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from 'lucide-react';
+import { BackgroundGradientAnimation } from "./background-gradient-animation";
 
-export const Card = React.memo(
+const gradientConfigs = [
+  {
+    gradientBackgroundStart: "rgb(0, 0, 0)",
+    gradientBackgroundEnd: "rgb(255, 165, 0)",
+    firstColor: "255, 69, 0",
+    secondColor: "255, 140, 0",
+    thirdColor: "255, 165, 0",
+    fourthColor: "255, 99, 71",
+    fifthColor: "255, 127, 80",
+  },
+  {
+    gradientBackgroundStart: "rgb(0, 0, 0)",
+    gradientBackgroundEnd: "rgb(255, 140, 0)",
+    firstColor: "255, 99, 71",
+    secondColor: "255, 127, 80",
+    thirdColor: "255, 140, 0",
+    fourthColor: "255, 69, 0",
+    fifthColor: "255, 165, 0",
+  },
+  {
+    gradientBackgroundStart: "rgb(0, 0, 0)",
+    gradientBackgroundEnd: "rgb(255, 99, 71)",
+    firstColor: "255, 69, 0",
+    secondColor: "255, 99, 71",
+    thirdColor: "255, 127, 80",
+    fourthColor: "255, 140, 0",
+    fifthColor: "255, 165, 0",
+  },
+  {
+    gradientBackgroundStart: "rgb(0, 0, 0)",
+    gradientBackgroundEnd: "rgb(255, 127, 80)",
+    firstColor: "255, 69, 0",
+    secondColor: "255, 99, 71",
+    thirdColor: "255, 127, 80",
+    fourthColor: "255, 140, 0",
+    fifthColor: "255, 165, 0",
+  },
+  {
+    gradientBackgroundStart: "rgb(0, 0, 0)",
+    gradientBackgroundEnd: "rgb(255, 140, 0)",
+    firstColor: "255, 99, 71",
+    secondColor: "255, 127, 80",
+    thirdColor: "255, 140, 0",
+    fourthColor: "255, 69, 0",
+    fifthColor: "255, 165, 0",
+  },
+  {
+    gradientBackgroundStart: "rgb(0, 0, 0)",
+    gradientBackgroundEnd: "rgb(255, 165, 0)",
+    firstColor: "255, 69, 0",
+    secondColor: "255, 140, 0",
+    thirdColor: "255, 165, 0",
+    fourthColor: "255, 99, 71",
+    fifthColor: "255, 127, 80",
+  },
+];
+
+type Card = {
+  title: string;
+  src: string;
+  icon: LucideIcon;
+  description: string;
+};
+
+const Card = React.memo(
   ({
     card,
     index,
@@ -20,16 +85,26 @@ export const Card = React.memo(
       onMouseEnter={() => setHovered(index)}
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "rounded-lg relative bg-gray-100 dark:bg-neutral-900 overflow-hidden h-60 md:h-96 w-full transition-all duration-500 ease-in-out flex flex-col",
+        "rounded-lg relative overflow-hidden h-60 md:h-96 w-full transition-all duration-500 ease-in-out flex flex-col",
         hovered === index && "outline outline-2 outline-accent scale-105 z-10",
         hovered !== null && hovered !== index && "blur-sm scale-95"
       )}
     >
+      <BackgroundGradientAnimation
+        {...gradientConfigs[index]}
+        className="absolute inset-0"
+        containerClassName="absolute inset-0"
+        interactive={true}
+        isHovered={hovered === index}
+      />
       <Image
         src={card.src}
         alt={card.title}
         fill
-        className="object-cover absolute inset-0"
+        className={cn(
+          "object-cover absolute inset-0 transition-opacity duration-300",
+          hovered === index ? "opacity-0" : "opacity-100"
+        )}
       />
       <div className="relative z-10 p-4 flex flex-col h-full">
         <div className="flex items-start mb-2">
@@ -73,13 +148,6 @@ export const Card = React.memo(
 );
 
 Card.displayName = "Card";
-
-type Card = {
-  title: string;
-  src: string;
-  icon: LucideIcon;
-  description: string;
-};
 
 export function FocusCards({ cards }: { cards: Card[] }) {
   const [hovered, setHovered] = useState<number | null>(null);
