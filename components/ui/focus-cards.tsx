@@ -94,8 +94,7 @@ const Card = React.memo(
         {...gradientConfigs[index]}
         className="absolute inset-0"
         containerClassName="absolute inset-0"
-        interactive={true}
-        isHovered={hovered === index}
+        interactive={hovered === index}
       />
       <Image
         src={card.src}
@@ -107,40 +106,28 @@ const Card = React.memo(
         )}
       />
       <div className="relative z-10 p-4 flex flex-col h-full">
-        <div className="flex items-start mb-2">
-          <div className="text-white mr-2">
-            <card.icon size={24} />
-          </div>
-          <div
-            className={cn(
-              "text-white text-xl md:text-2xl font-medium transition-all duration-500 ease-in-out",
-              hovered === index
-                ? "animate-headerMoveUp"
-                : "opacity-0"
-            )}
-          >
-            {card.title}
-          </div>
+        <div className="text-white">
+          <card.icon size={24} />
         </div>
-        <div className="mt-auto">
-          <div
-            className={cn(
-              "text-white text-xl md:text-2xl font-medium transition-all duration-500 ease-in-out",
-              hovered === index
-                ? "opacity-0"
-                : "opacity-100"
-            )}
-          >
-            {card.title}
-          </div>
-          <div
-            className={cn(
-              "text-white text-sm md:text-base transition-opacity duration-500 ease-in-out",
-              hovered === index ? "animate-subheaderFadeIn" : "opacity-0 pointer-events-none"
-            )}
-          >
-            {card.description}
-          </div>
+        <div
+          className={cn(
+            "text-white text-xl md:text-2xl font-medium transition-all duration-300 ease-in-out absolute left-4",
+            hovered === index
+              ? "top-12"
+              : "bottom-4"
+          )}
+        >
+          {card.title}
+        </div>
+        <div
+          className={cn(
+            "text-white text-sm md:text-base transition-all duration-300 ease-in-out absolute left-4 bottom-4",
+            hovered === index
+              ? "opacity-100"
+              : "opacity-0 pointer-events-none"
+          )}
+        >
+          {card.description}
         </div>
       </div>
     </div>
