@@ -1,6 +1,32 @@
 "use client";
 import { cn } from "../../lib/utils";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useReducer, useState } from "react";
+
+type State = {
+  curX: number;
+  curY: number;
+  tgX: number;
+  tgY: number;
+};
+
+type Action =
+  | { type: 'SET_TARGET'; payload: { x: number; y: number } }
+  | { type: 'MOVE' };
+
+const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case 'SET_TARGET':
+      return { ...state, tgX: action.payload.x, tgY: action.payload.y };
+    case 'MOVE':
+      return {
+        ...state,
+        curX: state.curX + (state.tgX - state.curX) / 20,
+        curY: state.curY + (state.tgY - state.curY) / 20,
+      };
+    default:
+      return state;
+  }
+};
 
 export const HeroBackgroundAnimation = ({
   gradientBackgroundStart = "rgb(0, 0, 0)",
@@ -35,10 +61,13 @@ export const HeroBackgroundAnimation = ({
 }) => {
   const interactiveRef = useRef<HTMLDivElement>(null);
 
-  const [curX, setCurX] = useState(0);
-  const [curY, setCurY] = useState(0);
-  const [tgX, setTgX] = useState(0);
-  const [tgY, setTgY] = useState(0);
+  const [state, dispatch] = useReducer(reducer, {
+    curX: 0,
+    curY: 0,
+    tgX: 0,
+    tgY: 0,
+  });
+
   useEffect(() => {
     document.body.style.setProperty(
       "--hero-gradient-background-start",
@@ -56,28 +85,31 @@ export const HeroBackgroundAnimation = ({
     document.body.style.setProperty("--hero-pointer-color", pointerColor);
     document.body.style.setProperty("--hero-size", size);
     document.body.style.setProperty("--hero-blending-value", blendingValue);
-  }, []);
+  }, [gradientBackgroundStart, gradientBackgroundEnd, firstColor, secondColor, thirdColor, fourthColor, fifthColor, pointerColor, size, blendingValue]);
 
   useEffect(() => {
     function move() {
       if (!interactiveRef.current) {
         return;
       }
-      setCurX(curX + (tgX - curX) / 20);
-      setCurY(curY + (tgY - curY) / 20);
-      interactiveRef.current.style.transform = `translate(${Math.round(
-        curX
-      )}px, ${Math.round(curY)}px)`;
+      dispatch({ type: 'MOVE' });
+      interactiveRef.current.style.transform = `translate(${Math.round(state.curX)}px, ${Math.round(state.curY)}px)`;
     }
 
-    move();
-  }, [tgX, tgY, curX, curY]);
+    const intervalId = setInterval(move, 1000 / 60); // 60 FPS
+    return () => clearInterval(intervalId);
+  }, [state.curX, state.curY]);
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     if (interactiveRef.current) {
       const rect = interactiveRef.current.getBoundingClientRect();
-      setTgX(event.clientX - rect.left);
-      setTgY(event.clientY - rect.top);
+      dispatch({
+        type: 'SET_TARGET',
+        payload: {
+          x: event.clientX - rect.left,
+          y: event.clientY - rect.top,
+        },
+      });
     }
   };
 

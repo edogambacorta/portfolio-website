@@ -8,7 +8,7 @@ interface SplineSceneBasicProps {
 }
 
 interface SplineObject {
-  emitEvent: (eventName: string, data: any) => void;
+  emitEvent: (eventName: string, data: { x: number; y: number }) => void;
 }
 
 export function SplineSceneBasic({ scale = 1.1 }: SplineSceneBasicProps) {
