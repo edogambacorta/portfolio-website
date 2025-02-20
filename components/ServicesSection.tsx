@@ -3,7 +3,6 @@
 import { FocusCards } from "@/components/ui/focus-cards";
 import CenteredContainer from "./CenteredContainer";
 import { MessageSquare, Brain, Video, Image, Users, Code } from 'lucide-react';
-import Link from 'next/link';
 
 export function ServicesSection() {
   const services = [

@@ -7,9 +7,13 @@ interface SplineSceneBasicProps {
   scale?: number;
 }
 
+interface SplineObject {
+  emitEvent: (eventName: string, data: any) => void;
+}
+
 export function SplineSceneBasic({ scale = 1.1 }: SplineSceneBasicProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const splineRef = useRef<any>(null);
+  const splineRef = useRef<SplineObject | null>(null);
 
   useEffect(() => {
     const container = containerRef.current;
