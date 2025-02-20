@@ -5,7 +5,7 @@ import { DownArrowIcon } from "./ui/DownArrowIcon";
 import { SplineSceneBasic } from "./SplineSceneBasic";
 import { ShimmerButton } from "./ui/shimmer-button";
 import { Spotlight } from "./ui/spotlight";
-import { BackgroundGradientAnimation } from "./ui/background-gradient-animation";
+import { HeroBackgroundAnimation } from "./ui/hero-background-animation";
 
 export function HeroSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -60,7 +60,7 @@ export function HeroSection() {
   };
 
   return (
-    <BackgroundGradientAnimation
+    <HeroBackgroundAnimation
       gradientBackgroundStart="rgb(0, 0, 0)"
       gradientBackgroundEnd="rgb(0, 0, 0)"
       firstColor="255, 102, 0"
@@ -109,6 +109,6 @@ export function HeroSection() {
           </div>
         )}
       </div>
-    </BackgroundGradientAnimation>
+    </HeroBackgroundAnimation>
   );
 }

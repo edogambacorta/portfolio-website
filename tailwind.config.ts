@@ -152,6 +152,11 @@ const config: Config = {
         titleMoveUp: 'titleMoveUp 0.5s ease-out forwards',
         headerMoveUp: 'headerMoveUp 0.5s ease-out forwards',
         subheaderFadeIn: 'subheaderFadeIn 0.5s ease-out 0.5s forwards',
+        "hero-first": "moveVertical 25s ease infinite",
+        "hero-second": "moveInCircle 15s reverse infinite",
+        "hero-third": "moveInCircle 35s linear infinite",
+        "hero-fourth": "moveHorizontal 35s ease infinite",
+        "hero-fifth": "moveInCircle 15s ease infinite",
       },
       borderRadius: {
         lg: 'var(--radius)',
