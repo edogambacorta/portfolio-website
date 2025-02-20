@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
-import { LucideIcon } from 'lucide-react';
+import { LucideIcon, ArrowUpRight } from 'lucide-react';
 import { BackgroundGradientAnimation } from "./background-gradient-animation";
 import Link from 'next/link';
 
@@ -124,13 +124,21 @@ const Card = React.memo(
           </div>
           <div
             className={cn(
-              "text-white text-sm md:text-base transition-all duration-300 ease-in-out absolute left-4 bottom-4",
+              "text-white text-sm md:text-base transition-all duration-300 ease-in-out absolute left-4 bottom-4 pr-12",
               hovered === index
                 ? "opacity-100"
                 : "opacity-0 pointer-events-none"
             )}
           >
             {card.description}
+          </div>
+          <div
+            className={cn(
+              "absolute bottom-4 right-4 bg-gray-800 rounded-full p-2 transition-opacity duration-300",
+              hovered === index ? "opacity-100" : "opacity-0"
+            )}
+          >
+            <ArrowUpRight className="text-white" size={24} />
           </div>
         </div>
       </div>
