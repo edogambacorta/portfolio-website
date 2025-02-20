@@ -12,6 +12,19 @@
    - Implemented hover effect for the header
 2. Fixed scroll-to-section functionality
 3. Improved overall styling and responsiveness
+4. Implemented clickable logo functionality
+   - Logo now redirects to home page when clicked on sub-pages
+   - Logo reloads the page when clicked on the home page
+5. Fixed router mounting issue in Header component
+   - Implemented safe usage of useRouter hook
+   - Resolved "NextRouter was not mounted" error
+6. Resolved invalid hook call issue in Header component
+   - Refactored useRouter implementation to comply with React hooks rules
+   - Implemented check for router.isReady before using router methods
+7. Implemented robust solution for router mounting issue
+   - Updated Header component to use Next.js App Router hooks (useRouter, usePathname)
+   - Implemented Link component for improved client-side navigation
+   - Ensured proper handling of logo clicks on home page and sub-pages
 
 ## Next Steps
 1. Implement hero section with Spline 3D scene
@@ -22,6 +35,10 @@
    - Implement grid layout for services
 3. Create placeholder sections for Portfolio, Insights, and About Us
 4. Develop contact section with CTA for booking strategy sessions
+5. Test the new logo functionality and router fix across all pages and devices
+6. Review other components for potential router-related issues
+7. Conduct a thorough review of all components using routing functionality to ensure compatibility with Next.js App Router
+8. Implement error boundaries for graceful handling of routing-related errors
 
 ## Active Decisions and Considerations
 1. Color scheme refinement: Ensure consistency with the new header design
@@ -38,6 +55,9 @@
 2. Balancing visual complexity with website performance
 3. Crafting compelling copy that explains AI concepts in an accessible manner
 4. Fine-tuning the tubelight navbar for various screen sizes and devices
+5. Maintaining consistent behavior of routing and navigation across the site
+6. Ensuring proper usage of React hooks and Next.js App Router features across all components
+7. Optimizing performance while maintaining advanced routing and navigation features
 
 ## Immediate Goals
 1. Complete implementation of hero section with working 3D scene

@@ -5,9 +5,22 @@ import { ShimmerButton } from './ui/shimmer-button'
 import { NavBar } from './ui/tubelight-navbar'
 import { Home, Briefcase, Lightbulb, Users } from 'lucide-react'
 import CenteredContainer from './CenteredContainer'
+import { useRouter, usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 const Header: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false)
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    if (pathname === '/') {
+      window.location.reload()
+    } else {
+      router.push('/')
+    }
+  }
 
   const navItems = [
     { name: 'Our Services', url: '#services', icon: Briefcase },
@@ -39,7 +52,11 @@ const Header: React.FC = () => {
     >
       <CenteredContainer>
         <div className="py-4 flex flex-col sm:flex-row justify-between items-center">
-          <div className="text-white text-2xl font-bold mb-4 sm:mb-0 font-jetbrains-mono">thefactory</div>
+          <Link href="/" onClick={handleLogoClick}>
+            <div className="text-white text-2xl font-bold mb-4 sm:mb-0 font-jetbrains-mono cursor-pointer">
+              thefactory
+            </div>
+          </Link>
           <div className="flex flex-col sm:flex-row items-center">
             <NavBar 
               items={navItems}

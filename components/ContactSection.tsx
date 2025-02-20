@@ -22,10 +22,10 @@ export function ContactSection() {
               <label htmlFor="message" className="block text-sm font-medium mb-2">Message</label>
               <textarea id="message" name="message" rows={4} className="w-full px-3 py-2 bg-secondary text-primary border border-accent rounded-md focus:outline-none focus:ring-2 focus:ring-accent" required></textarea>
             </div>
-            <div>
+            <div className="flex justify-center">
               <ShimmerButton
                 type="submit"
-                className="w-full bg-accent text-secondary font-semibold py-2 px-4 rounded-md hover:bg-opacity-90 transition-colors duration-200"
+                className="bg-accent text-black font-semibold text-sm w-auto rounded-md hover:bg-opacity-90 transition-colors duration-200 relative overflow-hidden"
                 shimmerColor="rgba(255, 255, 255, 0.4)"
                 shimmerDuration="2s"
               >
@@ -34,15 +34,15 @@ export function ContactSection() {
             </div>
           </form>
         </div>
-        <div className="mt-12 text-center">
+        <div className="mt-12 text-center flex flex-col items-center">
           <p className="mb-4">Or book a call with our expert team:</p>
           <ShimmerButton
             onClick={() => window.open("https://calendly.com/edoardo-gambacorta/", "_blank")}
-            className="bg-secondary text-primary font-semibold py-2 px-4 rounded-md hover:bg-opacity-90 transition-colors duration-200"
-            shimmerColor="rgba(255, 102, 0, 0.4)"
+            className="text-black font-semibold text-sm w-auto"
+            shimmerColor="rgba(255, 255, 255, 0.4)"
             shimmerDuration="2s"
           >
-            Book a Call
+            Book Call
           </ShimmerButton>
         </div>
       </CenteredContainer>

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from 'lucide-react';
 import { BackgroundGradientAnimation } from "./background-gradient-animation";
+import Link from 'next/link';
 
 const gradientConfigs = [
   {
@@ -67,6 +68,7 @@ type Card = {
   src: string;
   icon: LucideIcon;
   description: string;
+  href: string;
 };
 
 const Card = React.memo(
@@ -81,56 +83,58 @@ const Card = React.memo(
     hovered: number | null;
     setHovered: React.Dispatch<React.SetStateAction<number | null>>;
   }) => (
-    <div
-      onMouseEnter={() => setHovered(index)}
-      onMouseLeave={() => setHovered(null)}
-      className={cn(
-        "rounded-lg relative overflow-hidden h-60 md:h-96 w-full transition-all duration-500 ease-in-out flex flex-col",
-        hovered === index && "outline outline-2 outline-accent scale-105 z-10",
-        hovered !== null && hovered !== index && "blur-sm scale-95"
-      )}
-    >
-      <BackgroundGradientAnimation
-        {...gradientConfigs[index]}
-        className="absolute inset-0"
-        containerClassName="absolute inset-0"
-        interactive={hovered === index}
-      />
-      <Image
-        src={card.src}
-        alt={card.title}
-        fill
+    <Link href={card.href} passHref>
+      <div
+        onMouseEnter={() => setHovered(index)}
+        onMouseLeave={() => setHovered(null)}
         className={cn(
-          "object-cover absolute inset-0 transition-opacity duration-300",
-          hovered === index ? "opacity-0" : "opacity-100"
+          "rounded-lg relative overflow-hidden h-60 md:h-96 w-full transition-all duration-500 ease-in-out flex flex-col cursor-pointer",
+          hovered === index && "outline outline-2 outline-accent scale-105 z-10",
+          hovered !== null && hovered !== index && "blur-sm scale-95"
         )}
-      />
-      <div className="relative z-10 p-4 flex flex-col h-full">
-        <div className="text-white">
-          <card.icon size={24} />
-        </div>
-        <div
+      >
+        <BackgroundGradientAnimation
+          {...gradientConfigs[index]}
+          className="absolute inset-0"
+          containerClassName="absolute inset-0"
+          interactive={hovered === index}
+        />
+        <Image
+          src={card.src}
+          alt={card.title}
+          fill
           className={cn(
-            "text-white text-xl md:text-2xl font-medium transition-all duration-300 ease-in-out absolute left-4",
-            hovered === index
-              ? "top-12"
-              : "bottom-4"
+            "object-cover absolute inset-0 transition-opacity duration-300",
+            hovered === index ? "opacity-0" : "opacity-100"
           )}
-        >
-          {card.title}
-        </div>
-        <div
-          className={cn(
-            "text-white text-sm md:text-base transition-all duration-300 ease-in-out absolute left-4 bottom-4",
-            hovered === index
-              ? "opacity-100"
-              : "opacity-0 pointer-events-none"
-          )}
-        >
-          {card.description}
+        />
+        <div className="relative z-10 p-4 flex flex-col h-full">
+          <div className="text-white">
+            <card.icon size={24} />
+          </div>
+          <div
+            className={cn(
+              "text-white text-xl md:text-2xl font-medium transition-all duration-300 ease-in-out absolute left-4",
+              hovered === index
+                ? "top-12"
+                : "bottom-4"
+            )}
+          >
+            {card.title}
+          </div>
+          <div
+            className={cn(
+              "text-white text-sm md:text-base transition-all duration-300 ease-in-out absolute left-4 bottom-4",
+              hovered === index
+                ? "opacity-100"
+                : "opacity-0 pointer-events-none"
+            )}
+          >
+            {card.description}
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 );
 
