@@ -53,14 +53,14 @@ const Header: React.FC = () => {
       <CenteredContainer>
         <div className="py-4 flex flex-col sm:flex-row justify-between items-center">
           <Link href="/" onClick={handleLogoClick}>
-            <div className="text-white text-2xl font-bold mb-4 sm:mb-0 font-jetbrains-mono cursor-pointer">
+            <div className="text-white text-2xl font-bold mb-4 sm:mb-0 font-jetbrains-mono cursor-pointer logo">
               thefactory
             </div>
           </Link>
           <div className="flex flex-col sm:flex-row items-center">
             <NavBar 
               items={navItems}
-              className="mb-4 sm:mb-0 sm:mr-4"
+              className="mb-4 sm:mb-0 sm:mr-4 text-white"
               onItemClick={handleScroll}
             />
             <ShimmerButton

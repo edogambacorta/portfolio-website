@@ -26,8 +26,8 @@ export function IntroductionSection() {
   return (
     <section className="bg-background text-foreground py-16">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-8">Our Approach</h2>
-        <p className="text-xl text-center mb-12 max-w-3xl mx-auto">
+        <h2 className="text-4xl font-bold text-center mb-8 font-sans">Our Approach</h2>
+        <p className="text-xl text-center mb-12 max-w-3xl mx-auto font-sans">
           At our core, we're driven by innovation, strategy, and results. Our unique approach combines cutting-edge technology with creative thinking to deliver exceptional digital solutions.
         </p>
         <FeatureSteps

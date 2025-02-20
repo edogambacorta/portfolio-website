@@ -53,7 +53,7 @@ export function ServicesSection() {
   return (
     <section id="services" className="py-16 bg-primary text-secondary">
       <CenteredContainer>
-        <h2 className="text-4xl font-bold mb-12 text-center text-accent">Our Services</h2>
+        <h2 className="text-4xl font-bold mb-12 text-center text-white font-sans">Our Services</h2>
         <FocusCards cards={services.map(service => ({
           ...service,
           href: `/services/${service.slug}`

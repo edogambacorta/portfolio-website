@@ -11,6 +11,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         'jetbrains-mono': ['JetBrains Mono', 'monospace'],
+        'sans': ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',

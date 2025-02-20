@@ -60,10 +60,15 @@ html {
 body {
   color: var(--color-text);
   background: var(--color-background);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+}
+
+/* Keep the logo font unchanged */
+.logo {
+  font-family: 'JetBrains Mono', monospace;
 }
 
 html, body {
@@ -88,7 +93,27 @@ html, body {
 
 @layer base {
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold;
+    @apply font-bold text-black dark:text-white;
+  }
+
+  /* Ensure headers on dark backgrounds are white */
+  .new-section h1,
+  .new-section h2,
+  .new-section h3,
+  .new-section h4,
+  .new-section h5,
+  .new-section h6 {
+    @apply text-white;
+  }
+
+  /* Ensure headers on light backgrounds are black */
+  .new-section-alt h1,
+  .new-section-alt h2,
+  .new-section-alt h3,
+  .new-section-alt h4,
+  .new-section-alt h5,
+  .new-section-alt h6 {
+    @apply text-black;
   }
   :root {
     --background: 0 0% 100%;

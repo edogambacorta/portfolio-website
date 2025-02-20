@@ -20,8 +20,8 @@ export function AboutUsSection() {
   return (
     <section id="about" className="py-16 bg-secondary text-primary">
       <CenteredContainer>
-        <h2 className="text-4xl font-bold mb-12 text-center text-accent">About Us</h2>
-        <p className="text-center mb-12 max-w-3xl mx-auto text-lg">
+        <h2 className="text-4xl font-bold mb-12 text-center text-primary font-sans">About Us</h2>
+        <p className="text-center mb-12 max-w-3xl mx-auto text-lg font-sans">
           We bring cutting-edge AI innovations to Swiss marketing—faster and more creatively than traditional agencies.
           Our team combines expertise in AI-driven marketing solutions, sales strategies, and advanced AI engineering
           to deliver premium Swiss reliability and innovative solutions tailored to your needs.

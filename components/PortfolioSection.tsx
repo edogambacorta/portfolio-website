@@ -75,8 +75,8 @@ export function PortfolioSection() {
   return (
     <section id="portfolio" className="py-16 bg-secondary text-primary">
       <CenteredContainer>
-        <h2 className="text-4xl font-bold mb-12 text-center text-primary">Portfolio</h2>
-        <p className="text-center mb-12 text-lg">Showcasing our AI-driven projects and success stories.</p>
+        <h2 className="text-4xl font-bold mb-12 text-center text-primary font-sans">Portfolio</h2>
+        <p className="text-center mb-12 text-lg font-sans">Showcasing our AI-driven projects and success stories.</p>
         <div className="relative">
           <Slider ref={sliderRef} {...settings}>
             {portfolioItems.map((item, index) => (
