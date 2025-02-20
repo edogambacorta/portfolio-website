@@ -34,7 +34,6 @@ export function IntroductionSection() {
           features={features}
           title="How We Work"
           autoPlayInterval={5000}
-          imageHeight="h-[500px]"
         />
       </div>
     </section>
