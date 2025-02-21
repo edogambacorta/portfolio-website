@@ -70,7 +70,7 @@ export default function AILoraTrainingClient({ benefits }: AILoraTrainingClientP
               cards={benefits.map(benefit => ({
                 ...benefit,
                 icon: iconMap[benefit.icon] || DollarSign,
-                image: <img src={benefit.src} alt={benefit.title} className="w-full h-48 object-cover" />
+                image: <Image src={benefit.src} alt={benefit.title} width={400} height={192} className="w-full h-48 object-cover" />
               }))}
             />
           </div>

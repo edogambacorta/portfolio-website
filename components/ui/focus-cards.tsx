@@ -3,18 +3,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { LucideIcon, ArrowUpRight } from 'lucide-react';
-import { BackgroundGradientAnimation } from "./background-gradient-animation";
 import Link from 'next/link';
-
-const gradientConfig = {
-  gradientBackgroundStart: "rgb(0, 0, 0)",
-  gradientBackgroundEnd: "rgb(255, 102, 0)",
-  firstColor: "255, 102, 0",
-  secondColor: "255, 102, 0",
-  thirdColor: "255, 102, 0",
-  fourthColor: "255, 102, 0",
-  fifthColor: "255, 102, 0",
-};
 
 type Card = {
   title: string;
