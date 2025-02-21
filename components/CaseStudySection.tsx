@@ -15,22 +15,22 @@ export const CaseStudySection: React.FC<CaseStudyProps> = ({ title, description,
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden bg-black">
       <motion.div
         style={{ y }}
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 opacity-30"
       >
         <Image src={imageUrl} alt={imageAlt} layout="fill" objectFit="cover" />
       </motion.div>
-      <div className="relative z-10 bg-black bg-opacity-70 text-white p-8 md:p-16">
-        <div className="max-w-6xl mx-auto">
+      <div className="relative z-10 text-white p-8 md:p-16">
+        <div className="max-w-7xl mx-auto">
           <h3 className="text-3xl md:text-4xl font-bold mb-6">{title}</h3>
           <div className="flex flex-col md:flex-row gap-8">
             <div className="md:w-1/2">
               <p className="text-lg mb-6">{description}</p>
               <div className="grid grid-cols-2 gap-4">
                 {metrics.map((metric, index) => (
-                  <div key={index} className="bg-white bg-opacity-10 p-4 rounded-lg">
+                  <div key={index} className="bg-white bg-opacity-5 p-4 rounded-lg">
                     <p className="text-2xl font-bold text-orange-500">{metric.value}</p>
                     <p className="text-sm text-gray-300">{metric.label}</p>
                   </div>

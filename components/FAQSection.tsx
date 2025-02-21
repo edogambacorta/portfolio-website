@@ -30,26 +30,29 @@ const faqs: FAQItem[] = [
   }
 ];
 
-const FAQItem: React.FC<{ item: FAQItem; isOpen: boolean; toggleOpen: () => void }> = ({ item, isOpen, toggleOpen }) => {
+const FAQItem: React.FC<{ item: FAQItem; isOpen: boolean; toggleOpen: () => void; index: number }> = ({ item, isOpen, toggleOpen, index }) => {
   return (
     <div className="border-b border-gray-700">
       <button
-        className="flex justify-between items-center w-full py-4 text-left text-white focus:outline-none"
+        className="flex justify-between items-center w-full py-4 text-left text-white focus:outline-none focus:ring-2 focus:ring-orange-500 rounded"
         onClick={toggleOpen}
+        aria-expanded={isOpen}
+        aria-controls={`faq-answer-${index}`}
       >
         <span className="text-lg font-semibold">{item.question}</span>
         <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isOpen ? 'transform rotate-180' : ''}`} />
       </button>
-      <AnimatePresence>
+      <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
+            key={`faq-answer-${index}`}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <p className="py-4 text-gray-300">{item.answer}</p>
+            <p id={`faq-answer-${index}`} className="py-4 text-gray-300">{item.answer}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -65,17 +68,20 @@ export const FAQSection: React.FC = () => {
   };
 
   return (
-    <div className="py-16 bg-gray-800">
-      <h2 className="text-3xl font-semibold mb-8 text-center text-white font-sans">Frequently Asked Questions</h2>
-      <div className="max-w-3xl mx-auto">
-        {faqs.map((faq, index) => (
-          <FAQItem
-            key={index}
-            item={faq}
-            isOpen={openIndex === index}
-            toggleOpen={() => toggleOpen(index)}
-          />
-        ))}
+    <div className="py-16 bg-black">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-semibold mb-12 text-center text-white font-sans">Frequently Asked Questions</h2>
+        <div className="max-w-3xl mx-auto">
+          {faqs.map((faq, index) => (
+            <FAQItem
+              key={index}
+              item={faq}
+              isOpen={openIndex === index}
+              toggleOpen={() => toggleOpen(index)}
+              index={index}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
