@@ -20,7 +20,7 @@ export function AboutUsSection() {
   return (
     <section id="about" className="py-16 bg-secondary text-primary">
       <CenteredContainer>
-        <h2 className="text-4xl font-bold mb-12 text-center text-primary font-sans">About Us</h2>
+        <h2 className="text-4xl font-bold mb-12 text-center text-white font-sans">About Us</h2>
         <p className="text-center mb-12 max-w-3xl mx-auto text-lg font-sans">
           We bring cutting-edge AI innovations to Swiss marketing—faster and more creatively than traditional agencies.
           Our team combines expertise in AI-driven marketing solutions, sales strategies, and advanced AI engineering
@@ -33,7 +33,8 @@ export function AboutUsSection() {
               name={member.name}
               role={member.role}
               bio={member.bio}
-              className="bg-primary text-secondary"
+              className="bg-primary"
+              textColor="text-white"
             />
           ))}
         </div>
