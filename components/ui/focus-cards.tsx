@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { LucideIcon, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
+import { motion } from "framer-motion";
+import { BackgroundGradientAnimation } from "./background-gradient-animation";
 
 type Card = {
   title: string;
@@ -19,11 +21,13 @@ const Card = React.memo(
     index,
     hovered,
     setHovered,
+    enableAnimation,
   }: {
     card: Card;
     index: number;
     hovered: number | null;
     setHovered: React.Dispatch<React.SetStateAction<number | null>>;
+    enableAnimation: boolean;
   }) => (
     <Link href={card.href} passHref>
       <div
@@ -35,21 +39,20 @@ const Card = React.memo(
           hovered !== null && hovered !== index && "blur-sm scale-95"
         )}
       >
-        <div
-          className={cn(
-            "absolute inset-0 bg-gradient-to-br from-black to-orange-600 opacity-50 transition-opacity duration-300",
-            hovered === index ? "opacity-100" : "opacity-50"
-          )}
-        />
         <Image
           src={card.src}
           alt={card.title}
           fill
-          className={cn(
-            "object-cover absolute inset-0 transition-opacity duration-300",
-            hovered === index ? "opacity-0" : "opacity-100"
-          )}
+          className="object-cover absolute inset-0 transition-opacity duration-300"
         />
+        {hovered === index && (
+          <BackgroundGradientAnimation
+            interactive={true}
+            size="200%"
+            containerClassName="absolute inset-0"
+            className="transition-opacity duration-300"
+          />
+        )}
         <div className="relative z-10 p-4 flex flex-col h-full">
           <div className="text-white">
             <card.icon size={24} />
@@ -90,7 +93,7 @@ const Card = React.memo(
 
 Card.displayName = "Card";
 
-export function FocusCards({ cards }: { cards: Card[] }) {
+export function FocusCards({ cards, enableAnimation = true }: { cards: Card[], enableAnimation?: boolean }) {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
@@ -102,6 +105,7 @@ export function FocusCards({ cards }: { cards: Card[] }) {
           index={index}
           hovered={hovered}
           setHovered={setHovered}
+          enableAnimation={enableAnimation}
         />
       ))}
     </div>

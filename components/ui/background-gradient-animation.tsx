@@ -1,16 +1,16 @@
 "use client";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
 
 export const BackgroundGradientAnimation = ({
   gradientBackgroundStart = "rgb(0, 0, 0)",
-  gradientBackgroundEnd = "rgb(255, 140, 0)",
-  firstColor = "255, 69, 0",
-  secondColor = "255, 99, 71",
-  thirdColor = "255, 127, 80",
-  fourthColor = "255, 140, 0",
-  fifthColor = "255, 165, 0",
-  pointerColor = "255, 69, 0",
+  gradientBackgroundEnd = "rgb(30, 0, 0)",
+  firstColor = "255, 120, 0",
+  secondColor = "255, 80, 0",
+  thirdColor = "255, 160, 0",
+  fourthColor = "255, 100, 0",
+  fifthColor = "255, 140, 0",
+  pointerColor = "255, 100, 0",
   size = "80%",
   blendingValue = "hard-light",
   children,
@@ -56,22 +56,22 @@ export const BackgroundGradientAnimation = ({
     document.body.style.setProperty("--pointer-color", pointerColor);
     document.body.style.setProperty("--size", size);
     document.body.style.setProperty("--blending-value", blendingValue);
-  }, [gradientBackgroundStart, gradientBackgroundEnd, firstColor, secondColor, thirdColor, fourthColor, fifthColor, pointerColor, size, blendingValue]);
+  }, []);
 
   useEffect(() => {
     function move() {
       if (!interactiveRef.current) {
         return;
       }
-      setCurX(curX => curX + (tgX - curX) / 20);
-      setCurY(curY => curY + (tgY - curY) / 20);
+      setCurX(curX + (tgX - curX) / 20);
+      setCurY(curY + (tgY - curY) / 20);
       interactiveRef.current.style.transform = `translate(${Math.round(
         curX
       )}px, ${Math.round(curY)}px)`;
     }
 
     move();
-  }, [tgX, tgY, curX, curY]);
+  }, [tgX, tgY]);
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     if (interactiveRef.current) {
@@ -89,7 +89,7 @@ export const BackgroundGradientAnimation = ({
   return (
     <div
       className={cn(
-        "h-screen w-screen relative overflow-hidden top-0 left-0 bg-[linear-gradient(40deg,var(--gradient-background-start),var(--gradient-background-end))]",
+        "h-full w-full relative overflow-hidden bg-[linear-gradient(40deg,var(--gradient-background-start),var(--gradient-background-end))]",
         containerClassName
       )}
     >
