@@ -79,10 +79,10 @@ export function HeroSection() {
         <div className="flex flex-col lg:flex-row h-full items-center relative z-10 container mx-auto px-4 pb-16">
           <div className="flex-1 flex flex-col justify-center lg:max-w-2xl">
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-white font-sans">
-              Accelerate Your Brand with Swiss AI Expertise
+            Accelerate Your Brand with Swiss AI Expertise
             </h1>
             <p className="text-xl mb-8 text-gray-300 font-sans">
-              Cutting-Edge Marketing Powered by RAG Workflows & Bespoke AI Solutions
+              Custom AI solutions that takes care of the complexity—so you can keep doing what you do best.
             </p>
             <div>
               <ShimmerButton
