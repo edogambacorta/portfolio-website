@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { LucideIcon, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
-import { motion } from "framer-motion";
 import { BackgroundGradientAnimation } from "./background-gradient-animation";
 
 type Card = {
@@ -21,13 +20,11 @@ const Card = React.memo(
     index,
     hovered,
     setHovered,
-    enableAnimation,
   }: {
     card: Card;
     index: number;
     hovered: number | null;
     setHovered: React.Dispatch<React.SetStateAction<number | null>>;
-    enableAnimation: boolean;
   }) => (
     <Link href={card.href} passHref>
       <div
@@ -93,7 +90,7 @@ const Card = React.memo(
 
 Card.displayName = "Card";
 
-export function FocusCards({ cards, enableAnimation = true }: { cards: Card[], enableAnimation?: boolean }) {
+export function FocusCards({ cards }: { cards: Card[] }) {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
@@ -105,7 +102,6 @@ export function FocusCards({ cards, enableAnimation = true }: { cards: Card[], e
           index={index}
           hovered={hovered}
           setHovered={setHovered}
-          enableAnimation={enableAnimation}
         />
       ))}
     </div>

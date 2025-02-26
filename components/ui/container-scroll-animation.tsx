@@ -33,7 +33,7 @@ export const ContainerScroll = ({
   );
 };
 
-const Header = ({ translate, titleComponent }: any) => {
+const Header = ({ translate, titleComponent }: { translate: MotionValue<number>; titleComponent: React.ReactNode }) => {
   return (
     <motion.div
       style={{ translateY: translate }}
@@ -44,7 +44,7 @@ const Header = ({ translate, titleComponent }: any) => {
   );
 };
 
-const Card = ({ rotate, scale, children }: any) => {
+const Card = ({ rotate, scale, children }: { rotate: MotionValue<number>; scale: MotionValue<number>; children: React.ReactNode }) => {
   return (
     <motion.div
       style={{

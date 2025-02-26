@@ -59,7 +59,6 @@ export function ServicesSection() {
             ...service,
             href: `/services/${service.slug}`
           }))}
-          enableAnimation={true}
         />
       </CenteredContainer>
     </section>
