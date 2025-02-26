@@ -81,17 +81,14 @@ const Feature108 = ({
   ],
 }: Feature108Props) => {
   return (
-    <section className="bg-black relative">
-      {/* Add gradient overlay */}
-      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-black"></div>
-      
+    <section className="bg-white relative">
       <CenteredContainer className="pt-16 pb-32 relative z-10">
         <div className="flex flex-col items-start gap-3">
-          <Badge variant="outline" className="text-white border-white">{badge}</Badge>
-          <h1 className="text-xl md:text-3xl lg:text-4xl tracking-tighter font-regular text-left text-white">
+          <Badge variant="outline" className="text-black border-black">{badge}</Badge>
+          <h1 className="text-xl md:text-3xl lg:text-4xl tracking-tighter font-regular text-left text-black">
             {heading}
           </h1>
-          <p className="text-lg max-w-lg leading-relaxed tracking-tight text-muted-foreground text-left">
+          <p className="text-lg max-w-lg leading-relaxed tracking-tight text-gray-700 text-left">
             {description}
           </p>
         </div>
@@ -101,20 +98,20 @@ const Feature108 = ({
               <TabsTrigger
                 key={tab.value}
                 value={tab.value}
-                className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-gray-300 data-[state=active]:bg-white data-[state=active]:text-black"
+                className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-gray-700 data-[state=active]:bg-black data-[state=active]:text-white"
               >
                 {tab.icon} {tab.label}
               </TabsTrigger>
             ))}
           </TabsList>
-          <div className="mx-auto mt-8 max-w-screen-xl rounded-2xl bg-gray-900 p-6 lg:p-16">
+          <div className="mx-auto mt-8 max-w-screen-xl rounded-2xl bg-black p-6 lg:p-16">
             {tabs.map((tab) => (
               <TabsContent
                 key={tab.value}
                 value={tab.value}
                 className="grid place-items-center gap-20 lg:grid-cols-2 lg:gap-10"
               >
-                <div className="flex flex-col gap-5">
+                <div className="flex flex-col items-start gap-5">
                   <Badge variant="outline" className="w-fit bg-gray-800 border-white text-white">
                     {tab.content.badge}
                   </Badge>
