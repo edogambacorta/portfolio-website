@@ -3,6 +3,7 @@ import { Layout, Pointer, Zap } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import CenteredContainer from "@/components/CenteredContainer";
 
 interface TabContent {
   badge: string;
@@ -80,28 +81,33 @@ const Feature108 = ({
   ],
 }: Feature108Props) => {
   return (
-    <section className="py-32 bg-white">
-      <div className="container mx-auto">
-        <div className="flex flex-col items-center gap-4 text-center">
-          <Badge variant="outline">{badge}</Badge>
-          <h1 className="max-w-2xl text-3xl font-semibold md:text-4xl">
+    <section className="bg-black relative">
+      {/* Add gradient overlay */}
+      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-black"></div>
+      
+      <CenteredContainer className="pt-16 pb-32 relative z-10">
+        <div className="flex flex-col items-start gap-3">
+          <Badge variant="outline" className="text-white border-white">{badge}</Badge>
+          <h1 className="text-xl md:text-3xl lg:text-4xl tracking-tighter font-regular text-left text-white">
             {heading}
           </h1>
-          <p className="text-muted-foreground">{description}</p>
+          <p className="text-lg max-w-lg leading-relaxed tracking-tight text-muted-foreground text-left">
+            {description}
+          </p>
         </div>
         <Tabs defaultValue={tabs[0].value} className="mt-8">
-          <TabsList className="container flex flex-col items-center justify-center gap-4 sm:flex-row md:gap-10">
+          <TabsList className="flex flex-col items-center justify-center gap-4 sm:flex-row md:gap-10">
             {tabs.map((tab) => (
               <TabsTrigger
                 key={tab.value}
                 value={tab.value}
-                className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-muted-foreground data-[state=active]:bg-black data-[state=active]:text-white"
+                className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-gray-300 data-[state=active]:bg-white data-[state=active]:text-black"
               >
                 {tab.icon} {tab.label}
               </TabsTrigger>
             ))}
           </TabsList>
-          <div className="mx-auto mt-8 max-w-screen-xl rounded-2xl bg-white p-6 lg:p-16">
+          <div className="mx-auto mt-8 max-w-screen-xl rounded-2xl bg-gray-900 p-6 lg:p-16">
             {tabs.map((tab) => (
               <TabsContent
                 key={tab.value}
@@ -109,16 +115,16 @@ const Feature108 = ({
                 className="grid place-items-center gap-20 lg:grid-cols-2 lg:gap-10"
               >
                 <div className="flex flex-col gap-5">
-                  <Badge variant="outline" className="w-fit bg-background border-black text-black">
+                  <Badge variant="outline" className="w-fit bg-gray-800 border-white text-white">
                     {tab.content.badge}
                   </Badge>
-                  <h3 className="text-3xl font-semibold lg:text-5xl">
+                  <h3 className="text-3xl font-semibold lg:text-5xl text-white">
                     {tab.content.title}
                   </h3>
-                  <p className="text-muted-foreground lg:text-lg">
+                  <p className="text-gray-300 lg:text-lg">
                     {tab.content.description}
                   </p>
-                  <Button className="mt-2.5 w-fit gap-2 bg-black text-white hover:bg-gray-800" size="lg">
+                  <Button className="mt-2.5 w-fit gap-2 bg-white text-black hover:bg-gray-200" size="lg">
                     {tab.content.buttonText}
                   </Button>
                 </div>
@@ -131,7 +137,7 @@ const Feature108 = ({
             ))}
           </div>
         </Tabs>
-      </div>
+      </CenteredContainer>
     </section>
   );
 };
