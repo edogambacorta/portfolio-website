@@ -1,5 +1,6 @@
 import Header from "../components/Header";
 import { HeroSection } from "../components/HeroSection";
+import { PhilosophySection } from "../components/PhilosophySection";
 import { HowWeWorkSection } from "../components/HowWeWorkSection";
 import { ServicesSection } from "../components/ServicesSection";
 import { PortfolioSection } from "../components/PortfolioSection";
@@ -14,6 +15,7 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection />
+        <PhilosophySection />
         <HowWeWorkSection />
         <ServicesSection />
         <PortfolioSection />
