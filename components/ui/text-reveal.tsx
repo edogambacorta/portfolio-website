@@ -8,11 +8,13 @@ import { cn } from "../../lib/utils";
 interface TextRevealByWordProps {
   text: string;
   className?: string;
+  preHighlightedWords?: number;
 }
 
 const TextRevealByWord: FC<TextRevealByWordProps> = ({
   text,
   className,
+  preHighlightedWords = 0,
 }) => {
   const targetRef = useRef<HTMLDivElement | null>(null);
 
@@ -38,7 +40,12 @@ const TextRevealByWord: FC<TextRevealByWordProps> = ({
             const start = i / words.length;
             const end = start + 1 / words.length;
             return (
-              <Word key={i} progress={scrollYProgress} range={[start, end]}>
+              <Word 
+                key={i} 
+                progress={scrollYProgress} 
+                range={[start, end]}
+                isPreHighlighted={i < preHighlightedWords}
+              >
                 {word}
               </Word>
             );
@@ -53,15 +60,16 @@ interface WordProps {
   children: ReactNode;
   progress: MotionValue<number>;
   range: [number, number];
+  isPreHighlighted: boolean;
 }
 
-const Word: FC<WordProps> = ({ children, progress, range }) => {
+const Word: FC<WordProps> = ({ children, progress, range, isPreHighlighted }) => {
   const opacity = useTransform(progress, range, [0, 1]);
   return (
     <span className="xl:lg-3 relative mx-1 lg:mx-2.5">
       <span className={"absolute opacity-30"}>{children}</span>
       <motion.span
-        style={{ opacity: opacity }}
+        style={{ opacity: isPreHighlighted ? 1 : opacity }}
         className={"text-black dark:text-white"}
       >
         {children}
