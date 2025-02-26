@@ -84,7 +84,7 @@ const Feature108 = ({
     <section className="bg-white relative">
       <CenteredContainer className="pt-16 pb-32 relative z-10">
         <div className="flex flex-col items-start gap-3">
-          <Badge variant="outline" className="text-black border-black">{badge}</Badge>
+          <Badge variant="default" className="bg-black text-white">{badge}</Badge>
           <h1 className="text-xl md:text-3xl lg:text-4xl tracking-tighter font-regular text-left text-black">
             {heading}
           </h1>
