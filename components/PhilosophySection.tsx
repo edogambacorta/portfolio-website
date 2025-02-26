@@ -1,20 +1,22 @@
 import React from 'react';
 import { TextRevealByWord } from './ui/text-reveal';
 import { Feature } from './ui/feature-with-image-carousel';
+import CenteredContainer from './CenteredContainer';
 
 export const PhilosophySection: React.FC = () => {
   return (
     <section className="bg-white text-black w-full pt-24 md:pt-32 lg:pt-40">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-16">
+      <CenteredContainer>
+        <div className="py-4">
           <TextRevealByWord 
-            text="The AI Revolution is here - we make sure you're always one step ahead." 
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-center"
+            text="The AI Revolution is here  We make sure you're always one step ahead." 
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold"
             preHighlightedWords={5}
+            textAlign="left"
           />
+          <Feature />
         </div>
-        <Feature />
-      </div>
+      </CenteredContainer>
     </section>
   );
 };

@@ -9,12 +9,14 @@ interface TextRevealByWordProps {
   text: string;
   className?: string;
   preHighlightedWords?: number;
+  textAlign?: "left" | "center" | "right";
 }
 
 const TextRevealByWord: FC<TextRevealByWordProps> = ({
   text,
   className,
   preHighlightedWords = 0,
+  textAlign = "left",
 }) => {
   const targetRef = useRef<HTMLDivElement | null>(null);
 
@@ -27,7 +29,7 @@ const TextRevealByWord: FC<TextRevealByWordProps> = ({
 
   return (
     <div ref={targetRef} className={cn("relative z-0", className)}>
-      <p className="flex flex-wrap justify-center items-center">
+      <p className={`flex flex-wrap items-center ${textAlign === "center" ? "justify-center" : textAlign === "right" ? "justify-end" : "justify-start"}`}>
         {words.map((word, i) => (
           <Word 
             key={i} 
