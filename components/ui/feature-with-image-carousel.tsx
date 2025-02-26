@@ -10,9 +10,9 @@ import {
 
 function Feature() {
   return (
-    <div className="w-full pt-8 pb-16 lg:pt-12 lg:pb-24 -mt-8 lg:-mt-12">
+    <div className="w-full pt-4 pb-16 lg:pt-8 lg:pb-24 -mt-4 lg:-mt-8">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 justify-end items-end gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 justify-end items-end gap-8 lg:gap-12">
           <div className="flex gap-4 flex-col items-start">
             <div>
               <Badge>Our Philosophy</Badge>
