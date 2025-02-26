@@ -80,7 +80,7 @@ const Feature108 = ({
   ],
 }: Feature108Props) => {
   return (
-    <section className="py-32">
+    <section className="py-32 bg-white">
       <div className="container mx-auto">
         <div className="flex flex-col items-center gap-4 text-center">
           <Badge variant="outline">{badge}</Badge>
@@ -95,13 +95,13 @@ const Feature108 = ({
               <TabsTrigger
                 key={tab.value}
                 value={tab.value}
-                className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-muted-foreground data-[state=active]:bg-muted data-[state=active]:text-primary"
+                className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-muted-foreground data-[state=active]:bg-black data-[state=active]:text-white"
               >
                 {tab.icon} {tab.label}
               </TabsTrigger>
             ))}
           </TabsList>
-          <div className="mx-auto mt-8 max-w-screen-xl rounded-2xl bg-muted/70 p-6 lg:p-16">
+          <div className="mx-auto mt-8 max-w-screen-xl rounded-2xl bg-white p-6 lg:p-16">
             {tabs.map((tab) => (
               <TabsContent
                 key={tab.value}
@@ -109,7 +109,7 @@ const Feature108 = ({
                 className="grid place-items-center gap-20 lg:grid-cols-2 lg:gap-10"
               >
                 <div className="flex flex-col gap-5">
-                  <Badge variant="outline" className="w-fit bg-background">
+                  <Badge variant="outline" className="w-fit bg-background border-black text-black">
                     {tab.content.badge}
                   </Badge>
                   <h3 className="text-3xl font-semibold lg:text-5xl">
@@ -118,7 +118,7 @@ const Feature108 = ({
                   <p className="text-muted-foreground lg:text-lg">
                     {tab.content.description}
                   </p>
-                  <Button className="mt-2.5 w-fit gap-2" size="lg">
+                  <Button className="mt-2.5 w-fit gap-2 bg-black text-white hover:bg-gray-800" size="lg">
                     {tab.content.buttonText}
                   </Button>
                 </div>
