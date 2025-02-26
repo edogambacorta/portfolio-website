@@ -1,27 +1,27 @@
 import React from 'react';
-import { Badge } from "./badge";
+import { Badge } from "@/components/ui/badge";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "./carousel";
+} from "@/components/ui/carousel";
 
 function Feature() {
   return (
-    <div className="w-full py-20 lg:py-40">
+    <div className="w-full pt-8 pb-16 lg:pt-12 lg:pb-24 -mt-8 lg:-mt-12">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 justify-end items-end gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 justify-end items-end gap-6">
           <div className="flex gap-4 flex-col items-start">
             <div>
               <Badge>Our Philosophy</Badge>
             </div>
             <div className="flex gap-2 flex-col">
-              <h2 className="text-xl md:text-3xl lg:text-5xl tracking-tighter lg:max-w-xl font-regular text-left">
+              <h2 className="text-xl md:text-3xl lg:text-4xl tracking-tighter max-w-lg font-regular text-left">
                 At The Factory, we believe that tomorrow's success starts today.
               </h2>
-              <p className="text-lg max-w-xl lg:max-w-sm leading-relaxed tracking-tight text-muted-foreground text-left">
+              <p className="text-lg max-w-lg leading-relaxed tracking-tight text-muted-foreground text-left">
                 Our Swiss-engineered AI solutions remove complexity and deliver measurable results, enabling you to achieve sustainable growth while you concentrate on what you do best.
               </p>
             </div>
