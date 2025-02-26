@@ -3,11 +3,11 @@ import { TextRevealByWord } from './ui/text-reveal';
 
 export const PhilosophySection: React.FC = () => {
   return (
-    <section className="bg-white text-black w-full">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+    <section className="bg-white text-black w-full py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <TextRevealByWord 
           text="The AI Revolution is here - we make sure you're always one step ahead." 
-          className="text-4xl lg:text-6xl font-bold text-center mt-2"
+          className="text-4xl lg:text-6xl font-bold text-center"
           preHighlightedWords={5}
         />
       </div>
