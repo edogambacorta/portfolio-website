@@ -20,19 +20,19 @@ const TextRevealByWord: FC<TextRevealByWordProps> = ({
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ["start end", "end start"],
+    offset: ["start 80%", "end 20%"],
   });
 
   const words = text.split(" ");
 
   return (
     <div ref={targetRef} className={cn("relative z-0", className)}>
-      <p className="flex flex-wrap p-5 text-2xl font-bold md:p-8 md:text-3xl lg:p-10 lg:text-4xl xl:text-5xl">
+      <p className="flex flex-wrap justify-center items-center">
         {words.map((word, i) => (
           <Word 
             key={i} 
             progress={scrollYProgress} 
-            range={[i / words.length, (i + 1) / words.length]}
+            range={[i / (words.length * 1.5), (i + 1) / (words.length * 1.5)]}
             isPreHighlighted={i < preHighlightedWords}
           >
             {word}
@@ -51,10 +51,9 @@ interface WordProps {
 }
 
 const Word: FC<WordProps> = ({ children, progress, range, isPreHighlighted }) => {
-  const opacity = useTransform(progress, range, [0, 1]);
+  const opacity = useTransform(progress, range, [0.3, 1]);
   return (
-    <span className="xl:lg-3 relative mx-1 lg:mx-2.5">
-      <span className={"absolute opacity-30"}>{children}</span>
+    <span className="relative mx-1 lg:mx-2.5">
       <motion.span
         style={{ opacity: isPreHighlighted ? 1 : opacity }}
         className={"text-black dark:text-white"}
