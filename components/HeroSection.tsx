@@ -41,12 +41,12 @@ export function HeroSection() {
     };
   }, [handleMouseMove]);
 
-  const scrollToServices = useCallback(() => {
-    const servicesSection = document.getElementById('services');
-    if (servicesSection) {
-      const headerHeight = 80; // Adjust this value based on your actual header height
-      const offset = 16; // Additional offset for fine-tuning
-      const scrollPosition = servicesSection.offsetTop - headerHeight - offset;
+  const scrollToProjects = useCallback(() => {
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      const headerHeight = 80;
+      const offset = 16;
+      const scrollPosition = projectsSection.offsetTop - headerHeight - offset;
       window.scrollTo({
         top: scrollPosition,
         behavior: 'smooth'
@@ -56,7 +56,7 @@ export function HeroSection() {
 
   const handleGetStarted = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    scrollToServices();
+    scrollToProjects();
   };
 
   return (
@@ -79,10 +79,10 @@ export function HeroSection() {
         <div className="flex flex-col lg:flex-row h-full items-center relative z-10 container mx-auto px-4 pb-16">
           <div className="flex-1 flex flex-col justify-center lg:max-w-2xl">
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-white font-sans">
-            Accelerate Your Brand with Swiss AI Expertise
+              I engineer products. Then I make them profitable.
             </h1>
             <p className="text-xl mb-8 text-gray-300 font-sans">
-              Custom AI solutions that takes care of the complexity—so you can keep doing what you do best.
+              Mechanical Engineer. Startup Builder. 24 years old.
             </p>
             <div>
               <ShimmerButton
@@ -91,7 +91,7 @@ export function HeroSection() {
                 shimmerColor="rgba(255, 255, 255, 0.4)"
                 shimmerDuration="2s"
               >
-                Get Started
+                See What I've Built
               </ShimmerButton>
             </div>
           </div>
@@ -103,7 +103,7 @@ export function HeroSection() {
           <div
             ref={arrowRef}
             className="absolute bottom-[110px] left-1/2 transform -translate-x-1/2 cursor-pointer transition-transform hover:scale-110"
-            onClick={scrollToServices}
+            onClick={scrollToProjects}
           >
             <DownArrowIcon size={38} className="animate-bounce" />
           </div>

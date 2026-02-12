@@ -1,11 +1,9 @@
 import Header from "../components/Header";
 import { HeroSection } from "../components/HeroSection";
-import { PhilosophySection } from "../components/PhilosophySection";
-import { HowWeWorkSection } from "../components/HowWeWorkSection";
-import { ServicesSection } from "../components/ServicesSection";
-import { PortfolioSection } from "../components/PortfolioSection";
-import { InsightsSection } from "../components/InsightsSection";
-import { AboutUsSection } from "../components/AboutUsSection";
+import { IntroLine } from "../components/IntroLine";
+import { ProjectCards } from "../components/ProjectCards";
+import { Timeline } from "../components/Timeline";
+import { CTASection } from "../components/CTASection";
 import { ContactSection } from "../components/ContactSection";
 import { Footer } from "../components/Footer";
 
@@ -15,12 +13,10 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection />
-        <PhilosophySection />
-        <HowWeWorkSection />
-        <ServicesSection />
-        <PortfolioSection />
-        <InsightsSection />
-        <AboutUsSection />
+        <IntroLine />
+        <ProjectCards />
+        <Timeline />
+        <CTASection />
         <ContactSection />
       </main>
       <Footer />
