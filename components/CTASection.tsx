@@ -27,7 +27,7 @@ export function CTASection() {
                         transition={{ duration: 0.6, delay: 0.15 }}
                     >
                         <p className="text-lg md:text-xl text-gray-300 mb-4 leading-relaxed font-sans">
-                            I&apos;ve spent the last 5 years building businesses, shipping
+                            I&apos;ve spent the last 3 years building businesses, shipping
                             products, and automating systems. Now I want to join a team.
                         </p>
                         <p className="text-lg md:text-xl text-gray-400 mb-10 leading-relaxed font-sans">

@@ -80,7 +80,7 @@ const timelineItems: TimelineItem[] = [
         year: "2023",
         title: "Graduated MSc Mechanical Engineering",
         description:
-            "First-class honors from University College London. Specialized in entrepreneurial finance, renewable energy, and advanced CAD.",
+            "First-class honors from University College London. Specialized in entrepreneurial finance, renewable energy, and computational fluid dynamics",
         gradient: "from-blue-500/60 to-indigo-600/60",
         images: [
             "/images/graduated/26.webp",
@@ -92,7 +92,7 @@ const timelineItems: TimelineItem[] = [
         year: "2024",
         title: "Junior Technical Advisor — BIS",
         description:
-            "Cleaned central bank balance sheet datasets. Resolved decades of data discrepancies across 15+ central bank archives.",
+            "Worked closely with economists on central bank balance sheet data, built an internal repository to make historical datasets easier to access and verify.",
         gradient: "from-slate-500/60 to-gray-600/60",
         images: [
             "/images/bis/29.webp",
@@ -104,7 +104,7 @@ const timelineItems: TimelineItem[] = [
         year: "2024",
         title: "Exhibited at Kunst in Reinach",
         description:
-            "Showcased large-scale acrylic paintings alongside professional artists. 'In My Head' — 100×120cm.",
+            "Showcased large-scale acrylic paintings and sculptures alongside professional artists, achieving CHF 10,000+ in collective sales.",
         gradient: "from-rose-500/60 to-pink-600/60",
         images: [
             "/images/kunst/32.webp",
@@ -122,7 +122,7 @@ const timelineItems: TimelineItem[] = [
         year: "2025",
         title: "Co-founded MomMirror",
         description:
-            "Launched AI mental health companion for mothers. Achieved 10M+ organic impressions through TikTok/Instagram campaigns. Tech: Flutter, Firebase, Claude API.",
+            "Launched AI mental health companion for mothers. Achieved 10M+ organic views in one month through TikTok/Instagram campaigns. Now scaling via UGC partnerships & AI content systems.",
         gradient: "from-fuchsia-500/60 to-purple-600/60",
         images: [
             "/images/mommirror/1.webp",
@@ -230,7 +230,7 @@ export function Timeline() {
                         transition={{ duration: 0.6 }}
                         className="text-3xl md:text-5xl font-bold text-white mb-4 font-sans"
                     >
-                        5 Years in 60 Seconds
+                        3 Years in 60 Seconds
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}

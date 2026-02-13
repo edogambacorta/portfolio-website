@@ -21,7 +21,7 @@ const projects: Project[] = [
         title: "MomMirror",
         subtitle: "Co-founder & Head of Distribution",
         description:
-            "AI-powered mental health companion for expecting mothers. Generated 10M+ organic views and built entire go-to-market engine from zero.",
+            "AI-powered mental health companion for expecting mothers. Generated 10M+ organic views in one month and built entire go-to-market engine from zero.",
         badge: "Active • Health Tech",
         badgeColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
         link: "https://mommirror.com",
@@ -32,7 +32,7 @@ const projects: Project[] = [
         title: "TheFactoryByEdo",
         subtitle: "Founder",
         description:
-            "Digital art business scaled to 2,300+ sales across 50+ countries. CHF 60,000+ revenue, now fully automated to <5 hours/week.",
+            "Digital art business scaled to 2,300+ sales across 50+ countries. CHF 60,000+ revenue, now fully automated and delegated.",
         badge: "Automated • E-commerce",
         badgeColor: "bg-orange-500/20 text-orange-400 border-orange-500/30",
         link: "https://thefactorybyedo.etsy.com",
@@ -44,7 +44,7 @@ const projects: Project[] = [
         subtitle: "Advisor — Marketing & Distribution",
         description:
             "Next-generation AI creative automation tools for digital artists. Building workflows that eliminate repetitive creative work.",
-        badge: "In Development • AI Tools",
+        badge: "Active • AI Tools",
         badgeColor: "bg-blue-500/20 text-blue-400 border-blue-500/30",
         link: "https://picorn.com",
         gradient: "from-cyan-500/80 via-blue-600/70 to-indigo-700/80",
