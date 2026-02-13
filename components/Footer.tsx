@@ -15,13 +15,13 @@ const footerLinks = [
     icon: Github,
   },
   {
-    label: "CV Download",
-    href: "#",
+    label: "CV",
+    href: "/documents/Edoardo_Gambacorta_CV_01_2026.pdf",
     icon: FileDown,
   },
   {
-    label: "Portfolio PDF",
-    href: "#",
+    label: "Portfolio",
+    href: "/documents/EDOARDO_GAMBACORTA_FINAL_PORTFOLIO_2025.pdf",
     icon: FileText,
   },
 ];
@@ -36,8 +36,8 @@ export function Footer() {
               <a
                 key={link.label}
                 href={link.href}
-                target={link.href.startsWith("http") ? "_blank" : undefined}
-                rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                target={link.href.startsWith("http") || link.href.startsWith("/documents") ? "_blank" : undefined}
+                rel={link.href.startsWith("http") || link.href.startsWith("/documents") ? "noopener noreferrer" : undefined}
                 className="flex items-center gap-2 text-gray-400 hover:text-accent transition-colors duration-200 text-sm font-sans"
               >
                 <link.icon size={16} />

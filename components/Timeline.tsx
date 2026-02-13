@@ -12,6 +12,8 @@ interface TimelineItem {
     gradient: string; // Kept for text/details styling if needed, or removed if unused
     images: string[];
     aspectRatio?: "aspect-[4/3]" | "aspect-[9/16]" | string;
+    buttonText?: string;
+    buttonLink?: string;
 }
 
 const timelineItems: TimelineItem[] = [
@@ -32,6 +34,8 @@ const timelineItems: TimelineItem[] = [
             "/images/locare/8.webp",
             "/images/locare/9.webp",
         ],
+        buttonText: "Read Pitchdeck",
+        buttonLink: "/documents/Locare.pdf",
     },
     {
         year: "2022",
@@ -61,6 +65,8 @@ const timelineItems: TimelineItem[] = [
             "/images/breathe/19.webp",
             "/images/breathe/20.webp",
         ],
+        buttonText: "Read Thesis",
+        buttonLink: "/documents/22231205_Individual_Project_Final_Draft_v2_2.pdf",
     },
     {
         year: "2023",
@@ -75,6 +81,8 @@ const timelineItems: TimelineItem[] = [
             "/images/rootslice/24.webp",
             "/images/rootslice/25.webp",
         ],
+        buttonText: "Discover Report",
+        buttonLink: "/documents/Final-group-report-Flat_Iron.pdf",
     },
     {
         year: "2023",
@@ -87,6 +95,8 @@ const timelineItems: TimelineItem[] = [
             "/images/graduated/27.webp",
             "/images/graduated/28.webp",
         ],
+        buttonText: "See Research Paper",
+        buttonLink: "/documents/Gambacorta_Edoardo_Manifold_MECH0059_CFD_Coursework_Final.pdf",
     },
     {
         year: "2024",
@@ -117,6 +127,8 @@ const timelineItems: TimelineItem[] = [
             "/images/kunst/39.webp",
             "/images/kunst/40.webp",
         ],
+        buttonText: "Discover Portfolio",
+        buttonLink: "/documents/EDOARDO_GAMBACORTA_FINAL_PORTFOLIO_2025.pdf",
     },
     {
         year: "2025",
@@ -207,9 +219,19 @@ function TimelineCard({
                     <h3 className="text-3xl md:text-5xl font-bold text-white mb-6 font-sans">
                         {item.title}
                     </h3>
-                    <p className="text-lg md:text-xl text-gray-400 leading-relaxed font-sans">
+                    <p className="text-lg md:text-xl text-gray-400 leading-relaxed font-sans mb-6">
                         {item.description}
                     </p>
+                    {item.buttonText && item.buttonLink && (
+                        <a
+                            href={item.buttonLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-block px-6 py-2 bg-accent/10 border border-accent/20 rounded-full text-accent font-bold text-sm hover:bg-accent/20 transition-colors duration-200"
+                        >
+                            {item.buttonText}
+                        </a>
+                    )}
                 </motion.div>
             </div>
         </div>
