@@ -6,9 +6,10 @@ import { motion } from "framer-motion";
 interface HeroStackProps {
     images: string[];
     className?: string; // Standard React prop
+    aspectRatio?: "aspect-[4/3]" | "aspect-[9/16]" | string;
 }
 
-export default function HeroStack({ images, className = "" }: HeroStackProps) {
+export default function HeroStack({ images, className = "", aspectRatio = "aspect-[4/3]" }: HeroStackProps) {
     const [isHovered, setIsHovered] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
 
@@ -27,7 +28,7 @@ export default function HeroStack({ images, className = "" }: HeroStackProps) {
 
     return (
         <div
-            className={`relative w-full aspect-[4/3] ${className}`}
+            className={`relative w-full ${aspectRatio} ${className}`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >

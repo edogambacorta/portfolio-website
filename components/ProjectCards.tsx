@@ -13,6 +13,7 @@ interface Project {
     badgeColor: string;
     link: string;
     gradient: string;
+    logoUrl: string;
 }
 
 const projects: Project[] = [
@@ -25,6 +26,7 @@ const projects: Project[] = [
         badgeColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
         link: "https://mommirror.com",
         gradient: "from-rose-500/80 via-pink-600/70 to-purple-700/80",
+        logoUrl: "/images/logos/mommirror.webp",
     },
     {
         title: "TheFactoryByEdo",
@@ -35,6 +37,7 @@ const projects: Project[] = [
         badgeColor: "bg-orange-500/20 text-orange-400 border-orange-500/30",
         link: "https://thefactorybyedo.etsy.com",
         gradient: "from-amber-500/80 via-orange-600/70 to-red-700/80",
+        logoUrl: "/images/logos/thefactory.webp",
     },
     {
         title: "Picorn",
@@ -45,6 +48,7 @@ const projects: Project[] = [
         badgeColor: "bg-blue-500/20 text-blue-400 border-blue-500/30",
         link: "https://picorn.com",
         gradient: "from-cyan-500/80 via-blue-600/70 to-indigo-700/80",
+        logoUrl: "/images/logos/picorn.webp",
     },
 ];
 
@@ -72,32 +76,22 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                     className={`relative rounded-2xl overflow-hidden transition-all duration-500 ${isHovered ? "scale-[1.02] shadow-2xl shadow-accent/10" : "shadow-lg"
                         }`}
                 >
-                    {/* Gradient background instead of image */}
+                    {/* Gradient background / Image area */}
                     <div
-                        className={`h-56 md:h-72 bg-gradient-to-br ${project.gradient} relative overflow-hidden`}
+                        className={`h-64 md:h-80 bg-gradient-to-br ${project.gradient} relative overflow-hidden flex items-center justify-center p-8`}
                     >
-                        {/* Animated grid pattern overlay */}
-                        <div className="absolute inset-0 opacity-20">
-                            <div
-                                className="absolute inset-0"
-                                style={{
-                                    backgroundImage:
-                                        "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)",
-                                    backgroundSize: "24px 24px",
-                                }}
-                            />
-                        </div>
-                        {/* Floating title on the image area */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-white/30 text-6xl md:text-7xl font-bold tracking-tight select-none">
-                                {project.title}
-                            </span>
-                        </div>
+                        {/* Logo Image */}
+                        <img
+                            src={project.logoUrl}
+                            alt={`${project.title} logo`}
+                            className="w-full h-full object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105"
+                        />
+
                         {/* Arrow icon */}
                         <div
-                            className={`absolute top-4 right-4 bg-white/10 backdrop-blur-sm rounded-full p-2 transition-all duration-300 ${isHovered
-                                    ? "opacity-100 translate-x-0"
-                                    : "opacity-0 translate-x-2"
+                            className={`absolute top-4 right-4 bg-white/10 backdrop-blur-sm rounded-full p-2 transition-all duration-300 z-10 ${isHovered
+                                ? "opacity-100 translate-x-0"
+                                : "opacity-0 translate-x-2"
                                 }`}
                         >
                             <ArrowUpRight className="text-white" size={20} />

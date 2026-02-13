@@ -11,6 +11,7 @@ interface TimelineItem {
     description: string;
     gradient: string; // Kept for text/details styling if needed, or removed if unused
     images: string[];
+    aspectRatio?: "aspect-[4/3]" | "aspect-[9/16]" | string;
 }
 
 const timelineItems: TimelineItem[] = [
@@ -124,10 +125,18 @@ const timelineItems: TimelineItem[] = [
             "Launched AI mental health companion for mothers. Achieved 10M+ organic impressions through TikTok/Instagram campaigns. Tech: Flutter, Firebase, Claude API.",
         gradient: "from-fuchsia-500/60 to-purple-600/60",
         images: [
-            "https://picsum.photos/seed/mom1/800/600",
-            "https://picsum.photos/seed/mom2/800/600",
-            "https://picsum.photos/seed/mom3/800/600",
+            "/images/mommirror/1.webp",
+            "/images/mommirror/2.webp",
+            "/images/mommirror/3.webp",
+            "/images/mommirror/4.webp",
+            "/images/mommirror/5.webp",
+            "/images/mommirror/6.webp",
+            "/images/mommirror/7.webp",
+            "/images/mommirror/8.webp",
+            "/images/mommirror/9.webp",
+            "/images/mommirror/10.webp",
         ],
+        aspectRatio: "aspect-[1284/2778]",
     },
     {
         year: "2025",
@@ -136,9 +145,11 @@ const timelineItems: TimelineItem[] = [
             "1.9km swim, 90km bike, 21.1km run. September 2025. Mental toughness compounds everywhere.",
         gradient: "from-red-500/60 to-orange-600/60",
         images: [
-            "https://picsum.photos/seed/im1/800/600",
-            "https://picsum.photos/seed/im2/800/600",
-            "https://picsum.photos/seed/im3/800/600",
+            "/images/ironman/41.webp",
+            "/images/ironman/42.webp",
+            "/images/ironman/43.webp",
+            "/images/ironman/44.webp",
+            "/images/ironman/45.webp",
         ],
     },
 ];
@@ -166,9 +177,9 @@ function TimelineCard({
                     initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
                     animate={isInView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="w-full max-w-2xl" // Increased from max-w-md to max-w-2xl (~40% larger)
+                    className={`w-full ${item.aspectRatio === "aspect-[1284/2778]" ? "max-w-xs" : "max-w-2xl"}`} // Conditional max-width for vertical cards
                 >
-                    <HeroStack images={item.images} />
+                    <HeroStack images={item.images} aspectRatio={item.aspectRatio} />
                 </motion.div>
             </div>
 
