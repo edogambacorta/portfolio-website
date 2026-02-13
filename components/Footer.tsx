@@ -11,7 +11,7 @@ const footerLinks = [
   },
   {
     label: "GitHub",
-    href: "https://github.com/edoardogambacorta",
+    href: "https://github.com/edogambacorta",
     icon: Github,
   },
   {

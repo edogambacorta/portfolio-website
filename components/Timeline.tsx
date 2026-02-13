@@ -3,13 +3,14 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import CenteredContainer from "./CenteredContainer";
+import HeroStack from "./HeroStack";
 
 interface TimelineItem {
     year: string;
     title: string;
     description: string;
-    gradient: string;
-    icon: string;
+    gradient: string; // Kept for text/details styling if needed, or removed if unused
+    images: string[];
 }
 
 const timelineItems: TimelineItem[] = [
@@ -19,7 +20,17 @@ const timelineItems: TimelineItem[] = [
         description:
             "Collaborated with DePuy Synthes to design IoT wearable for elderly hip replacement patients. Led user interviews and prototyped Arduino-based hardware.",
         gradient: "from-teal-500/60 to-cyan-600/60",
-        icon: "🏥",
+        images: [
+            "/images/locare/1.webp",
+            "/images/locare/2.webp",
+            "/images/locare/3.webp",
+            "/images/locare/4.webp",
+            "/images/locare/5.webp",
+            "/images/locare/6.webp",
+            "/images/locare/7.webp",
+            "/images/locare/8.webp",
+            "/images/locare/9.webp",
+        ],
     },
     {
         year: "2022",
@@ -27,7 +38,15 @@ const timelineItems: TimelineItem[] = [
         description:
             "Started selling digital art online. Built e-commerce infrastructure from scratch. Year 1 revenue: CHF 15,000.",
         gradient: "from-amber-500/60 to-orange-600/60",
-        icon: "🎨",
+        images: [
+            "/images/thefactory/10.webp",
+            "/images/thefactory/11.webp",
+            "/images/thefactory/12.webp",
+            "/images/thefactory/13.webp",
+            "/images/thefactory/14.webp",
+            "/images/thefactory/15.webp",
+            "/images/thefactory/16.webp",
+        ],
     },
     {
         year: "2023",
@@ -35,7 +54,12 @@ const timelineItems: TimelineItem[] = [
         description:
             "Developed fluid-mechanics-based lighting for public spaces. Engineered two-chamber water/oil system with rotating mechanics. Grade: Distinction.",
         gradient: "from-violet-500/60 to-purple-600/60",
-        icon: "💡",
+        images: [
+            "/images/breathe/17.webp",
+            "/images/breathe/18.webp",
+            "/images/breathe/19.webp",
+            "/images/breathe/20.webp",
+        ],
     },
     {
         year: "2023",
@@ -43,7 +67,13 @@ const timelineItems: TimelineItem[] = [
         description:
             "Led mechanical design for agricultural robot targeting Andean potato farms. Designed helical auger system with Arduino-controlled positioning.",
         gradient: "from-green-500/60 to-emerald-600/60",
-        icon: "🤖",
+        images: [
+            "/images/rootslice/21.webp",
+            "/images/rootslice/22.webp",
+            "/images/rootslice/23.webp",
+            "/images/rootslice/24.webp",
+            "/images/rootslice/25.webp",
+        ],
     },
     {
         year: "2023",
@@ -51,7 +81,11 @@ const timelineItems: TimelineItem[] = [
         description:
             "First-class honors from University College London. Specialized in entrepreneurial finance, renewable energy, and advanced CAD.",
         gradient: "from-blue-500/60 to-indigo-600/60",
-        icon: "🎓",
+        images: [
+            "/images/graduated/26.webp",
+            "/images/graduated/27.webp",
+            "/images/graduated/28.webp",
+        ],
     },
     {
         year: "2024",
@@ -59,7 +93,11 @@ const timelineItems: TimelineItem[] = [
         description:
             "Cleaned central bank balance sheet datasets. Resolved decades of data discrepancies across 15+ central bank archives.",
         gradient: "from-slate-500/60 to-gray-600/60",
-        icon: "🏦",
+        images: [
+            "/images/bis/29.webp",
+            "/images/bis/30.webp",
+            "/images/bis/31.webp",
+        ],
     },
     {
         year: "2024",
@@ -67,7 +105,17 @@ const timelineItems: TimelineItem[] = [
         description:
             "Showcased large-scale acrylic paintings alongside professional artists. 'In My Head' — 100×120cm.",
         gradient: "from-rose-500/60 to-pink-600/60",
-        icon: "🖼️",
+        images: [
+            "/images/kunst/32.webp",
+            "/images/kunst/33.webp",
+            "/images/kunst/34.webp",
+            "/images/kunst/35.webp",
+            "/images/kunst/36.webp",
+            "/images/kunst/37.webp",
+            "/images/kunst/38.webp",
+            "/images/kunst/39.webp",
+            "/images/kunst/40.webp",
+        ],
     },
     {
         year: "2025",
@@ -75,7 +123,11 @@ const timelineItems: TimelineItem[] = [
         description:
             "Launched AI mental health companion for mothers. Achieved 10M+ organic impressions through TikTok/Instagram campaigns. Tech: Flutter, Firebase, Claude API.",
         gradient: "from-fuchsia-500/60 to-purple-600/60",
-        icon: "📱",
+        images: [
+            "https://picsum.photos/seed/mom1/800/600",
+            "https://picsum.photos/seed/mom2/800/600",
+            "https://picsum.photos/seed/mom3/800/600",
+        ],
     },
     {
         year: "2025",
@@ -83,7 +135,11 @@ const timelineItems: TimelineItem[] = [
         description:
             "1.9km swim, 90km bike, 21.1km run. September 2025. Mental toughness compounds everywhere.",
         gradient: "from-red-500/60 to-orange-600/60",
-        icon: "🏊",
+        images: [
+            "https://picsum.photos/seed/im1/800/600",
+            "https://picsum.photos/seed/im2/800/600",
+            "https://picsum.photos/seed/im3/800/600",
+        ],
     },
 ];
 
@@ -95,113 +151,52 @@ function TimelineCard({
     index: number;
 }) {
     const ref = useRef<HTMLDivElement>(null);
-    const isInView = useInView(ref, { once: true, margin: "-80px" });
+    const isInView = useInView(ref, { once: true, margin: "-20%" }); // Adjusted margin for singular view
     const isLeft = index % 2 === 0;
 
     return (
         <div
             ref={ref}
-            className={`relative flex items-center w-full mb-12 md:mb-20 ${isLeft ? "md:flex-row" : "md:flex-row-reverse"
-                } flex-row`}
+            className={`relative flex items-center w-full min-h-screen ${isLeft ? "md:flex-row" : "md:flex-row-reverse"
+                } flex-col-reverse justify-center py-20`}
         >
-            {/* Desktop: Content side */}
-            <div className={`hidden md:block w-5/12 ${isLeft ? "pr-12" : "pl-12"}`}>
+            {/* Desktop: Content side (Image Stack) */}
+            <div className={`w-full md:w-1/2 flex justify-center ${isLeft ? "md:pr-20" : "md:pl-20"} mb-12 md:mb-0`}>
                 <motion.div
                     initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
                     animate={isInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="group"
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="w-full max-w-2xl" // Increased from max-w-md to max-w-2xl (~40% larger)
                 >
-                    {/* Visual card */}
-                    <div
-                        className={`rounded-xl overflow-hidden bg-gradient-to-br ${item.gradient} p-8 h-44 flex items-center justify-center relative transition-transform duration-300 group-hover:scale-[1.02]`}
-                    >
-                        <div className="absolute inset-0 opacity-10">
-                            <div
-                                className="absolute inset-0"
-                                style={{
-                                    backgroundImage:
-                                        "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.4) 1px, transparent 0)",
-                                    backgroundSize: "20px 20px",
-                                }}
-                            />
-                        </div>
-                        <span className="text-5xl select-none">{item.icon}</span>
-                    </div>
+                    <HeroStack images={item.images} />
                 </motion.div>
             </div>
 
-            {/* Center dot & line */}
-            <div className="hidden md:flex w-2/12 justify-center relative">
+            {/* Center dot - Absolutely positioned */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex justify-center items-center z-10 pointer-events-none">
                 <motion.div
                     initial={{ scale: 0 }}
                     animate={isInView ? { scale: 1 } : {}}
                     transition={{ duration: 0.4, delay: 0.2 }}
-                    className="w-5 h-5 bg-accent rounded-full z-10 ring-4 ring-black shadow-lg shadow-accent/30"
+                    className="w-5 h-5 bg-accent rounded-full ring-4 ring-black shadow-lg shadow-accent/30"
                 />
             </div>
 
             {/* Desktop: Text side */}
-            <div className={`hidden md:block w-5/12 ${isLeft ? "pl-12" : "pr-12"}`}>
+            <div className={`w-full md:w-1/2 flex flex-col justify-center ${isLeft ? "md:pl-20 items-start text-left" : "md:pr-20 items-end text-right"}`}>
                 <motion.div
                     initial={{ opacity: 0, x: isLeft ? 40 : -40 }}
                     animate={isInView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+                    className="max-w-xl"
                 >
-                    <span className="inline-block text-xs font-bold text-accent bg-accent/10 px-3 py-1 rounded-full mb-3 border border-accent/20">
+                    <span className="inline-block text-sm font-bold text-accent bg-accent/10 px-4 py-1.5 rounded-full mb-6 border border-accent/20">
                         {item.year}
                     </span>
-                    <h3 className="text-lg md:text-xl font-bold text-white mb-2 font-sans">
+                    <h3 className="text-3xl md:text-5xl font-bold text-white mb-6 font-sans">
                         {item.title}
                     </h3>
-                    <p className="text-sm md:text-base text-gray-400 leading-relaxed font-sans">
-                        {item.description}
-                    </p>
-                </motion.div>
-            </div>
-
-            {/* Mobile layout */}
-            <div className="md:hidden flex w-full">
-                {/* Mobile dot */}
-                <div className="flex flex-col items-center mr-6">
-                    <motion.div
-                        initial={{ scale: 0 }}
-                        animate={isInView ? { scale: 1 } : {}}
-                        transition={{ duration: 0.4 }}
-                        className="w-4 h-4 bg-accent rounded-full z-10 ring-4 ring-black shadow-lg shadow-accent/30 flex-shrink-0"
-                    />
-                    <div className="w-0.5 bg-accent/30 flex-1 mt-2" />
-                </div>
-
-                {/* Mobile content */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.5 }}
-                    className="flex-1 pb-4"
-                >
-                    <span className="inline-block text-xs font-bold text-accent bg-accent/10 px-3 py-1 rounded-full mb-3 border border-accent/20">
-                        {item.year}
-                    </span>
-                    <div
-                        className={`rounded-xl overflow-hidden bg-gradient-to-br ${item.gradient} p-6 h-32 flex items-center justify-center mb-4 relative`}
-                    >
-                        <div className="absolute inset-0 opacity-10">
-                            <div
-                                className="absolute inset-0"
-                                style={{
-                                    backgroundImage:
-                                        "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.4) 1px, transparent 0)",
-                                    backgroundSize: "20px 20px",
-                                }}
-                            />
-                        </div>
-                        <span className="text-4xl select-none">{item.icon}</span>
-                    </div>
-                    <h3 className="text-lg font-bold text-white mb-2 font-sans">
-                        {item.title}
-                    </h3>
-                    <p className="text-sm text-gray-400 leading-relaxed font-sans">
+                    <p className="text-lg md:text-xl text-gray-400 leading-relaxed font-sans">
                         {item.description}
                     </p>
                 </motion.div>

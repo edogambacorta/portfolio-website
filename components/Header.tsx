@@ -52,7 +52,7 @@ const Header: React.FC = () => {
         <div className="py-4 flex flex-col sm:flex-row justify-between items-center">
           <Link href="/" onClick={handleLogoClick}>
             <div className="text-white text-2xl font-bold mb-4 sm:mb-0 font-jetbrains-mono cursor-pointer logo">
-              edoardo
+              edogambacorta
             </div>
           </Link>
           <div className="flex flex-col sm:flex-row items-center">
