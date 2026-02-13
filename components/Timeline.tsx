@@ -4,24 +4,21 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import CenteredContainer from "./CenteredContainer";
 import HeroStack from "./HeroStack";
+import { useLanguage } from "../lib/LanguageContext";
 
 interface TimelineItem {
     year: string;
-    title: string;
-    description: string;
-    gradient: string; // Kept for text/details styling if needed, or removed if unused
+    translationKey: string;
+    gradient: string;
     images: string[];
     aspectRatio?: "aspect-[4/3]" | "aspect-[9/16]" | string;
-    buttonText?: string;
     buttonLink?: string;
 }
 
 const timelineItems: TimelineItem[] = [
     {
         year: "2022",
-        title: "LoCare — Hip Recovery Tracker",
-        description:
-            "Collaborated with DePuy Synthes to design IoT wearable for elderly hip replacement patients. Led user interviews and prototyped Arduino-based hardware.",
+        translationKey: "locare",
         gradient: "from-teal-500/60 to-cyan-600/60",
         images: [
             "/images/locare/1.webp",
@@ -34,14 +31,11 @@ const timelineItems: TimelineItem[] = [
             "/images/locare/8.webp",
             "/images/locare/9.webp",
         ],
-        buttonText: "Read Pitchdeck",
         buttonLink: "/documents/Locare.pdf",
     },
     {
         year: "2022",
-        title: "Launched TheFactoryByEdo",
-        description:
-            "Started selling digital art online. Built e-commerce infrastructure from scratch. Year 1 revenue: CHF 15,000.",
+        translationKey: "thefactory",
         gradient: "from-amber-500/60 to-orange-600/60",
         images: [
             "/images/thefactory/10.webp",
@@ -55,9 +49,7 @@ const timelineItems: TimelineItem[] = [
     },
     {
         year: "2023",
-        title: "MSc Thesis: Breathe — Sensory Light",
-        description:
-            "Developed fluid-mechanics-based lighting for public spaces. Engineered two-chamber water/oil system with rotating mechanics. Grade: Distinction.",
+        translationKey: "breathe",
         gradient: "from-violet-500/60 to-purple-600/60",
         images: [
             "/images/breathe/17.webp",
@@ -65,14 +57,11 @@ const timelineItems: TimelineItem[] = [
             "/images/breathe/19.webp",
             "/images/breathe/20.webp",
         ],
-        buttonText: "Read Thesis",
         buttonLink: "/documents/22231205_Individual_Project_Final_Draft_v2_2.pdf",
     },
     {
         year: "2023",
-        title: "RootSlice — Autonomous Weeding Robot",
-        description:
-            "Led mechanical design for agricultural robot targeting Andean potato farms. Designed helical auger system with Arduino-controlled positioning.",
+        translationKey: "rootslice",
         gradient: "from-green-500/60 to-emerald-600/60",
         images: [
             "/images/rootslice/21.webp",
@@ -81,28 +70,22 @@ const timelineItems: TimelineItem[] = [
             "/images/rootslice/24.webp",
             "/images/rootslice/25.webp",
         ],
-        buttonText: "Discover Report",
         buttonLink: "/documents/Final-group-report-Flat_Iron.pdf",
     },
     {
         year: "2023",
-        title: "Graduated MSc Mechanical Engineering",
-        description:
-            "First-class honors from University College London. Specialized in entrepreneurial finance, renewable energy, and computational fluid dynamics",
+        translationKey: "graduated",
         gradient: "from-blue-500/60 to-indigo-600/60",
         images: [
             "/images/graduated/26.webp",
             "/images/graduated/27.webp",
             "/images/graduated/28.webp",
         ],
-        buttonText: "See Research Paper",
         buttonLink: "/documents/Gambacorta_Edoardo_Manifold_MECH0059_CFD_Coursework_Final.pdf",
     },
     {
         year: "2024",
-        title: "Junior Technical Advisor — BIS",
-        description:
-            "Worked closely with economists on central bank balance sheet data, built an internal repository to make historical datasets easier to access and verify.",
+        translationKey: "bis",
         gradient: "from-slate-500/60 to-gray-600/60",
         images: [
             "/images/bis/29.webp",
@@ -112,9 +95,7 @@ const timelineItems: TimelineItem[] = [
     },
     {
         year: "2024",
-        title: "Exhibited at Kunst in Reinach",
-        description:
-            "Showcased large-scale acrylic paintings and sculptures alongside professional artists, achieving CHF 10,000+ in collective sales.",
+        translationKey: "kunst",
         gradient: "from-rose-500/60 to-pink-600/60",
         images: [
             "/images/kunst/32.webp",
@@ -127,14 +108,11 @@ const timelineItems: TimelineItem[] = [
             "/images/kunst/39.webp",
             "/images/kunst/40.webp",
         ],
-        buttonText: "Discover Portfolio",
         buttonLink: "/documents/EDOARDO_GAMBACORTA_FINAL_PORTFOLIO_2025.pdf",
     },
     {
         year: "2025",
-        title: "Co-founded MomMirror",
-        description:
-            "Launched AI mental health companion for mothers. Achieved 10M+ organic views in one month through TikTok/Instagram campaigns. Now scaling via UGC partnerships & AI content systems.",
+        translationKey: "mommirror",
         gradient: "from-fuchsia-500/60 to-purple-600/60",
         images: [
             "/images/mommirror/1.webp",
@@ -152,9 +130,7 @@ const timelineItems: TimelineItem[] = [
     },
     {
         year: "2025",
-        title: "Completed 70.3 Ironman",
-        description:
-            "1.9km swim, 90km bike, 21.1km run. September 2025. Mental toughness compounds everywhere.",
+        translationKey: "ironman",
         gradient: "from-red-500/60 to-orange-600/60",
         images: [
             "/images/ironman/41.webp",
@@ -174,8 +150,14 @@ function TimelineCard({
     index: number;
 }) {
     const ref = useRef<HTMLDivElement>(null);
-    const isInView = useInView(ref, { once: true, margin: "-20%" }); // Adjusted margin for singular view
+    const isInView = useInView(ref, { once: true, margin: "-20%" });
     const isLeft = index % 2 === 0;
+    const { t } = useLanguage();
+
+    const title = t(`timeline.${item.translationKey}.title`);
+    const description = t(`timeline.${item.translationKey}.description`);
+    const buttonText = t(`timeline.${item.translationKey}.button`);
+    const hasButton = item.buttonLink && buttonText !== `timeline.${item.translationKey}.button`;
 
     return (
         <div
@@ -189,7 +171,7 @@ function TimelineCard({
                     initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
                     animate={isInView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className={`w-full ${item.aspectRatio === "aspect-[1284/2778]" ? "max-w-xs" : "max-w-2xl"}`} // Conditional max-width for vertical cards
+                    className={`w-full ${item.aspectRatio === "aspect-[1284/2778]" ? "max-w-xs" : "max-w-2xl"}`}
                 >
                     <HeroStack images={item.images} aspectRatio={item.aspectRatio} />
                 </motion.div>
@@ -217,19 +199,19 @@ function TimelineCard({
                         {item.year}
                     </span>
                     <h3 className="text-3xl md:text-5xl font-bold text-white mb-6 font-sans">
-                        {item.title}
+                        {title}
                     </h3>
                     <p className="text-lg md:text-xl text-gray-400 leading-relaxed font-sans mb-6">
-                        {item.description}
+                        {description}
                     </p>
-                    {item.buttonText && item.buttonLink && (
+                    {hasButton && (
                         <a
                             href={item.buttonLink}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-block px-6 py-2 bg-accent/10 border border-accent/20 rounded-full text-accent font-bold text-sm hover:bg-accent/20 transition-colors duration-200"
                         >
-                            {item.buttonText}
+                            {buttonText}
                         </a>
                     )}
                 </motion.div>
@@ -241,6 +223,7 @@ function TimelineCard({
 export function Timeline() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+    const { t } = useLanguage();
 
     return (
         <section id="timeline" className="py-20 md:py-28 bg-black relative">
@@ -252,7 +235,7 @@ export function Timeline() {
                         transition={{ duration: 0.6 }}
                         className="text-3xl md:text-5xl font-bold text-white mb-4 font-sans"
                     >
-                        3 Years in 60 Seconds
+                        {t('timeline.sectionTitle')}
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
@@ -260,7 +243,7 @@ export function Timeline() {
                         transition={{ duration: 0.6, delay: 0.1 }}
                         className="text-lg md:text-xl text-gray-400 font-sans"
                     >
-                        Age is just a number. Output is what matters.
+                        {t('timeline.sectionSubtitle')}
                     </motion.p>
                 </div>
 
@@ -270,7 +253,7 @@ export function Timeline() {
                     <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-accent/50 via-accent/30 to-accent/10 -translate-x-1/2" />
 
                     {timelineItems.map((item, index) => (
-                        <TimelineCard key={item.title} item={item} index={index} />
+                        <TimelineCard key={item.translationKey} item={item} index={index} />
                     ))}
                 </div>
             </CenteredContainer>

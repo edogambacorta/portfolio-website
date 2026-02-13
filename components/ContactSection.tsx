@@ -4,10 +4,12 @@ import { ShimmerButton } from "./ui/shimmer-button";
 import CenteredContainer from "./CenteredContainer";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useLanguage } from "../lib/LanguageContext";
 
 export function ContactSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   return (
     <section id="contact" className="py-20 md:py-28 bg-black">
@@ -20,10 +22,10 @@ export function ContactSection() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 font-sans">
-              Get in Touch
+              {t('contact.heading')}
             </h2>
             <p className="text-lg md:text-xl text-gray-400 font-sans">
-              Have a role in mind? Let&apos;s talk about it.
+              {t('contact.subtitle')}
             </p>
           </motion.div>
 
@@ -39,7 +41,7 @@ export function ContactSection() {
                   htmlFor="name"
                   className="block text-sm font-medium mb-2 text-gray-300 font-sans"
                 >
-                  Name <span className="text-accent">*</span>
+                  {t('contact.name')} <span className="text-accent">*</span>
                 </label>
                 <input
                   type="text"
@@ -54,7 +56,7 @@ export function ContactSection() {
                   htmlFor="email"
                   className="block text-sm font-medium mb-2 text-gray-300 font-sans"
                 >
-                  Email <span className="text-accent">*</span>
+                  {t('contact.email')} <span className="text-accent">*</span>
                 </label>
                 <input
                   type="email"
@@ -69,8 +71,8 @@ export function ContactSection() {
                   htmlFor="company"
                   className="block text-sm font-medium mb-2 text-gray-300 font-sans"
                 >
-                  Company{" "}
-                  <span className="text-gray-500 font-normal">(optional)</span>
+                  {t('contact.company')}{" "}
+                  <span className="text-gray-500 font-normal">{t('contact.optional')}</span>
                 </label>
                 <input
                   type="text"
@@ -84,13 +86,13 @@ export function ContactSection() {
                   htmlFor="message"
                   className="block text-sm font-medium mb-2 text-gray-300 font-sans"
                 >
-                  Message <span className="text-accent">*</span>
+                  {t('contact.message')} <span className="text-accent">*</span>
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   rows={5}
-                  placeholder="Tell me about what you're building..."
+                  placeholder={t('contact.placeholder')}
                   className="w-full px-4 py-3 bg-gray-900 text-white border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200 font-sans placeholder-gray-600 resize-none"
                   required
                 />
@@ -102,7 +104,7 @@ export function ContactSection() {
                   shimmerColor="rgba(255, 255, 255, 0.4)"
                   shimmerDuration="2s"
                 >
-                  Send Message
+                  {t('contact.send')}
                 </ShimmerButton>
               </div>
             </form>
@@ -116,7 +118,7 @@ export function ContactSection() {
             className="mt-12 text-center"
           >
             <p className="text-gray-500 mb-4 text-sm font-sans">
-              Or reach me directly:
+              {t('contact.directLabel')}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-gray-400 text-sm">
               <a

@@ -7,11 +7,14 @@ import { Rocket, Clock, Mail } from 'lucide-react'
 import CenteredContainer from './CenteredContainer'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { useLanguage } from '../lib/LanguageContext'
+import { LanguageToggle } from './LanguageToggle'
 
 const Header: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
+  const { t } = useLanguage()
 
   const handleLogoClick = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -23,9 +26,9 @@ const Header: React.FC = () => {
   }
 
   const navItems = [
-    { name: 'Projects', url: '#projects', icon: Rocket },
-    { name: 'Timeline', url: '#timeline', icon: Clock },
-    { name: 'Contact', url: '#contact', icon: Mail },
+    { name: t('header.projects'), url: '#projects', icon: Rocket },
+    { name: t('header.timeline'), url: '#timeline', icon: Clock },
+    { name: t('header.contact'), url: '#contact', icon: Mail },
   ]
 
   const handleScroll = (url: string) => {
@@ -55,19 +58,20 @@ const Header: React.FC = () => {
               edogambacorta
             </div>
           </Link>
-          <div className="flex flex-col sm:flex-row items-center">
+          <div className="flex flex-col sm:flex-row items-center gap-3">
             <NavBar
               items={navItems}
-              className="mb-4 sm:mb-0 sm:mr-4 text-white"
+              className="mb-4 sm:mb-0 sm:mr-1 text-white"
               onItemClick={handleScroll}
             />
+            <LanguageToggle />
             <ShimmerButton
               onClick={() => window.open("https://calendly.com/edoardo-gambacorta/", "_blank")}
               className="text-black font-semibold text-sm w-full sm:w-auto"
               shimmerColor="rgba(255, 255, 255, 0.4)"
               shimmerDuration="2s"
             >
-              Book Call
+              {t('header.bookCall')}
             </ShimmerButton>
           </div>
         </div>

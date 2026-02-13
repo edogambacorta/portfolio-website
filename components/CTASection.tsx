@@ -4,10 +4,12 @@ import { ShimmerButton } from "./ui/shimmer-button";
 import CenteredContainer from "./CenteredContainer";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useLanguage } from "../lib/LanguageContext";
 
 export function CTASection() {
     const ref = useRef<HTMLDivElement>(null);
     const isInView = useInView(ref, { once: true, margin: "-100px" });
+    const { t } = useLanguage();
 
     return (
         <section className="py-20 md:py-24 bg-gray-950">
@@ -19,7 +21,7 @@ export function CTASection() {
                         transition={{ duration: 0.6 }}
                         className="text-3xl md:text-5xl font-bold text-white mb-8 font-sans"
                     >
-                        Let&apos;s Build Something Together
+                        {t('cta.heading')}
                     </motion.h2>
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -27,13 +29,10 @@ export function CTASection() {
                         transition={{ duration: 0.6, delay: 0.15 }}
                     >
                         <p className="text-lg md:text-xl text-gray-300 mb-4 leading-relaxed font-sans">
-                            I&apos;ve spent the last 3 years building businesses, shipping
-                            products, and automating systems. Now I want to join a team.
+                            {t('cta.paragraph1')}
                         </p>
                         <p className="text-lg md:text-xl text-gray-400 mb-10 leading-relaxed font-sans">
-                            Looking for a Swiss AI or robotics startup that values execution
-                            speed, systems thinking, and ambitious goals with supportive
-                            teams.
+                            {t('cta.paragraph2')}
                         </p>
                     </motion.div>
                     <motion.div
@@ -53,13 +52,13 @@ export function CTASection() {
                             shimmerColor="rgba(255, 255, 255, 0.4)"
                             shimmerDuration="2s"
                         >
-                            Book a Call
+                            {t('cta.bookCall')}
                         </ShimmerButton>
                         <a
                             href="mailto:edoardo.gambacorta@gmail.com"
                             className="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-gray-600 text-white font-semibold text-sm hover:border-accent hover:text-accent transition-all duration-300 w-full sm:w-auto"
                         >
-                            Send Email
+                            {t('cta.sendEmail')}
                         </a>
                     </motion.div>
                 </div>

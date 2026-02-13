@@ -6,12 +6,14 @@ import { SplineSceneBasic } from "./SplineSceneBasic";
 import { ShimmerButton } from "./ui/shimmer-button";
 import { Spotlight } from "./ui/spotlight";
 import { HeroBackgroundAnimation } from "./ui/hero-background-animation";
+import { useLanguage } from "../lib/LanguageContext";
 
 export function HeroSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showArrow, setShowArrow] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const arrowRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   const handleScroll = useCallback(() => {
     if (containerRef.current) {
@@ -79,10 +81,10 @@ export function HeroSection() {
         <div className="flex flex-col lg:flex-row h-full items-center relative z-10 container mx-auto px-4 pb-16">
           <div className="flex-1 flex flex-col justify-center lg:max-w-2xl">
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-white font-sans">
-              Building at the intersection of innovation and business.
+              {t('hero.heading')}
             </h1>
             <p className="text-xl mb-8 text-gray-300 font-sans">
-              Mechanical Engineer. Startup Builder. 24 years old.
+              {t('hero.subtitle')}
             </p>
             <div>
               <ShimmerButton
@@ -91,7 +93,7 @@ export function HeroSection() {
                 shimmerColor="rgba(255, 255, 255, 0.4)"
                 shimmerDuration="2s"
               >
-                See What I've Built
+                {t('hero.cta')}
               </ShimmerButton>
             </div>
           </div>

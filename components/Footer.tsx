@@ -2,31 +2,34 @@
 
 import CenteredContainer from "./CenteredContainer";
 import { Linkedin, Github, FileDown, FileText } from "lucide-react";
-
-const footerLinks = [
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/edoardo-gambacorta/",
-    icon: Linkedin,
-  },
-  {
-    label: "GitHub",
-    href: "https://github.com/edogambacorta",
-    icon: Github,
-  },
-  {
-    label: "CV",
-    href: "/documents/Edoardo_Gambacorta_CV_01_2026.pdf",
-    icon: FileDown,
-  },
-  {
-    label: "Portfolio",
-    href: "/documents/EDOARDO_GAMBACORTA_FINAL_PORTFOLIO_2025.pdf",
-    icon: FileText,
-  },
-];
+import { useLanguage } from "../lib/LanguageContext";
 
 export function Footer() {
+  const { t } = useLanguage();
+
+  const footerLinks = [
+    {
+      label: t("footer.linkedin"),
+      href: "https://www.linkedin.com/in/edoardo-gambacorta/",
+      icon: Linkedin,
+    },
+    {
+      label: t("footer.github"),
+      href: "https://github.com/edogambacorta",
+      icon: Github,
+    },
+    {
+      label: t("footer.cv"),
+      href: "/documents/Edoardo_Gambacorta_CV_01_2026.pdf",
+      icon: FileDown,
+    },
+    {
+      label: t("footer.portfolio"),
+      href: "/documents/EDOARDO_GAMBACORTA_FINAL_PORTFOLIO_2025.pdf",
+      icon: FileText,
+    },
+  ];
+
   return (
     <footer className="py-10 bg-gray-950 border-t border-gray-800">
       <CenteredContainer>
@@ -46,7 +49,7 @@ export function Footer() {
             ))}
           </nav>
           <p className="text-xs text-gray-500 font-sans">
-            &copy; 2026 Edoardo Gambacorta. All rights reserved.
+            {t("footer.copyright")}
           </p>
         </div>
       </CenteredContainer>

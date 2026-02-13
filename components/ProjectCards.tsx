@@ -4,51 +4,41 @@ import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import CenteredContainer from "./CenteredContainer";
+import { useLanguage } from "../lib/LanguageContext";
 
 interface Project {
     title: string;
-    subtitle: string;
-    description: string;
-    badge: string;
-    badgeColor: string;
+    translationKey: string;
     link: string;
     gradient: string;
     logoUrl: string;
+    badgeColor: string;
 }
 
 const projects: Project[] = [
     {
         title: "MomMirror",
-        subtitle: "Co-founder & Head of Distribution",
-        description:
-            "AI-powered mental health companion for expecting mothers. Generated 10M+ organic views in one month and built entire go-to-market engine from zero.",
-        badge: "Active • Health Tech",
-        badgeColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
+        translationKey: "mommirror",
         link: "https://mommirror.com",
         gradient: "from-rose-500/80 via-pink-600/70 to-purple-700/80",
         logoUrl: "/images/logos/mommirror.webp",
+        badgeColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
     },
     {
         title: "TheFactoryByEdo",
-        subtitle: "Founder",
-        description:
-            "Digital art business scaled to 2,300+ sales across 50+ countries. CHF 60,000+ revenue, now fully automated and delegated.",
-        badge: "Automated • E-commerce",
-        badgeColor: "bg-orange-500/20 text-orange-400 border-orange-500/30",
+        translationKey: "thefactory",
         link: "https://thefactorybyedo.etsy.com",
         gradient: "from-amber-500/80 via-orange-600/70 to-red-700/80",
         logoUrl: "/images/logos/thefactory.webp",
+        badgeColor: "bg-orange-500/20 text-orange-400 border-orange-500/30",
     },
     {
         title: "Picorn",
-        subtitle: "Advisor — Marketing & Distribution",
-        description:
-            "Next-generation AI creative automation tools for digital artists. Building workflows that eliminate repetitive creative work.",
-        badge: "Active • AI Tools",
-        badgeColor: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+        translationKey: "picorn",
         link: "https://picorn.com",
         gradient: "from-cyan-500/80 via-blue-600/70 to-indigo-700/80",
         logoUrl: "/images/logos/picorn.webp",
+        badgeColor: "bg-blue-500/20 text-blue-400 border-blue-500/30",
     },
 ];
 
@@ -56,6 +46,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     const ref = useRef<HTMLDivElement>(null);
     const isInView = useInView(ref, { once: true, margin: "-50px" });
     const [isHovered, setIsHovered] = useState(false);
+    const { t } = useLanguage();
 
     return (
         <motion.div
@@ -106,17 +97,17 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                                     {project.title}
                                 </h3>
                                 <p className="text-sm text-gray-400 font-medium">
-                                    {project.subtitle}
+                                    {t(`projects.${project.translationKey}.subtitle`)}
                                 </p>
                             </div>
                         </div>
                         <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-4">
-                            {project.description}
+                            {t(`projects.${project.translationKey}.description`)}
                         </p>
                         <span
                             className={`inline-block text-xs font-semibold px-3 py-1 rounded-full border ${project.badgeColor}`}
                         >
-                            {project.badge}
+                            {t(`projects.${project.translationKey}.badge`)}
                         </span>
                     </div>
                 </div>
@@ -128,6 +119,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 export function ProjectCards() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+    const { t } = useLanguage();
 
     return (
         <section id="projects" className="py-20 md:py-28 bg-black">
@@ -139,7 +131,7 @@ export function ProjectCards() {
                         transition={{ duration: 0.6 }}
                         className="text-3xl md:text-5xl font-bold text-white mb-4 font-sans"
                     >
-                        Active Ventures
+                        {t('projects.sectionTitle')}
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
@@ -147,7 +139,7 @@ export function ProjectCards() {
                         transition={{ duration: 0.6, delay: 0.1 }}
                         className="text-lg md:text-xl text-gray-400 font-sans"
                     >
-                        Currently building, scaling, and advising
+                        {t('projects.sectionSubtitle')}
                     </motion.p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
