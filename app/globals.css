@@ -66,10 +66,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Keep the logo font unchanged */
-.logo {
-  font-family: 'JetBrains Mono', monospace;
-}
+
 
 html, body {
   height: 100%;

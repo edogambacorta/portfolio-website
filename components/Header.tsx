@@ -54,7 +54,7 @@ const Header: React.FC = () => {
       <CenteredContainer>
         <div className="py-4 flex flex-col sm:flex-row justify-between items-center">
           <Link href="/" onClick={handleLogoClick}>
-            <div className="text-white text-2xl font-bold mb-4 sm:mb-0 font-jetbrains-mono cursor-pointer logo">
+            <div className="text-white text-2xl font-bold mb-4 sm:mb-0 font-sans cursor-pointer logo">
               edogambacorta
             </div>
           </Link>
