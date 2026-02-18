@@ -143,10 +143,10 @@ export const HeroBackgroundAnimation = ({
           </filter>
         </defs>
       </svg>
-      <div className={cn("", className)}>{children}</div>
+      <div className={cn("relative z-10", className)}>{children}</div>
       <div
         className={cn(
-          "gradients-container h-full w-full blur-lg",
+          "gradients-container h-full w-full blur-lg z-0",
           isSafari ? "blur-2xl" : "[filter:url(#heroBlurMe)_blur(40px)]"
         )}
       >
@@ -189,7 +189,7 @@ export const HeroBackgroundAnimation = ({
         <div
           className={cn(
             `absolute [background:radial-gradient(circle_at_center,_rgba(var(--hero-fifth-color),_0.8)_0,_rgba(var(--hero-fifth-color),_0)_50%)_no-repeat]`,
-            `[mix-blend-mode:var(--hero-blending-value)] w-[var(--hero-size)] h-[var(--hero-size)] top-[calc(50%-var(--hero-size)/2)] left-[calc(50%-var(--hero-size)/2)]`,
+            `[mix-blend-mode:var(--hero-blending-value)] w-[var(--hero-size)] h-[var(--hero-size)] top-[calc(75%-var(--hero-size)/2)] left-[calc(50%-var(--hero-size)/2)]`,
             `[transform-origin:calc(50%-800px)_calc(50%+800px)]`,
             `animate-hero-fifth`,
             `opacity-100`
@@ -211,3 +211,4 @@ export const HeroBackgroundAnimation = ({
     </div>
   );
 };
+

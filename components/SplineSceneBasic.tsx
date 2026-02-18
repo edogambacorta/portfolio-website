@@ -37,9 +37,9 @@ export function SplineSceneBasic({ scale = 1.1 }: SplineSceneBasicProps) {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full h-full relative flex items-center justify-center overflow-hidden">
+    <div ref={containerRef} className="w-full h-full relative flex items-center justify-center">
       <div style={{ transform: `scale(${scale})`, width: '100%', height: '100%' }}>
-        <SplineScene 
+        <SplineScene
           scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
           className="w-full h-full"
         />

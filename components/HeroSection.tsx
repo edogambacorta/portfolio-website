@@ -70,41 +70,49 @@ export function HeroSection() {
       thirdColor="255, 204, 0"
       fourthColor="255, 102, 0"
       fifthColor="255, 153, 0"
-      className="relative w-full min-h-screen overflow-hidden"
+      className="relative w-full min-h-screen"
     >
-      <div ref={containerRef} className="relative w-full min-h-screen overflow-hidden">
+      <div ref={containerRef} className="relative w-full min-h-screen">
         <Spotlight
           className="absolute inset-0"
           size={350}
           mousePosition={mousePosition}
         />
-        <div className="flex flex-col lg:flex-row h-full items-center relative z-10 container mx-auto px-4 pb-16">
-          <div className="flex-1 flex flex-col justify-center lg:max-w-2xl">
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-white font-sans">
-              {t('hero.heading')}
-            </h1>
-            <p className="text-xl mb-8 text-gray-300 font-sans">
-              {t('hero.subtitle')}
-            </p>
-            <div>
-              <ShimmerButton
-                onClick={handleGetStarted}
-                className="text-black font-semibold text-sm"
-                shimmerColor="rgba(255, 255, 255, 0.4)"
-                shimmerDuration="2s"
-              >
-                {t('hero.cta')}
-              </ShimmerButton>
+        {/* Robot — absolutely positioned, free to expand */}
+        <div className="absolute inset-0 z-0">
+          <div className="relative w-full h-full flex items-center justify-end">
+            <div className="absolute top-0 bottom-0 right-0 left-[25%] lg:left-[30%]">
+              <SplineSceneBasic scale={1} />
             </div>
           </div>
-          <div className="flex-1 w-full lg:w-1/2 h-[50vh] lg:h-screen relative z-0 mt-8 lg:mt-0">
-            <SplineSceneBasic scale={1} />
+        </div>
+        {/* Text content — sits above the robot */}
+        <div className="relative z-10 h-full min-h-screen flex items-center pointer-events-none">
+          <div className="container mx-auto px-4 pb-16">
+            <div className="lg:max-w-xl">
+              <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-white font-sans">
+                {t('hero.heading')}
+              </h1>
+              <p className="text-xl mb-8 text-gray-300 font-sans">
+                {t('hero.subtitle')}
+              </p>
+              <div className="pointer-events-auto">
+                <ShimmerButton
+                  onClick={handleGetStarted}
+                  className="text-black font-semibold text-sm"
+                  shimmerColor="rgba(255, 255, 255, 0.4)"
+                  shimmerDuration="2s"
+                >
+                  {t('hero.cta')}
+                </ShimmerButton>
+              </div>
+            </div>
           </div>
         </div>
         {showArrow && (
           <div
             ref={arrowRef}
-            className="absolute bottom-[110px] left-1/2 transform -translate-x-1/2 cursor-pointer transition-transform hover:scale-110"
+            className="absolute bottom-[110px] left-1/2 transform -translate-x-1/2 cursor-pointer transition-transform hover:scale-110 z-10 pointer-events-auto"
             onClick={scrollToProjects}
           >
             <DownArrowIcon size={38} className="animate-bounce" />
