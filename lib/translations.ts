@@ -39,7 +39,7 @@ const en: Translations = {
     "projects.picorn.badge": "Active • AI Tools",
 
     // Timeline
-    "timeline.sectionTitle": "3 Years in 60 Seconds",
+    "timeline.sectionTitle": "4 Years in 60 Seconds",
     "timeline.sectionSubtitle": "Age is just a number. Output is what matters.",
 
     "timeline.locare.title": "LoCare — Hip Recovery Tracker",
@@ -86,7 +86,7 @@ const en: Translations = {
     // CTA Section
     "cta.heading": "Let's Build Something Together",
     "cta.paragraph1":
-        "I've spent the last 3 years building businesses, shipping products, and automating systems. Now I want to join a team.",
+        "I've spent the last 4 years building businesses, shipping products, and automating systems. Now I want to join a team.",
     "cta.paragraph2":
         "Looking for a Swiss AI or robotics startup that values execution speed, systems thinking, and ambitious goals with supportive teams.",
     "cta.bookCall": "Book a Call",
@@ -152,7 +152,7 @@ const de: Translations = {
     "projects.picorn.badge": "Aktiv • KI-Tools",
 
     // Timeline
-    "timeline.sectionTitle": "3 Jahre in 60 Sekunden",
+    "timeline.sectionTitle": "4 Jahre in 60 Sekunden",
     "timeline.sectionSubtitle":
         "Alter ist nur eine Zahl. Was zählt, ist der Output.",
 
@@ -200,7 +200,7 @@ const de: Translations = {
     // CTA Section
     "cta.heading": "Lass uns gemeinsam etwas aufbauen",
     "cta.paragraph1":
-        "In den letzten 3 Jahren habe ich Unternehmen aufgebaut, Produkte gelauncht und Systeme automatisiert. Jetzt möchte ich einem Team beitreten.",
+        "In den letzten 4 Jahren habe ich Unternehmen aufgebaut, Produkte gelauncht und Systeme automatisiert. Jetzt möchte ich einem Team beitreten.",
     "cta.paragraph2":
         "Auf der Suche nach einem Schweizer KI- oder Robotik-Startup, das Umsetzungsgeschwindigkeit, Systemdenken und ambitionierte Ziele mit unterstützenden Teams schätzt.",
     "cta.bookCall": "Gespräch buchen",

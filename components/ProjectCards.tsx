@@ -72,11 +72,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                         className={`h-64 md:h-80 bg-gradient-to-br ${project.gradient} relative overflow-hidden flex items-center justify-center p-8`}
                     >
                         {/* Logo Image */}
-                        <img
-                            src={project.logoUrl}
-                            alt={`${project.title} logo`}
-                            className="w-full h-full object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105"
-                        />
+                        <div className="bg-white rounded-2xl overflow-hidden drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 p-4">
+                            <img
+                                src={project.logoUrl}
+                                alt={`${project.title} logo`}
+                                className="w-full h-full object-contain"
+                            />
+                        </div>
 
                         {/* Arrow icon */}
                         <div
