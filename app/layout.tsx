@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Edoardo Gambacorta",
   description: "Mechanical Engineer. Startup Builder. 24 years old.",
+  icons: {
+    icon: "/favicon.webp",
+  },
 };
 
 export default function RootLayout({
