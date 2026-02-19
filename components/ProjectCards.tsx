@@ -69,14 +69,14 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 >
                     {/* Gradient background / Image area */}
                     <div
-                        className={`h-64 md:h-80 bg-gradient-to-br ${project.gradient} relative overflow-hidden flex items-center justify-center p-8`}
+                        className={`h-64 md:h-80 bg-gradient-to-br ${project.gradient} relative overflow-hidden flex items-center justify-center`}
                     >
-                        {/* Logo Image */}
-                        <div className="bg-white rounded-2xl overflow-hidden drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 p-4">
+                        {/* Logo Image — fills entire card area */}
+                        <div className="absolute inset-0 bg-white overflow-hidden flex items-center justify-center p-6 transition-transform duration-500 group-hover:scale-105">
                             <img
                                 src={project.logoUrl}
                                 alt={`${project.title} logo`}
-                                className="w-full h-full object-contain"
+                                className="max-w-[70%] max-h-[70%] object-contain"
                             />
                         </div>
 

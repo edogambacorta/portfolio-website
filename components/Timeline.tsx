@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import CenteredContainer from "./CenteredContainer";
 import HeroStack from "./HeroStack";
 import { useLanguage } from "../lib/LanguageContext";
@@ -209,9 +210,10 @@ function TimelineCard({
                             href={item.buttonLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-block px-6 py-2 bg-accent/10 border border-accent/20 rounded-full text-accent font-bold text-sm hover:bg-accent/20 transition-colors duration-200"
+                            className="group/link inline-flex items-center gap-2 px-6 py-2 bg-accent/10 border border-accent/20 rounded-full text-accent font-bold text-sm hover:bg-accent/20 hover:gap-3 transition-all duration-300"
                         >
                             {buttonText}
+                            <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
                         </a>
                     )}
                 </motion.div>
@@ -237,14 +239,7 @@ export function Timeline() {
                     >
                         {t('timeline.sectionTitle')}
                     </motion.h2>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={isInView ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.6, delay: 0.1 }}
-                        className="text-lg md:text-xl text-gray-400 font-sans"
-                    >
-                        {t('timeline.sectionSubtitle')}
-                    </motion.p>
+
                 </div>
 
                 {/* Timeline container */}

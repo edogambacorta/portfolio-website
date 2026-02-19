@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { ShimmerButton } from './ui/shimmer-button'
 import { NavBar } from './ui/tubelight-navbar'
-import { Rocket, Clock, Mail, Menu, X } from 'lucide-react'
+import { Rocket, Clock, Menu, X } from 'lucide-react'
 import CenteredContainer from './CenteredContainer'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
@@ -43,7 +43,6 @@ const Header: React.FC = () => {
   const navItems = [
     { name: t('header.projects'), url: '#projects', icon: Rocket },
     { name: t('header.timeline'), url: '#timeline', icon: Clock },
-    { name: t('header.contact'), url: '#contact', icon: Mail },
   ]
 
   const handleScroll = (url: string) => {
@@ -63,7 +62,7 @@ const Header: React.FC = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${isHovered ? 'bg-gray-800' : 'bg-black/50'
+        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-lg transition-colors duration-300 ${isHovered ? 'bg-gray-800/90' : 'bg-black/70'
           }`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}

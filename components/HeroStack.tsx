@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Play, Pause } from "lucide-react";
 
 interface HeroStackProps {
     images: string[];
@@ -11,20 +12,21 @@ interface HeroStackProps {
 
 export default function HeroStack({ images, className = "", aspectRatio = "aspect-[4/3]" }: HeroStackProps) {
     const [isHovered, setIsHovered] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
 
-    // Flicker effect logic
+    // Flicker effect logic — runs when hovered OR playing
     useEffect(() => {
         let interval: NodeJS.Timeout;
 
-        if (isHovered && images.length > 1) {
+        if ((isHovered || isPlaying) && images.length > 1) {
             interval = setInterval(() => {
                 setActiveIndex((prev) => (prev + 1) % images.length);
             }, 750); // Slow flicker (5x slower than 150ms)
         }
 
         return () => clearInterval(interval);
-    }, [isHovered, images.length]);
+    }, [isHovered, isPlaying, images.length]);
 
     return (
         <div
@@ -98,15 +100,30 @@ export default function HeroStack({ images, className = "", aspectRatio = "aspec
                 })}
             </div>
 
-            {/* Hover Text Hint */}
-            <motion.p
-                initial={{ opacity: 1, y: 0 }}
-                animate={{ opacity: isHovered ? 0 : 1, y: isHovered ? -5 : 0 }}
-                transition={{ duration: 0.3 }}
-                className="mt-8 text-xs font-bold text-gray-500 uppercase tracking-[0.2em] pointer-events-none"
-            >
-                hover to explore
-            </motion.p>
+            {/* Play/Pause button + image counter */}
+            <div className="mt-8 flex items-center gap-3">
+                <button
+                    onClick={() => setIsPlaying((prev) => !prev)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/10 transition-all duration-200 text-xs font-bold uppercase tracking-[0.15em]"
+                    aria-label={isPlaying ? "Pause carousel" : "Play carousel"}
+                >
+                    {isPlaying ? (
+                        <>
+                            <Pause className="w-3 h-3" />
+                            <span>Pause</span>
+                        </>
+                    ) : (
+                        <>
+                            <Play className="w-3 h-3" />
+                            <span>Play</span>
+                        </>
+                    )}
+                </button>
+                <span className="text-xs text-gray-600 tabular-nums">
+                    {activeIndex + 1}/{images.length}
+                </span>
+            </div>
         </div>
     );
 }
+

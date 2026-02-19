@@ -40,7 +40,7 @@ const en: Translations = {
 
     // Timeline
     "timeline.sectionTitle": "4 Years in 60 Seconds",
-    "timeline.sectionSubtitle": "Age is just a number. Output is what matters.",
+
 
     "timeline.locare.title": "LoCare — Hip Recovery Tracker",
     "timeline.locare.description":
@@ -81,7 +81,7 @@ const en: Translations = {
 
     "timeline.ironman.title": "Completed 70.3 Ironman",
     "timeline.ironman.description":
-        "1.9km swim, 90km bike, 21.1km run. September 2025. Mental toughness compounds everywhere.",
+        "1.9km swim, 90km bike, 21.1km run. September 2025.",
 
     // CTA Section
     "cta.heading": "Let's Build Something Together",
@@ -95,14 +95,8 @@ const en: Translations = {
     // Contact Section
     "contact.heading": "Get in Touch",
     "contact.subtitle": "Have a role in mind? Let's talk about it.",
-    "contact.name": "Name",
-    "contact.email": "Email",
-    "contact.company": "Company",
-    "contact.optional": "(optional)",
-    "contact.message": "Message",
-    "contact.placeholder": "Tell me about what you're building...",
-    "contact.send": "Send Message",
-    "contact.directLabel": "Or reach me directly:",
+    "contact.emailLabel": "Send me an email",
+    "contact.phoneLabel": "Give me a call",
 
     // Footer
     "footer.linkedin": "LinkedIn",
@@ -153,8 +147,6 @@ const de: Translations = {
 
     // Timeline
     "timeline.sectionTitle": "4 Jahre in 60 Sekunden",
-    "timeline.sectionSubtitle":
-        "Alter ist nur eine Zahl. Was zählt, ist der Output.",
 
     "timeline.locare.title": "LoCare — Hüft-Reha-Tracker",
     "timeline.locare.description":
@@ -195,7 +187,7 @@ const de: Translations = {
 
     "timeline.ironman.title": "70.3 Ironman absolviert",
     "timeline.ironman.description":
-        "1,9 km Schwimmen, 90 km Radfahren, 21,1 km Laufen. September 2025. Mentale Stärke wirkt überall.",
+        "1,9 km Schwimmen, 90 km Radfahren, 21,1 km Laufen. September 2025.",
 
     // CTA Section
     "cta.heading": "Lass uns gemeinsam etwas aufbauen",
@@ -209,14 +201,8 @@ const de: Translations = {
     // Contact Section
     "contact.heading": "Kontakt aufnehmen",
     "contact.subtitle": "Eine Rolle im Kopf? Lass uns darüber sprechen.",
-    "contact.name": "Name",
-    "contact.email": "E-Mail",
-    "contact.company": "Unternehmen",
-    "contact.optional": "(optional)",
-    "contact.message": "Nachricht",
-    "contact.placeholder": "Erzähl mir, woran du arbeitest...",
-    "contact.send": "Nachricht senden",
-    "contact.directLabel": "Oder direkt erreichen:",
+    "contact.emailLabel": "Schreib mir eine E-Mail",
+    "contact.phoneLabel": "Ruf mich an",
 
     // Footer
     "footer.linkedin": "LinkedIn",
