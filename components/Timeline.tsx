@@ -7,6 +7,11 @@ import CenteredContainer from "./CenteredContainer";
 import HeroStack from "./HeroStack";
 import { useLanguage } from "../lib/LanguageContext";
 
+interface TimelineLink {
+    translationKey: string;
+    url: string;
+}
+
 interface TimelineItem {
     year: string;
     translationKey: string;
@@ -14,6 +19,7 @@ interface TimelineItem {
     images: string[];
     aspectRatio?: "aspect-[4/3]" | "aspect-[9/16]" | string;
     buttonLink?: string;
+    links?: TimelineLink[];
 }
 
 const timelineItems: TimelineItem[] = [
@@ -46,6 +52,9 @@ const timelineItems: TimelineItem[] = [
             "/images/thefactory/14.webp",
             "/images/thefactory/15.webp",
             "/images/thefactory/16.webp",
+        ],
+        links: [
+            { translationKey: "thefactory_etsy", url: "https://thefactorybyedo.etsy.com/" },
         ],
     },
     {
@@ -93,6 +102,9 @@ const timelineItems: TimelineItem[] = [
             "/images/bis/30.webp",
             "/images/bis/31.webp",
         ],
+        links: [
+            { translationKey: "bis_website", url: "https://www.bis.org/" },
+        ],
     },
     {
         year: "2024",
@@ -128,6 +140,9 @@ const timelineItems: TimelineItem[] = [
             "/images/mommirror/10.webp",
         ],
         aspectRatio: "aspect-[1284/2778]",
+        links: [
+            { translationKey: "mommirror_website", url: "https://mommirror.com/" },
+        ],
     },
     {
         year: "2025",
@@ -139,6 +154,9 @@ const timelineItems: TimelineItem[] = [
             "/images/ironman/43.webp",
             "/images/ironman/44.webp",
             "/images/ironman/45.webp",
+        ],
+        links: [
+            { translationKey: "ironman_results", url: "https://www.datasport.com/live/ranking/?racenr=27533#1_47C27A" },
         ],
     },
 ];
@@ -205,17 +223,34 @@ function TimelineCard({
                     <p className="text-lg md:text-xl text-gray-400 leading-relaxed font-sans mb-6">
                         {description}
                     </p>
-                    {hasButton && (
-                        <a
-                            href={item.buttonLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group/link inline-flex items-center gap-2 px-6 py-2 bg-accent/10 border border-accent/20 rounded-full text-accent font-bold text-sm hover:bg-accent/20 hover:gap-3 transition-all duration-300"
-                        >
-                            {buttonText}
-                            <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-                        </a>
-                    )}
+                    <div className={`flex flex-wrap gap-3 ${isLeft ? '' : 'justify-end'}`}>
+                        {hasButton && (
+                            <a
+                                href={item.buttonLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group/link inline-flex items-center gap-2 px-6 py-2 bg-accent/10 border border-accent/20 rounded-full text-accent font-bold text-sm hover:bg-accent/20 hover:gap-3 transition-all duration-300"
+                            >
+                                {buttonText}
+                                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                            </a>
+                        )}
+                        {item.links?.map((link) => {
+                            const linkText = t(`timeline.links.${link.translationKey}`);
+                            return (
+                                <a
+                                    key={link.translationKey}
+                                    href={link.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group/link inline-flex items-center gap-2 px-6 py-2 bg-accent/10 border border-accent/20 rounded-full text-accent font-bold text-sm hover:bg-accent/20 hover:gap-3 transition-all duration-300"
+                                >
+                                    {linkText}
+                                    <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                                </a>
+                            );
+                        })}
+                    </div>
                 </motion.div>
             </div>
         </div>

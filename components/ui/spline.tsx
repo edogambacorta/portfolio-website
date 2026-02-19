@@ -1,8 +1,12 @@
 'use client'
 
-import { Suspense, lazy, useState, useCallback, useRef } from 'react'
+import { Suspense, useState, useCallback, useRef } from 'react'
+import dynamic from 'next/dynamic'
 import type { Application, SPEObject } from '@splinetool/runtime'
-const Spline = lazy(() => import('@splinetool/react-spline'))
+
+const Spline = dynamic(() => import('@splinetool/react-spline'), {
+  ssr: false,
+})
 
 interface SplineSceneProps {
   scene: string
@@ -52,6 +56,7 @@ export function SplineScene({ scene, className }: SplineSceneProps) {
         ref={containerRef}
         className={className}
         onMouseMove={handleMouseMove}
+        suppressHydrationWarning
       >
         <Spline
           scene={scene}

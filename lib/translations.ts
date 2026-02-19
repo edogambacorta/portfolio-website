@@ -83,6 +83,12 @@ const en: Translations = {
     "timeline.ironman.description":
         "1.9km swim, 90km bike, 21.1km run. September 2025.",
 
+    // Timeline Links
+    "timeline.links.thefactory_etsy": "Visit Shop",
+    "timeline.links.bis_website": "About the BIS",
+    "timeline.links.ironman_results": "View Race Results",
+    "timeline.links.mommirror_website": "Visit MomMirror",
+
     // CTA Section
     "cta.heading": "Let's Build Something Together",
     "cta.paragraph1":
@@ -188,6 +194,12 @@ const de: Translations = {
     "timeline.ironman.title": "70.3 Ironman absolviert",
     "timeline.ironman.description":
         "1,9 km Schwimmen, 90 km Radfahren, 21,1 km Laufen. September 2025.",
+
+    // Timeline Links
+    "timeline.links.thefactory_etsy": "Shop besuchen",
+    "timeline.links.bis_website": "Über die BIZ",
+    "timeline.links.ironman_results": "Ergebnisse ansehen",
+    "timeline.links.mommirror_website": "MomMirror besuchen",
 
     // CTA Section
     "cta.heading": "Lass uns gemeinsam etwas aufbauen",
