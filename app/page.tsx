@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import { HeroSection } from "../components/HeroSection";
 import { IntroLine } from "../components/IntroLine";
 import { ProjectCards } from "../components/ProjectCards";
+import { CapabilitiesSection } from "../components/CapabilitiesSection";
 import { Timeline } from "../components/Timeline";
 import { CTASection } from "../components/CTASection";
 import { ContactSection } from "../components/ContactSection";
@@ -16,6 +17,7 @@ export default function Home() {
         <IntroLine />
         <ProjectCards />
         <Timeline />
+        <CapabilitiesSection />
         <CTASection />
         <ContactSection />
       </main>

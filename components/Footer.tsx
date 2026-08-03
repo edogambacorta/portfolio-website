@@ -20,7 +20,7 @@ export function Footer() {
     },
     {
       label: t("footer.cv"),
-      href: "/documents/Edoardo_Gambacorta_CV_01_2026.pdf",
+      href: "/documents/Edoardo_Gambacorta_CV_2026.pdf",
       icon: FileDown,
     },
     {

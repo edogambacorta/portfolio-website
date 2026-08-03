@@ -84,7 +84,7 @@ export function ContactSection() {
           >
             <div className="inline-flex items-center gap-2 text-gray-500 text-sm font-sans">
               <MapPin className="w-4 h-4" />
-              <span>Basel, Switzerland</span>
+              <span>{t('contact.location')}</span>
             </div>
           </motion.div>
         </div>

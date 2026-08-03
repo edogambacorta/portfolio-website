@@ -159,6 +159,23 @@ const timelineItems: TimelineItem[] = [
             { translationKey: "ironman_results", url: "https://www.datasport.com/live/ranking/?racenr=27533#1_47C27A" },
         ],
     },
+    {
+        year: "2026",
+        translationKey: "deltapay",
+        gradient: "from-sky-500/60 to-blue-600/60",
+        images: [
+            "/images/deltapay/1.webp",
+            "/images/deltapay/2.webp",
+            "/images/deltapay/3.webp",
+            "/images/deltapay/4.webp",
+            "/images/deltapay/5.webp",
+            "/images/deltapay/6.webp",
+        ],
+        aspectRatio: "aspect-[1284/2778]",
+        links: [
+            { translationKey: "deltapay_website", url: "https://www.deltapay.co.sz" },
+        ],
+    },
 ];
 
 function TimelineCard({

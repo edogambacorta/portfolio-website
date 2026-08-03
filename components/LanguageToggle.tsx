@@ -26,6 +26,15 @@ export function LanguageToggle() {
             >
                 DE
             </button>
+            <button
+                onClick={() => setLanguage("fr")}
+                className={`px-2.5 py-1 rounded-full text-xs font-semibold transition-all duration-300 ${language === "fr"
+                        ? "bg-accent text-black shadow-sm"
+                        : "text-gray-400 hover:text-white"
+                    }`}
+            >
+                FR
+            </button>
         </div>
     );
 }

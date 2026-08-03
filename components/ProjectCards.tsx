@@ -71,7 +71,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                     <div
                         className={`h-64 md:h-80 bg-gradient-to-br ${project.gradient} relative overflow-hidden flex items-center justify-center`}
                     >
-                        {/* Logo Image — fills entire card area */}
+                        {/* Logo Image: fills entire card area */}
                         <div className="absolute inset-0 bg-white overflow-hidden flex items-center justify-center p-6 transition-transform duration-500 group-hover:scale-105">
                             <img
                                 src={project.logoUrl}

@@ -78,7 +78,7 @@ export function HeroSection() {
           size={350}
           mousePosition={mousePosition}
         />
-        {/* Robot — absolutely positioned, free to expand */}
+        {/* Robot: absolutely positioned, free to expand */}
         <div className="absolute inset-0 z-0">
           <div className="relative w-full h-full flex items-center justify-end">
             <div className="absolute top-0 bottom-0 right-0 left-0 lg:left-[30%]">
@@ -86,7 +86,7 @@ export function HeroSection() {
             </div>
           </div>
         </div>
-        {/* Text content — sits above the robot */}
+        {/* Text content: sits above the robot */}
         <div className="relative z-10 h-full min-h-screen flex items-center pointer-events-none">
           <div className="container mx-auto px-4 pb-16">
             <div className="lg:max-w-xl">

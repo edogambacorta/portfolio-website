@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { ShimmerButton } from './ui/shimmer-button'
 import { NavBar } from './ui/tubelight-navbar'
-import { Rocket, Clock, Menu, X } from 'lucide-react'
+import { Rocket, BarChart3, Clock, Menu, X } from 'lucide-react'
 import CenteredContainer from './CenteredContainer'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
@@ -43,6 +43,7 @@ const Header: React.FC = () => {
   const navItems = [
     { name: t('header.projects'), url: '#projects', icon: Rocket },
     { name: t('header.timeline'), url: '#timeline', icon: Clock },
+    { name: t('header.paidMedia'), url: '#paid-media', icon: BarChart3 },
   ]
 
   const handleScroll = (url: string) => {
@@ -75,7 +76,7 @@ const Header: React.FC = () => {
               </div>
             </Link>
 
-            {/* Desktop nav — hidden on mobile */}
+            {/* Desktop nav: hidden on mobile */}
             <div className="hidden md:flex flex-row items-center gap-3">
               <NavBar
                 items={navItems}
@@ -93,7 +94,7 @@ const Header: React.FC = () => {
               </ShimmerButton>
             </div>
 
-            {/* Hamburger button — visible only on mobile */}
+            {/* Hamburger button: visible only on mobile */}
             <button
               className="md:hidden text-white p-2 relative z-50"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

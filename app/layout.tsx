@@ -15,7 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Edoardo Gambacorta",
-  description: "Mechanical Engineer. Startup Builder. 24 years old.",
+  description:
+    "Edoardo Gambacorta: growth marketer in Geneva. Paid acquisition, mobile attribution (AppsFlyer) and measurable results. Head of Marketing at DeltaPay.",
   icons: {
     icon: "/favicon.webp",
   },

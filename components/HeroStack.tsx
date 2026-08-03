@@ -15,7 +15,7 @@ export default function HeroStack({ images, className = "", aspectRatio = "aspec
     const [isPlaying, setIsPlaying] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
 
-    // Flicker effect logic — runs when hovered OR playing
+    // Flicker effect logic: runs when hovered OR playing
     useEffect(() => {
         let interval: NodeJS.Timeout;
 
@@ -126,4 +126,3 @@ export default function HeroStack({ images, className = "", aspectRatio = "aspec
         </div>
     );
 }
-

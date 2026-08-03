@@ -54,12 +54,6 @@ export function CTASection() {
                         >
                             {t('cta.bookCall')}
                         </ShimmerButton>
-                        <a
-                            href="mailto:edoardo.gambacorta@gmail.com"
-                            className="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-gray-600 text-white font-semibold text-sm hover:border-accent hover:text-accent transition-all duration-300 w-full sm:w-auto"
-                        >
-                            {t('cta.sendEmail')}
-                        </a>
                     </motion.div>
                 </div>
             </CenteredContainer>
