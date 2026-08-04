@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import CenteredContainer from "./CenteredContainer";
 import HeroStack from "./HeroStack";
+import { PaidMediaDetails } from "./CapabilitiesSection";
 import { useLanguage } from "../lib/LanguageContext";
 
 interface TimelineLink {
@@ -24,104 +25,36 @@ interface TimelineItem {
 
 const timelineItems: TimelineItem[] = [
     {
-        year: "2022",
-        translationKey: "locare",
-        gradient: "from-teal-500/60 to-cyan-600/60",
+        year: "2026",
+        translationKey: "deltapay",
+        gradient: "from-sky-500/60 to-blue-600/60",
         images: [
-            "/images/locare/1.webp",
-            "/images/locare/2.webp",
-            "/images/locare/3.webp",
-            "/images/locare/4.webp",
-            "/images/locare/5.webp",
-            "/images/locare/6.webp",
-            "/images/locare/7.webp",
-            "/images/locare/8.webp",
-            "/images/locare/9.webp",
+            "/images/deltapay/1.webp",
+            "/images/deltapay/2.webp",
+            "/images/deltapay/3.webp",
+            "/images/deltapay/4.webp",
+            "/images/deltapay/5.webp",
+            "/images/deltapay/6.webp",
         ],
-        buttonLink: "/documents/Locare.pdf",
+        aspectRatio: "aspect-[1284/2778]",
+        links: [
+            { translationKey: "deltapay_website", url: "https://www.deltapay.co.sz" },
+        ],
     },
     {
-        year: "2022",
-        translationKey: "thefactory",
-        gradient: "from-amber-500/60 to-orange-600/60",
+        year: "2025",
+        translationKey: "ironman",
+        gradient: "from-red-500/60 to-orange-600/60",
         images: [
-            "/images/thefactory/10.webp",
-            "/images/thefactory/11.webp",
-            "/images/thefactory/12.webp",
-            "/images/thefactory/13.webp",
-            "/images/thefactory/14.webp",
-            "/images/thefactory/15.webp",
-            "/images/thefactory/16.webp",
+            "/images/ironman/41.webp",
+            "/images/ironman/42.webp",
+            "/images/ironman/43.webp",
+            "/images/ironman/44.webp",
+            "/images/ironman/45.webp",
         ],
         links: [
-            { translationKey: "thefactory_etsy", url: "https://thefactorybyedo.etsy.com/" },
+            { translationKey: "ironman_results", url: "https://www.datasport.com/live/ranking/?racenr=27533#1_47C27A" },
         ],
-    },
-    {
-        year: "2023",
-        translationKey: "breathe",
-        gradient: "from-violet-500/60 to-purple-600/60",
-        images: [
-            "/images/breathe/17.webp",
-            "/images/breathe/18.webp",
-            "/images/breathe/19.webp",
-            "/images/breathe/20.webp",
-        ],
-        buttonLink: "/documents/22231205_Individual_Project_Final_Draft_v2_2.pdf",
-    },
-    {
-        year: "2023",
-        translationKey: "rootslice",
-        gradient: "from-green-500/60 to-emerald-600/60",
-        images: [
-            "/images/rootslice/21.webp",
-            "/images/rootslice/22.webp",
-            "/images/rootslice/23.webp",
-            "/images/rootslice/24.webp",
-            "/images/rootslice/25.webp",
-        ],
-        buttonLink: "/documents/Final-group-report-Flat_Iron.pdf",
-    },
-    {
-        year: "2023",
-        translationKey: "graduated",
-        gradient: "from-blue-500/60 to-indigo-600/60",
-        images: [
-            "/images/graduated/26.webp",
-            "/images/graduated/27.webp",
-            "/images/graduated/28.webp",
-        ],
-        buttonLink: "/documents/Gambacorta_Edoardo_Manifold_MECH0059_CFD_Coursework_Final.pdf",
-    },
-    {
-        year: "2024",
-        translationKey: "bis",
-        gradient: "from-slate-500/60 to-gray-600/60",
-        images: [
-            "/images/bis/29.webp",
-            "/images/bis/30.webp",
-            "/images/bis/31.webp",
-        ],
-        links: [
-            { translationKey: "bis_website", url: "https://www.bis.org/" },
-        ],
-    },
-    {
-        year: "2024",
-        translationKey: "kunst",
-        gradient: "from-rose-500/60 to-pink-600/60",
-        images: [
-            "/images/kunst/32.webp",
-            "/images/kunst/33.webp",
-            "/images/kunst/34.webp",
-            "/images/kunst/35.webp",
-            "/images/kunst/36.webp",
-            "/images/kunst/37.webp",
-            "/images/kunst/38.webp",
-            "/images/kunst/39.webp",
-            "/images/kunst/40.webp",
-        ],
-        buttonLink: "/documents/EDOARDO_GAMBACORTA_FINAL_PORTFOLIO_2025.pdf",
     },
     {
         year: "2025",
@@ -145,36 +78,104 @@ const timelineItems: TimelineItem[] = [
         ],
     },
     {
-        year: "2025",
-        translationKey: "ironman",
-        gradient: "from-red-500/60 to-orange-600/60",
+        year: "2024",
+        translationKey: "kunst",
+        gradient: "from-rose-500/60 to-pink-600/60",
         images: [
-            "/images/ironman/41.webp",
-            "/images/ironman/42.webp",
-            "/images/ironman/43.webp",
-            "/images/ironman/44.webp",
-            "/images/ironman/45.webp",
+            "/images/kunst/32.webp",
+            "/images/kunst/33.webp",
+            "/images/kunst/34.webp",
+            "/images/kunst/35.webp",
+            "/images/kunst/36.webp",
+            "/images/kunst/37.webp",
+            "/images/kunst/38.webp",
+            "/images/kunst/39.webp",
+            "/images/kunst/40.webp",
+        ],
+        buttonLink: "/documents/EDOARDO_GAMBACORTA_FINAL_PORTFOLIO_2025.pdf",
+    },
+    {
+        year: "2024",
+        translationKey: "bis",
+        gradient: "from-slate-500/60 to-gray-600/60",
+        images: [
+            "/images/bis/29.webp",
+            "/images/bis/30.webp",
+            "/images/bis/31.webp",
         ],
         links: [
-            { translationKey: "ironman_results", url: "https://www.datasport.com/live/ranking/?racenr=27533#1_47C27A" },
+            { translationKey: "bis_website", url: "https://www.bis.org/" },
         ],
     },
     {
-        year: "2026",
-        translationKey: "deltapay",
-        gradient: "from-sky-500/60 to-blue-600/60",
+        year: "2023",
+        translationKey: "graduated",
+        gradient: "from-blue-500/60 to-indigo-600/60",
         images: [
-            "/images/deltapay/1.webp",
-            "/images/deltapay/2.webp",
-            "/images/deltapay/3.webp",
-            "/images/deltapay/4.webp",
-            "/images/deltapay/5.webp",
-            "/images/deltapay/6.webp",
+            "/images/graduated/26.webp",
+            "/images/graduated/27.webp",
+            "/images/graduated/28.webp",
         ],
-        aspectRatio: "aspect-[1284/2778]",
+        buttonLink: "/documents/Gambacorta_Edoardo_Manifold_MECH0059_CFD_Coursework_Final.pdf",
+    },
+    {
+        year: "2023",
+        translationKey: "rootslice",
+        gradient: "from-green-500/60 to-emerald-600/60",
+        images: [
+            "/images/rootslice/21.webp",
+            "/images/rootslice/22.webp",
+            "/images/rootslice/23.webp",
+            "/images/rootslice/24.webp",
+            "/images/rootslice/25.webp",
+        ],
+        buttonLink: "/documents/Final-group-report-Flat_Iron.pdf",
+    },
+    {
+        year: "2023",
+        translationKey: "breathe",
+        gradient: "from-violet-500/60 to-purple-600/60",
+        images: [
+            "/images/breathe/17.webp",
+            "/images/breathe/18.webp",
+            "/images/breathe/19.webp",
+            "/images/breathe/20.webp",
+        ],
+        buttonLink: "/documents/22231205_Individual_Project_Final_Draft_v2_2.pdf",
+    },
+    {
+        year: "2022",
+        translationKey: "thefactory",
+        gradient: "from-amber-500/60 to-orange-600/60",
+        images: [
+            "/images/thefactory/10.webp",
+            "/images/thefactory/11.webp",
+            "/images/thefactory/12.webp",
+            "/images/thefactory/13.webp",
+            "/images/thefactory/14.webp",
+            "/images/thefactory/15.webp",
+            "/images/thefactory/16.webp",
+        ],
         links: [
-            { translationKey: "deltapay_website", url: "https://www.deltapay.co.sz" },
+            { translationKey: "thefactory_etsy", url: "https://thefactorybyedo.etsy.com/" },
         ],
+    },
+    {
+        year: "2022",
+        translationKey: "locare",
+        gradient: "from-teal-500/60 to-cyan-600/60",
+        images: [
+            "/images/locare/1.webp",
+            "/images/locare/2.webp",
+            "/images/locare/3.webp",
+            "/images/locare/4.webp",
+            "/images/locare/5.webp",
+            "/images/locare/6.webp",
+            "/images/locare/7.webp",
+            "/images/locare/8.webp",
+            "/images/locare/9.webp",
+        ],
+        buttonLink: "/documents/Locare.pdf",
     },
 ];
 
@@ -185,7 +186,7 @@ function TimelineCard({
     item: TimelineItem;
     index: number;
 }) {
-    const ref = useRef<HTMLDivElement>(null);
+    const ref = useRef<HTMLElement>(null);
     const isInView = useInView(ref, { once: true, margin: "-20%" });
     const isLeft = index % 2 === 0;
     const { t } = useLanguage();
@@ -196,11 +197,11 @@ function TimelineCard({
     const hasButton = item.buttonLink && buttonText !== `timeline.${item.translationKey}.button`;
 
     return (
-        <div
-            ref={ref}
-            className={`relative flex items-center w-full min-h-screen ${isLeft ? "md:flex-row" : "md:flex-row-reverse"
-                } flex-col-reverse justify-center py-20`}
-        >
+        <article ref={ref} className="relative w-full py-20">
+          <div
+            className={`relative flex items-center w-full min-h-[80vh] ${isLeft ? "md:flex-row" : "md:flex-row-reverse"
+                } flex-col-reverse justify-center`}
+          >
             {/* Desktop: Content side (Image Stack) */}
             <div className={`w-full md:w-1/2 flex justify-center ${isLeft ? "md:pr-20" : "md:pl-20"} mb-12 md:mb-0`}>
                 <motion.div
@@ -270,7 +271,13 @@ function TimelineCard({
                     </div>
                 </motion.div>
             </div>
-        </div>
+          </div>
+          {item.translationKey === "deltapay" && (
+            <div className="relative z-20 mx-auto mt-8 max-w-6xl">
+              <PaidMediaDetails />
+            </div>
+          )}
+        </article>
     );
 }
 

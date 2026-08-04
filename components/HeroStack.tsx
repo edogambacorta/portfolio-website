@@ -11,29 +11,25 @@ interface HeroStackProps {
 }
 
 export default function HeroStack({ images, className = "", aspectRatio = "aspect-[4/3]" }: HeroStackProps) {
-    const [isHovered, setIsHovered] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
 
-    // Flicker effect logic: runs when hovered OR playing
+    // Keep playback controlled exclusively by the button so pause works even
+    // while the pointer is still over the image stack.
     useEffect(() => {
         let interval: NodeJS.Timeout;
 
-        if ((isHovered || isPlaying) && images.length > 1) {
+        if (isPlaying && images.length > 1) {
             interval = setInterval(() => {
                 setActiveIndex((prev) => (prev + 1) % images.length);
             }, 750); // Slow flicker (5x slower than 150ms)
         }
 
         return () => clearInterval(interval);
-    }, [isHovered, isPlaying, images.length]);
+    }, [isPlaying, images.length]);
 
     return (
-        <div
-            className={`flex flex-col items-center group ${className}`}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-        >
+        <div className={`flex flex-col items-center group ${className}`}>
             <div className={`relative w-full ${aspectRatio}`}>
                 {[2, 1, 0].map((layerIndex) => {
                     // Visual layers: 0 is top, 1 is middle, 2 is bottom
@@ -103,9 +99,11 @@ export default function HeroStack({ images, className = "", aspectRatio = "aspec
             {/* Play/Pause button + image counter */}
             <div className="mt-8 flex items-center gap-3">
                 <button
+                    type="button"
                     onClick={() => setIsPlaying((prev) => !prev)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/10 transition-all duration-200 text-xs font-bold uppercase tracking-[0.15em]"
+                    className="flex min-h-10 items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-bold uppercase tracking-[0.15em] text-gray-300 transition-all duration-200 hover:border-accent/30 hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                     aria-label={isPlaying ? "Pause carousel" : "Play carousel"}
+                    aria-pressed={isPlaying}
                 >
                     {isPlaying ? (
                         <>

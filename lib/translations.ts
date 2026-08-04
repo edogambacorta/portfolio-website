@@ -26,7 +26,7 @@ const en: Translations = {
 
     "projects.mommirror.subtitle": "Co-founder & Head of Distribution",
     "projects.mommirror.description":
-        "AI-powered mental health companion for expecting mothers. Drove 25M+ organic views across the last two years and built the entire go-to-market engine from zero.",
+        "Maternal mental health prevention and family planning tool for perinatal anxiety. Achieved a 500K valuation less than six months after launch.",
     "projects.mommirror.badge": "Active • Health Tech",
 
     "projects.thefactory.subtitle": "Founder",
@@ -40,7 +40,7 @@ const en: Translations = {
     "projects.picorn.badge": "Active • AI Tools",
 
     // Timeline
-    "timeline.sectionTitle": "Five Years in 60 Seconds",
+    "timeline.sectionTitle": "Portfolio Timeline",
 
 
     "timeline.locare.title": "LoCare: Hip Recovery Tracker",
@@ -78,13 +78,13 @@ const en: Translations = {
 
     "timeline.mommirror.title": "Co-founded MomMirror",
     "timeline.mommirror.description":
-        "Launched AI mental health companion for mothers. Drove 25M+ organic views across the last two years through TikTok/Instagram campaigns. Now scaling via UGC partnerships & AI content systems.",
+        "Launched a maternal mental health prevention and family planning tool for perinatal anxiety. Achieved a 500K valuation less than six months after launch, supported by 25M+ organic views across TikTok and Instagram.",
 
     "timeline.ironman.title": "Completed 70.3 Ironman",
     "timeline.ironman.description":
         "1.9km swim, 90km bike, 21.1km run. September 2025.",
 
-    "timeline.deltapay.title": "Head of Marketing, DeltaPay",
+    "timeline.deltapay.title": "Head of Marketing & Financial Development, DeltaPay",
     "timeline.deltapay.description":
         "Leading marketing for a mobile payments fintech across Switzerland and Eswatini. Built the company's first Meta ads and AppsFlyer attribution stack from zero: 1,000+ tracked installs in week one at CHF 0.25 per install, cost per lead down 66%.",
 
@@ -96,6 +96,7 @@ const en: Translations = {
     "timeline.links.deltapay_website": "Visit DeltaPay",
 
     // Capabilities
+    "capabilities.explore": "Explore my paid media expertise",
     "capabilities.sectionTitle": "Paid Media: Capabilities & Results",
     "capabilities.sectionSubtitle": "What I run, and what it produced",
     "capabilities.intro":
@@ -176,7 +177,7 @@ const de: Translations = {
 
     "projects.mommirror.subtitle": "Mitgründer & Head of Distribution",
     "projects.mommirror.description":
-        "KI-gestützter Mental-Health-Begleiter für werdende Mütter. Über 25 Mio. organische Views in den letzten zwei Jahren erzielt und die gesamte Go-to-Market-Strategie von null aufgebaut.",
+        "Präventions- und Familienplanungstool für die psychische Gesundheit von Müttern bei perinataler Angst. Weniger als sechs Monate nach dem Launch eine Bewertung von 500K erreicht.",
     "projects.mommirror.badge": "Aktiv • Health Tech",
 
     "projects.thefactory.subtitle": "Gründer",
@@ -190,7 +191,7 @@ const de: Translations = {
     "projects.picorn.badge": "Aktiv • KI-Tools",
 
     // Timeline
-    "timeline.sectionTitle": "Fünf Jahre in 60 Sekunden",
+    "timeline.sectionTitle": "Portfolio-Zeitleiste",
 
     "timeline.locare.title": "LoCare: Hüft-Reha-Tracker",
     "timeline.locare.description":
@@ -227,13 +228,13 @@ const de: Translations = {
 
     "timeline.mommirror.title": "MomMirror mitgegründet",
     "timeline.mommirror.description":
-        "KI-Mental-Health-Begleiter für Mütter lanciert. Über 25 Mio. organische Views in den letzten zwei Jahren durch TikTok-/Instagram-Kampagnen erzielt. Skalierung über UGC-Partnerschaften & KI-Content-Systeme.",
+        "Präventions- und Familienplanungstool für die psychische Gesundheit von Müttern bei perinataler Angst lanciert. Weniger als sechs Monate nach dem Launch eine Bewertung von 500K erreicht, unterstützt durch über 25 Mio. organische Views auf TikTok und Instagram.",
 
     "timeline.ironman.title": "70.3 Ironman absolviert",
     "timeline.ironman.description":
         "1,9 km Schwimmen, 90 km Radfahren, 21,1 km Laufen. September 2025.",
 
-    "timeline.deltapay.title": "Head of Marketing, DeltaPay",
+    "timeline.deltapay.title": "Head of Marketing & Financial Development, DeltaPay",
     "timeline.deltapay.description":
         "Marketingverantwortung für ein Mobile-Payments-Fintech in der Schweiz und in Eswatini. Erste Meta-Ads- und AppsFlyer-Attribution des Unternehmens von null aufgebaut: über 1'000 getrackte Installs in der ersten Woche zu CHF 0.25 pro Install, Cost per Lead um 66 % gesenkt.",
 
@@ -245,6 +246,7 @@ const de: Translations = {
     "timeline.links.deltapay_website": "DeltaPay besuchen",
 
     // Capabilities
+    "capabilities.explore": "Meine Paid-Media-Expertise entdecken",
     "capabilities.sectionTitle": "Paid Media: Kompetenzen & Resultate",
     "capabilities.sectionSubtitle": "Was ich betreibe und was dabei herauskam",
     "capabilities.intro":
@@ -325,7 +327,7 @@ const fr: Translations = {
 
     "projects.mommirror.subtitle": "Cofondateur & Head of Distribution",
     "projects.mommirror.description":
-        "Compagnon de santé mentale propulsé par l'IA pour les futures mamans. Plus de 25 millions de vues organiques générées au cours des deux dernières années et un moteur go-to-market construit de zéro.",
+        "Outil de prévention en santé mentale maternelle et de planification familiale contre l'anxiété périnatale. Valorisation de 500K atteinte moins de six mois après le lancement.",
     "projects.mommirror.badge": "Actif • Health Tech",
 
     "projects.thefactory.subtitle": "Fondateur",
@@ -339,7 +341,7 @@ const fr: Translations = {
     "projects.picorn.badge": "Actif • Outils IA",
 
     // Timeline
-    "timeline.sectionTitle": "Cinq ans en 60 secondes",
+    "timeline.sectionTitle": "Chronologie du portfolio",
 
     "timeline.locare.title": "LoCare : Suivi de rééducation de la hanche",
     "timeline.locare.description":
@@ -376,13 +378,13 @@ const fr: Translations = {
 
     "timeline.mommirror.title": "Cofondation de MomMirror",
     "timeline.mommirror.description":
-        "Lancement d'un compagnon de santé mentale IA pour les mamans. Plus de 25 millions de vues organiques générées au cours des deux dernières années via des campagnes TikTok/Instagram. Croissance via partenariats UGC et systèmes de contenu IA.",
+        "Lancement d'un outil de prévention en santé mentale maternelle et de planification familiale contre l'anxiété périnatale. Valorisation de 500K atteinte moins de six mois après le lancement, soutenue par plus de 25 millions de vues organiques sur TikTok et Instagram.",
 
     "timeline.ironman.title": "Ironman 70.3 terminé",
     "timeline.ironman.description":
         "1,9 km de natation, 90 km de vélo, 21,1 km de course. Septembre 2025.",
 
-    "timeline.deltapay.title": "Head of Marketing, DeltaPay",
+    "timeline.deltapay.title": "Head of Marketing & Financial Development, DeltaPay",
     "timeline.deltapay.description":
         "Responsable du marketing d'une fintech de paiement mobile, entre la Suisse et l'Eswatini. Première infrastructure Meta Ads et d'attribution AppsFlyer de l'entreprise, construite de zéro : plus de 1 000 installations trackées la première semaine à CHF 0.25 par installation, coût par lead réduit de 66 %.",
 
@@ -394,6 +396,7 @@ const fr: Translations = {
     "timeline.links.deltapay_website": "Découvrir DeltaPay",
 
     // Capabilities
+    "capabilities.explore": "Explorer mon expertise en paid media",
     "capabilities.sectionTitle": "Paid Media : Compétences & Résultats",
     "capabilities.sectionSubtitle": "Ce que je pilote, et ce que ça a produit",
     "capabilities.intro":
