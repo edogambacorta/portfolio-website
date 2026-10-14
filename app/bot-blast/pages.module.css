@@ -1,0 +1,17 @@
+.page { min-height: 100vh; background: #f6f5ed; color: #08282f; font: 17px/1.75 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+.container { width: min(100% - 40px, 760px); margin: 0 auto; }
+.header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; padding: 32px 0; border-bottom: 1px solid #cbdad5; }
+.brand { font-size: 25px; font-weight: 750; line-height: 1.3; text-decoration: none !important; }
+.brand span { display: block; font-size: 13px; font-weight: 400; color: #526c70; margin-top: 5px; }
+.page nav { display: flex; gap: 22px; }
+.page a { color: #08645f; text-decoration: underline; text-underline-offset: 4px; overflow-wrap: anywhere; }
+.page nav a { display: inline-flex; align-items: center; min-height: 44px; }
+.page a:focus-visible { outline: 3px solid #087f7b; outline-offset: 5px; border-radius: 3px; }
+.page main { padding: 42px 0 48px; }
+.page h1, .page h2 { font-family: inherit; color: #08282f; font-weight: 750; letter-spacing: -.025em; line-height: 1.2; }
+.page h1 { font-size: clamp(32px, 7vw, 46px); margin: 0 0 16px; }
+.page h2 { font-size: 23px; margin: 32px 0 12px; }
+.page p { margin: 0 0 18px; }
+.page ul { list-style: disc; margin: 0 0 22px; padding-left: 24px; }
+.page li { padding-left: 3px; margin: 8px 0; }
+.page footer { color: #526c70; border-top: 1px solid #cbdad5; padding: 24px 0 36px; font-size: 14px; }
