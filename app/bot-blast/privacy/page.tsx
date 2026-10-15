@@ -34,7 +34,7 @@ export default function PrivacyPage() {
         <p className={styles.contentsDate}>Updated October 15, 2026</p>
       </aside>
       <article className={styles.policy} aria-label="Bot Blast privacy policy">
-        <p className={styles.policyLead}>Bot Blast is an offline game developed and operated by Edoardo Gambacorta, who is responsible for the personal information described in this policy. This policy covers the current version of the game, its privacy and support pages, and information you choose to send when asking for help.</p>
+        <p className={styles.policyLead}>Bot Blast is an offline game developed and operated by Edoardo Gambacorta, based in Switzerland, who is responsible for the personal information described in this policy. This policy covers the current version of the game, its privacy and support pages, and information you choose to send when asking for help.</p>
 
         <section id="playing">
           <h2>Playing the game</h2>
@@ -85,7 +85,7 @@ export default function PrivacyPage() {
         <section id="contact">
           <h2>Changes and contact</h2>
           <p>This policy will be updated if the game’s data practices change, including before adding advertising or analytics. The date above identifies the current policy. Where a change requires your consent, that consent will be requested; continued use alone will not be treated as consent to new optional data collection.</p>
-          <p>Developer and privacy contact: Edoardo Gambacorta<br /><a href="mailto:edoardo.gambacorta@gmail.com">edoardo.gambacorta@gmail.com</a></p>
+          <p>Developer and privacy contact: Edoardo Gambacorta, Switzerland<br /><a href="mailto:edoardo.gambacorta@gmail.com">edoardo.gambacorta@gmail.com</a></p>
         </section>
         <p className={styles.policyEnd}>Need help with the game? Visit <a href="/bot-blast/support">Bot Blast support</a>.</p>
       </article>
