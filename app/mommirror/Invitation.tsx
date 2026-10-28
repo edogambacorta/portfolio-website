@@ -4,22 +4,49 @@ import { useEffect, useRef, useState } from 'react';
 import { makeScene } from './GardenScene';
 
 const clamp = (v:number) => Math.max(0, Math.min(1, v));
-const step = (a:number,b:number,v:number) => { const t=clamp((v-a)/(b-a)); return t*t*(3-2*t); };
-const mix = (a:number,b:number,t:number) => a+(b-a)*t;
-
+type OpeningState = { started:number; revealAt:number };
 
 export default function Invitation(){
-  const canvas=useRef<HTMLCanvasElement>(null);const ocean=useRef<HTMLIFrameElement>(null);const oceanReady=useRef(false);const [oceanVisible,setOceanVisible]=useState(false);const [allowOcean,setAllowOcean]=useState(false);const journey=useRef<HTMLElement>(null);const progress=useRef(0);const [phase,setPhase]=useState(0);const [fallback,setFallback]=useState(false);
-  useEffect(()=>{const onScroll=()=>{if(!journey.current)return;const rect=journey.current.getBoundingClientRect();progress.current=clamp(-rect.top/(rect.height-window.innerHeight));const p=progress.current;setPhase(p<.09?0:p<.42?1:p<.71?2:p<.86?3:4);};onScroll();window.addEventListener('scroll',onScroll,{passive:true});let clean:undefined|(()=>void);try{if(canvas.current)clean=makeScene(canvas.current,()=>progress.current,()=>oceanReady.current);}catch{setFallback(true);}return()=>{window.removeEventListener('scroll',onScroll);clean?.();};},[]);
-  useEffect(()=>{if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;setAllowOcean(true);const receive=(event:MessageEvent)=>{if(event.origin===location.origin && event.source===ocean.current?.contentWindow && event.data?.type==='mommirror-ocean-ready'){oceanReady.current=true;setOceanVisible(true)}};window.addEventListener('message',receive);const observer=new IntersectionObserver(entries=>{ocean.current?.contentWindow?.postMessage({type:'mommirror-ocean-visibility',active:entries[0].isIntersecting},location.origin)});if(journey.current)observer.observe(journey.current);return()=>{window.removeEventListener('message',receive);observer.disconnect();};},[]);
+  const canvas=useRef<HTMLCanvasElement>(null);
+  const ocean=useRef<HTMLIFrameElement>(null);
+  const oceanReady=useRef(false);
+  const opening=useRef<OpeningState>({started:0,revealAt:0});
+  const [oceanVisible,setOceanVisible]=useState(false);
+  const [allowOcean,setAllowOcean]=useState(false);
+  const [loading,setLoading]=useState(true);
+  const journey=useRef<HTMLElement>(null);
+  const progress=useRef(0);
+  const [phase,setPhase]=useState(0);
+  const [fallback,setFallback]=useState(false);
+  useEffect(()=>{
+    const state=opening.current;
+    state.started=performance.now();state.revealAt=0;
+    let disposed=false;let finishTimer:ReturnType<typeof setTimeout>|undefined;
+    const finish=()=>{if(disposed||state.revealAt)return;state.revealAt=performance.now();setLoading(false);if(oceanReady.current)setOceanVisible(true);};
+    const ready=()=>{oceanReady.current=true;if(state.revealAt){setOceanVisible(true);return;}const remaining=Math.max(0,2800-(performance.now()-state.started));finishTimer=setTimeout(finish,remaining);};
+    const receive=(event:MessageEvent)=>{if(event.origin===location.origin&&event.source===ocean.current?.contentWindow&&event.data?.type==='mommirror-ocean-ready')ready();};
+    const onScroll=()=>{if(!journey.current)return;const rect=journey.current.getBoundingClientRect();progress.current=clamp(-rect.top/(rect.height-window.innerHeight));const p=progress.current;setPhase(p<.09?0:p<.42?1:p<.71?2:p<.86?3:4);};
+    onScroll();window.addEventListener('scroll',onScroll,{passive:true});window.addEventListener('message',receive);
+    let clean:undefined|(()=>void);
+    try{if(canvas.current)clean=makeScene(canvas.current,()=>progress.current,()=>oceanReady.current,()=>state);}catch{setFallback(true);finish();}
+    const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduce)finishTimer=setTimeout(finish,350);else setAllowOcean(true);
+    // A failed or unsupported ocean must never trap visitors on the loading screen.
+    const timeout=setTimeout(finish,25000);
+    const observer=new IntersectionObserver(entries=>{ocean.current?.contentWindow?.postMessage({type:'mommirror-ocean-visibility',active:entries[0].isIntersecting},location.origin)});
+    if(journey.current)observer.observe(journey.current);
+    return()=>{disposed=true;if(finishTimer)clearTimeout(finishTimer);clearTimeout(timeout);observer.disconnect();window.removeEventListener('scroll',onScroll);window.removeEventListener('message',receive);clean?.();};
+  },[]);
   return <main className="mm-page">
     <section className="mm-journey" ref={journey} aria-label="An invitation from MomMirror">
       <div className="mm-stage">
         {allowOcean && <iframe ref={ocean} title="" aria-hidden="true" tabIndex={-1} className={`mm-ocean ${oceanVisible?'is-visible':''}`} src="/mommirror/ocean/index.html?preset=calm&float=0&scale=0.7&clouds=0.35&elev=25&yaw=160&pitch=-6" />}
+        <div className={`mm-opening-backdrop ${loading?"is-loading":""}`} aria-hidden="true" />
         <canvas ref={canvas} aria-hidden="true" className="mm-canvas" />
         <div className="mm-top"><img src="/mommirror/wordmark.webp" alt="MomMirror" /></div>
         <div className={`mm-intro ${phase===0?'is-visible':''}`}><h1>There’s a little note<br/><em>waiting for you.</em></h1></div>
-        <div className="mm-scroll"><span>{phase===0?'SCROLL TO OPEN':'KEEP SCROLLING'}</span><i /></div>
+        <div className={`mm-scroll ${loading?"is-loading":""}`}><span>{phase===0?'SCROLL TO OPEN':'KEEP SCROLLING'}</span><i /></div>
+        <div className={`mm-opening-status ${loading?"is-loading":""}`} role="status" aria-live="polite">{loading?"Preparing your note…":""}</div>
         {fallback && <div className="mm-fallback"><p>We made this app for you.</p><p>Together, we can make mental health support affordable, inclusive, and free from judgment. For all women. For all of us.</p><p>Find your strength, one calm day at a time. You don’t have to carry it alone.</p></div>}
       </div>
       <div className="mm-sr">We made this app for you. Support our cause and help us reach more women. Together, we can make mental health support affordable, inclusive, and free from judgment. For all women. For all of us. Find your strength, one calm day at a time. You don’t have to carry it alone.</div>
