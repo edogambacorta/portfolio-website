@@ -11,10 +11,13 @@ export function makeScene(canvas:HTMLCanvasElement,getProgress:()=>number, hasOc
  renderer.setPixelRatio(Math.min(devicePixelRatio,1.65)); renderer.outputColorSpace=THREE.SRGBColorSpace;
  renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;
  const scene=new THREE.Scene();scene.fog=new THREE.FogExp2('#f9e5df',.026);
+ // Render the invitation separately, with its own depth buffer, so the meadow
+ // cannot pass through it while the flap still occludes the rising card.
+ const invitationScene=new THREE.Scene();renderer.autoClear=false;
  const camera=new THREE.PerspectiveCamera(36,1,.1,100);camera.position.set(0,1.5,14.5);camera.lookAt(0,0,0);
- scene.add(new THREE.HemisphereLight('#ffe5e1','#80976c',2));
- const sun=new THREE.DirectionalLight('#fff0ed',2.1);sun.position.set(-5,8,9);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-5;sun.shadow.camera.right=5;sun.shadow.camera.top=5;sun.shadow.camera.bottom=-5;sun.shadow.bias=-.0003;sun.shadow.radius=4;scene.add(sun);
- const fill=new THREE.DirectionalLight('#f9c8c3',.7);fill.position.set(6,4,-4);scene.add(fill);
+ const ambient=new THREE.HemisphereLight('#ffe5e1','#80976c',2);scene.add(ambient);invitationScene.add(ambient.clone());
+ const sun=new THREE.DirectionalLight('#fff0ed',2.1);sun.position.set(-5,8,9);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-5;sun.shadow.camera.right=5;sun.shadow.camera.top=5;sun.shadow.camera.bottom=-5;sun.shadow.bias=-.0003;sun.shadow.radius=4;scene.add(sun);invitationScene.add(sun.clone());
+ const fill=new THREE.DirectionalLight('#f9c8c3',.7);fill.position.set(6,4,-4);scene.add(fill);invitationScene.add(fill.clone());
  let seed=41261;const random=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646};
  const materials:THREE.Material[]=[];const geometries:THREE.BufferGeometry[]=[];
  const mat=(color:THREE.ColorRepresentation,extra:Partial<THREE.MeshStandardMaterialParameters>={})=>{const m=new THREE.MeshStandardMaterial({color,roughness:.87,side:THREE.DoubleSide,...extra});materials.push(m);return m};
@@ -61,7 +64,7 @@ export function makeScene(canvas:HTMLCanvasElement,getProgress:()=>number, hasOc
 
  // The envelope has a fine paper grain, overlapping folds, a ribbon and a sculpted rose.
  const paperCanvas=document.createElement('canvas');paperCanvas.width=256;paperCanvas.height=256;const pc=paperCanvas.getContext('2d')!;pc.fillStyle='#f2c0bb';pc.fillRect(0,0,256,256);for(let i=0;i<3500;i++){const v=Math.floor(220+random()*35);pc.fillStyle=`rgba(${v},${v-18},${v-21},${random()*.12})`;pc.fillRect(random()*256,random()*256,1+random()*2,1);}const paperTexture=new THREE.CanvasTexture(paperCanvas);paperTexture.colorSpace=THREE.SRGBColorSpace;paperTexture.wrapS=paperTexture.wrapT=THREE.RepeatWrapping;paperTexture.repeat.set(2,1.3);
- const envelopeMaterial=mat('#fff7f2',{map:paperTexture,bumpMap:paperTexture,bumpScale:.018});const env=new THREE.Group();scene.add(env);addMesh(track(new RoundedBoxGeometry(4.7,3,.12,4,.035)),envelopeMaterial,env);
+ const envelopeMaterial=mat('#fff7f2',{map:paperTexture,bumpMap:paperTexture,bumpScale:.018});const env=new THREE.Group();invitationScene.add(env);addMesh(track(new RoundedBoxGeometry(4.7,3,.12,4,.035)),envelopeMaterial,env);
  function triangle(points:number[],m:THREE.Material){const g=track(new THREE.BufferGeometry());g.setAttribute('position',new THREE.Float32BufferAttribute(points,3));g.computeVertexNormals();return new THREE.Mesh(g,m)}
  env.children[0].receiveShadow=true;env.add(triangle([-2.35,-1.5,-.075,2.35,-1.5,-.075,0,.22,-.078],pinkEdge));
  const flap=new THREE.Group();flap.position.set(0,1.5,-.08);env.add(flap);flap.add(triangle([-2.35,0,0,2.35,0,0,0,-1.65,-.02],pink));
@@ -78,13 +81,13 @@ export function makeScene(canvas:HTMLCanvasElement,getProgress:()=>number, hasOc
  artwork.onload=()=>{if(!disposed)drawCard(lastReveal)};icon.onload=()=>{if(!disposed)drawCard(lastReveal)};
  const reverseCanvas=document.createElement('canvas');reverseCanvas.width=1200;reverseCanvas.height=820;const rc=reverseCanvas.getContext('2d')!;const reverseTexture=new THREE.CanvasTexture(reverseCanvas);reverseTexture.colorSpace=THREE.SRGBColorSpace;
  function drawBack(){rc.fillStyle='#fffaf5';rc.fillRect(0,0,1200,820);rc.textAlign='center';rc.fillStyle='#47343a';rc.strokeStyle='#47343a';rc.lineWidth=1.5;rc.font='90px Allura, cursive';for(const [text,y] of [['Find your strength,',300],['one calm day at a time.',415],['You don’t have to carry it alone.',540]] as [string,number][]){rc.strokeText(text,600,y);rc.fillText(text,600,y)}reverseTexture.needsUpdate=true;}
- const card=new THREE.Group();scene.add(card);addMesh(track(new THREE.BoxGeometry(4.5,3.075,.055)),paper,card);const front=addMesh(track(new THREE.PlaneGeometry(4.5,3.075)),new THREE.MeshBasicMaterial({map:cardTexture}),card);materials.push(front.material as THREE.Material);front.position.z=.031;const back=addMesh(track(new THREE.PlaneGeometry(4.5,3.075)),new THREE.MeshBasicMaterial({map:reverseTexture}),card);materials.push(back.material as THREE.Material);back.position.z=-.031;back.rotation.y=Math.PI;
+ const card=new THREE.Group();invitationScene.add(card);addMesh(track(new THREE.BoxGeometry(4.5,3.075,.055)),paper,card);const front=addMesh(track(new THREE.PlaneGeometry(4.5,3.075)),new THREE.MeshBasicMaterial({map:cardTexture}),card);materials.push(front.material as THREE.Material);front.position.z=.031;const back=addMesh(track(new THREE.PlaneGeometry(4.5,3.075)),new THREE.MeshBasicMaterial({map:reverseTexture}),card);materials.push(back.material as THREE.Material);back.position.z=-.031;back.rotation.y=Math.PI;
  drawCard(0);drawBack();document.fonts.load('76px Allura').then(()=>{if(!disposed){drawCard(lastReveal);drawBack()}});
  function resize(){const w=canvas.clientWidth,h=canvas.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.position.z=w/h<.8?17.4:14.5;camera.lookAt(0,0,0);camera.updateProjectionMatrix();}window.addEventListener('resize',resize);resize();
  let frame=0;const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  function animate(){if(disposed)return;frame=requestAnimationFrame(animate);const p=getProgress(),now=reduce?0:performance.now()*.001;const enter=ease(.01,.16,p),turn=ease(.17,.30,p),open=ease(.30,.40,p),extract=ease(.41,.54,p),present=ease(.54,.61,p),backTurn=ease(.78,.84,p),exit=ease(.91,.99,p);
- env.position.set(0,mix(-1.25,-.1,enter)+Math.sin(now*.7)*.035,mix(-5,0,enter));env.rotation.set(.025,Math.PI*turn,Math.sin(now*.4)*.014);env.scale.setScalar(mix(.8,1,enter)*(1-present*.16)*(1-exit*.85));flap.rotation.x=-Math.PI*open;flap.position.z=mix(-.08,.28,open);
+ env.visible=p>.005;env.position.set(0,mix(2.1,-.1,enter)+Math.sin(now*.7)*.035,mix(-6,0,enter));env.rotation.set(.025,Math.PI*turn,Math.sin(now*.4)*.014);env.scale.setScalar(mix(.68,1,enter)*ease(.005,.055,p)*(1-present*.16)*(1-exit*.85));flap.rotation.x=-Math.PI*open;flap.position.z=mix(-.08,.28,open);
  card.visible=p>.40&&p<.99;const extractedY=env.position.y+mix(-.35,3.1,extract);card.position.set(0,mix(extractedY,.9,present)+exit*3.3,mix(-.18,2.4,present));card.rotation.set(0,Math.PI*backTurn,0);card.scale.setScalar(1-exit*.5);
- const reveal=ease(.61,.76,p);if(Math.abs(reveal-lastReveal)>.004){lastReveal=reveal;drawCard(reveal)}sky.visible=!hasOcean();sea.visible=!hasOcean();patchWind.value=now;skyUniforms.uTime.value=now;waterUniforms.uTime.value=now;renderer.render(scene,camera);}
+ const reveal=ease(.61,.76,p);if(Math.abs(reveal-lastReveal)>.004){lastReveal=reveal;drawCard(reveal)}sky.visible=!hasOcean();sea.visible=!hasOcean();patchWind.value=now;skyUniforms.uTime.value=now;waterUniforms.uTime.value=now;renderer.clear();renderer.render(scene,camera);renderer.clearDepth();renderer.render(invitationScene,camera);}
  animate();return()=>{disposed=true;cancelAnimationFrame(frame);window.removeEventListener('resize',resize);geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());meadowGround.dispose();foliageTextures.forEach(t=>t.dispose());paperTexture.dispose();cardTexture.dispose();reverseTexture.dispose();renderer.dispose();};
 }
