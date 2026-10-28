@@ -393,9 +393,9 @@ vec4 marchClouds(vec3 ro, vec3 rd, int steps, int lightSteps, int lightDetail, f
       float diffuse = diffSun * mix(mix(0.12, 0.5, 1.0 - smoothstep(-0.6, 0.3, cosT)), max(uSunDir.y, 0.0) / 3.14159, slab) * (1.0 - exp(-0.15 * tau));
       // the diffused light carries the colour of the whole illumination at the cloud top: sun + skylight
       // diffused deck light mixes sun and blue skylight: neutral-cool (~6500 K) at the sun's luminance
-      vec3 diffCol = dot(sunE, vec3(0.2126, 0.7152, 0.0722)) * vec3(0.93, 1.0, 1.09);
+      vec3 diffCol = dot(sunE, vec3(0.2126, 0.7152, 0.0722)) * vec3(1.10, 0.94, 0.96);
       vec3 sun = sunE * ms * mix(1.0, powder, 0.25 * (1.0 - max(cosT, 0.0))) + diffCol * diffuse;
-      vec3 amb = ambTop * diffUp * mix(0.6, 1.0, hf) + ambBot * (1.0 - hf) * diffUp * 0.6;
+      vec3 amb = ambTop * diffUp * mix(1.0, 1.4, hf) + ambBot * (1.0 - hf) * diffUp * 0.8;
       // the face toward the camera reflects the sky/sea light behind the camera where the column
       // above no longer lets skylight through
       // (a storm face: its shadowed sides fall to ~30% of the sunlit side)

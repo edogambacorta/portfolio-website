@@ -81,9 +81,11 @@ void main() {
     col = applyFog(col, d, 1e9);
   }
   col = withShafts(col, uCamPos, d, 1e9);
-  // Rose-hour atmospheric light; retain the volumetric clouds' own shading.
-  float skyLum = dot(col, vec3(0.2126, 0.7152, 0.0722));
-  col = mix(col, skyLum * vec3(1.52, 0.83, 0.90), 0.88);
+  // Soft rose-hour sky illumination lifts the shaded sides of the clouds,
+  // keeping the original volumetric structure and a bright, airy atmosphere.
+  float ambientSky = dot(skyRadiance(d), vec3(0.2126, 0.7152, 0.0722));
+  float cloudLight = dot(col, vec3(0.2126, 0.7152, 0.0722));
+  col = mix(col, cloudLight * vec3(1.35, 0.90, 0.93), 0.86) + ambientSky * vec3(0.68, 0.47, 0.49);
   o = vec4(col, 1.0);
 }`;
 
