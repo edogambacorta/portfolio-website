@@ -1,0 +1,266 @@
+// HDR post: physically motivated bloom (energy-conserving mip pyramid), eye adaptation,
+// AgX tone mapping, subtle grain and dithering.
+import { Program, Texture, Target, fullscreen, FULLSCREEN_VS } from '../gl.js';
+import { SKY_LOOKUP_GLSL } from '../sky/atmosphere.js';
+
+const DOWN_FS = `
+in vec2 vUv;
+out vec4 o;
+uniform sampler2D uSrc;
+uniform vec2 uTexel;
+uniform float uFirst;
+// non-finite input (a NaN or overflowed pixel) must not spread through the pyramid
+bool bad(vec3 v) { return any(isnan(v)) || any(isinf(v)) || !(abs(v.x) + abs(v.y) + abs(v.z) < 1e9); }
+vec3 s(vec2 uv) { vec3 v = texture(uSrc, uv).rgb; return bad(v) ? vec3(0.0) : clamp(v, vec3(0.0), vec3(60000.0)); }
+float lum(vec3 c) { return dot(c, vec3(0.2126, 0.7152, 0.0722)); }
+void main() {
+  // 13-tap (Jimenez 2014)
+  vec2 t = uTexel;
+  vec3 a = s(vUv + t * vec2(-2, 2)), b = s(vUv + t * vec2(0, 2)), c = s(vUv + t * vec2(2, 2));
+  vec3 d = s(vUv + t * vec2(-2, 0)), e = s(vUv), f = s(vUv + t * vec2(2, 0));
+  vec3 g = s(vUv + t * vec2(-2, -2)), h = s(vUv + t * vec2(0, -2)), i = s(vUv + t * vec2(2, -2));
+  vec3 j = s(vUv + t * vec2(-1, 1)), k = s(vUv + t * vec2(1, 1));
+  vec3 l = s(vUv + t * vec2(-1, -1)), m = s(vUv + t * vec2(1, -1));
+  vec3 col;
+  if (uFirst > 0.5) {
+    // Karis average on the first mip to suppress fireflies from glints
+    vec3 g0 = (a + b + d + e) * 0.25, g1 = (b + c + e + f) * 0.25, g2 = (d + e + g + h) * 0.25, g3 = (e + f + h + i) * 0.25, g4 = (j + k + l + m) * 0.25;
+    float w0 = 1.0 / (1.0 + lum(g0) * 0.25), w1 = 1.0 / (1.0 + lum(g1) * 0.25), w2 = 1.0 / (1.0 + lum(g2) * 0.25), w3 = 1.0 / (1.0 + lum(g3) * 0.25), w4 = 1.0 / (1.0 + lum(g4) * 0.25);
+    col = (g0 * w0 * 0.125 + g1 * w1 * 0.125 + g2 * w2 * 0.125 + g3 * w3 * 0.125 + g4 * w4 * 0.5) /
+          (w0 * 0.125 + w1 * 0.125 + w2 * 0.125 + w3 * 0.125 + w4 * 0.5);
+  } else {
+    col = e * 0.125 + (a + c + g + i) * 0.03125 + (b + d + f + h) * 0.0625 + (j + k + l + m) * 0.125;
+  }
+  o = vec4(min(col, vec3(60000.0)), 1.0);
+}`;
+
+const UP_FS = `
+in vec2 vUv;
+out vec4 o;
+uniform sampler2D uSrc;
+uniform vec2 uTexel;
+uniform float uRadius;
+uniform float uWeight;
+void main() {
+  vec2 t = uTexel * uRadius;
+  vec3 c = texture(uSrc, vUv).rgb * 4.0;
+  c += (texture(uSrc, vUv + vec2(-t.x, 0)).rgb + texture(uSrc, vUv + vec2(t.x, 0)).rgb + texture(uSrc, vUv + vec2(0, -t.y)).rgb + texture(uSrc, vUv + vec2(0, t.y)).rgb) * 2.0;
+  c += texture(uSrc, vUv + vec2(-t.x, -t.y)).rgb + texture(uSrc, vUv + vec2(t.x, -t.y)).rgb + texture(uSrc, vUv + vec2(-t.x, t.y)).rgb + texture(uSrc, vUv + vec2(t.x, t.y)).rgb;
+  o = vec4(c / 16.0 * uWeight, 1.0);
+}`;
+
+const LUM_FS = `
+in vec2 vUv;
+out vec4 o;
+uniform sampler2D uSrc;
+void main() {
+  vec3 c = texture(uSrc, vUv).rgb;
+  // centre-weighted metering; a non-finite pixel is left out (weight 0)
+  vec2 d = vUv - 0.5;
+  float w = exp(-dot(d, d) * 3.0);
+  if (any(isnan(c)) || any(isinf(c)) || !(abs(c.x) + abs(c.y) + abs(c.z) < 1e9)) { o = vec4(0.0); return; }
+  c = min(c, vec3(60000.0));
+  // log luminance and log chroma (R/G, B/G): geometric means over the frame via the mip chain
+  c = max(c, vec3(1e-6));
+  o = vec4(log(max(dot(c, vec3(0.2126, 0.7152, 0.0722)), 1e-6)) * w, w, log(c.r / c.g) * w, log(c.b / c.g) * w);
+}`;
+
+const ADAPT_FS = SKY_LOOKUP_GLSL + `
+out vec4 o;
+uniform sampler2D uLum;
+uniform sampler2D uCloudShadow;
+uniform float uIncident;
+uniform float uLightning;
+uniform float uWhiteBalance;
+uniform sampler2D uPrev;
+uniform float uDt;
+uniform float uSpeed;
+uniform float uLevel;
+void main() {
+  vec4 l = textureLod(uLum, vec2(0.5), uLevel);
+  float scene = l.x / max(l.y, 1e-6);
+  // incident metering: luminance of an 18% grey card under the current sun + sky light
+  float vis = texture(uCloudShadow, vec2(0.5)).r;
+  vec3 E = sunIlluminance() * vis * max(uSunDir.y, 0.0) + skyIrradiance();
+  float grey = 0.18 * dot(E, vec3(0.2126, 0.7152, 0.0722)) / 3.14159;
+  float target = exp(mix(scene, log(max(grey, 1e-6)), uIncident));
+  // white balance (von Kries, partial) from the scene's mean chroma (grey world), as a camera's AWB
+  // estimates it from what is in the frame, limited to the daylight range (~5000-7500 K)
+  vec3 chroma = vec3(exp(l.z / max(l.y, 1e-6)), 1.0, exp(l.w / max(l.y, 1e-6)));
+  float cy = dot(chroma, vec3(0.2126, 0.7152, 0.0722));
+  vec3 wb = clamp(pow(cy / chroma, vec3(uWhiteBalance)), vec3(0.82), vec3(1.22));
+  wb /= dot(wb, vec3(0.2126, 0.7152, 0.0722));
+  vec4 prevT = texelFetch(uPrev, ivec2(0), 0);
+  float prev = prevT.r;
+  vec3 prevWb = prevT.gba;
+  bool badT = isnan(target) || isinf(target) || !(target > 0.0 && target < 1e9) || any(isnan(wb)) || any(isinf(wb));
+  bool badP = !(prev > 0.0 && prev < 1e9) || isnan(prev) || isinf(prev) || any(isnan(prevWb)) || any(isinf(prevWb)) || !(prevWb.g > 0.1 && prevWb.g < 10.0);
+  if (badT && badP) { o = vec4(1.0, 1.0, 1.0, 1.0); return; }
+  if (badT) { o = vec4(prev, prevWb); return; }
+  if (badP) { prev = target; prevWb = wb; }
+  float a = 1.0 - exp(-uDt * uSpeed);
+  o = vec4(exp(mix(log(prev), log(target), a)), mix(prevWb, wb, a));
+}`;
+
+const COMPOSITE_FS = `
+in vec2 vUv;
+out vec4 o;
+uniform sampler2D uHdr;
+uniform sampler2D uBloom;
+uniform sampler2D uAdapt;
+uniform float uBloomStrength;
+uniform float uExposureBias;
+uniform float uMinLum;
+uniform float uMaxLum;
+uniform float uTime;
+uniform float uGrain;
+uniform float uVignette;
+uniform float uFlashExposure;
+uniform float uManualExposure;
+uniform float uFade;
+uniform float uNight;
+uniform vec2 uLook2;   // x: highlight contrast, y: saturation in log space (before the curve)
+
+vec3 agxContrast(vec3 x) {
+  vec3 x2 = x * x, x4 = x2 * x2;
+  return 15.5 * x4 * x2 - 40.14 * x4 * x + 31.96 * x4 - 6.868 * x2 * x + 0.4298 * x2 + 0.1191 * x - 0.00232;
+}
+vec3 agx(vec3 v) {
+  const mat3 m = mat3(0.842479062253094, 0.0423282422610123, 0.0423756549057051,
+                      0.0784335999999992, 0.878468636469772, 0.0784336,
+                      0.0792237451477643, 0.0791661274605434, 0.879142973793104);
+  const float lo = -12.47393, hi = 4.026069;
+  v = m * v;
+  v = clamp(log2(max(v, vec3(1e-10))), lo, hi);
+  v = (v - lo) / (hi - lo);
+  float lm = dot(v, vec3(0.2126, 0.7152, 0.0722));
+  v = lm + uLook2.y * (v - lm);
+  return agxContrast(v);
+}
+vec3 agxEotf(vec3 v) {
+  const mat3 mi = mat3(1.19687900512017, -0.0528968517574562, -0.0529716355144438,
+                       -0.0980208811401368, 1.15190312990417, -0.0980434501171241,
+                       -0.0990297440797205, -0.0989611768448433, 1.15107367264116);
+  return mi * v;
+}
+uniform vec4 uLook;   // x: contrast (power about the pivot), y: pivot, z: saturation, w: black point
+vec3 agxLook(vec3 v) {
+  // photographic S-curve in display space: deepens shadows and carries highlights to white,
+  // matching the tonal spread of reference photographs (p10 ~5-45, max ~240-255 of 255)
+  v = max(v, vec3(0.0));
+  float k = uLook.x, pv = uLook.y;
+  // a gentler (near-linear) toe: deep shadows keep some separation
+  vec3 klo = mix(vec3(1.1), vec3(k), smoothstep(0.08, pv, v));
+  vec3 lo = pv * pow(v / pv, klo);
+  vec3 hi = 1.0 - (1.0 - pv) * pow(max(1.0 - v, vec3(0.0)) / (1.0 - pv), vec3(uLook2.x));
+  v = mix(lo, hi, step(pv, v));
+  v = max(v - uLook.w, vec3(0.0)) / (1.0 - uLook.w);
+  float luma = dot(v, vec3(0.2126, 0.7152, 0.0722));
+  return luma + uLook.z * (v - luma);
+}
+float hash(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
+
+void main() {
+  vec3 hdr = texture(uHdr, vUv).rgb;
+  // (an overflowed pixel is a bright one; a NaN pixel is dropped)
+  if (any(isnan(hdr))) hdr = vec3(0.0);
+  else if (any(isinf(hdr)) || !(abs(hdr.x) + abs(hdr.y) + abs(hdr.z) < 1e9)) hdr = vec3(60000.0);
+  vec3 bloom = texture(uBloom, vUv).rgb;
+  vec3 c = mix(hdr, bloom, uBloomStrength);
+  vec4 adapt = texelFetch(uAdapt, ivec2(0), 0);
+  float avg = clamp(adapt.r, uMinLum, uMaxLum);
+  c *= adapt.gba;
+  float exposure = uManualExposure > 0.0 ? uManualExposure : 0.18 / avg;
+  exposure *= exp2(-2.8 * uNight);
+  exposure *= exp2(uExposureBias) / (1.0 + uFlashExposure);
+  c *= exposure * uFade;
+  float scot = uNight;
+  float ly = dot(c, vec3(0.2126, 0.7152, 0.0722));
+  c = mix(c, ly * vec3(0.78, 0.9, 1.15), scot * 0.12);
+  vec2 d = vUv - 0.5;
+  c *= 1.0 - uVignette * dot(d, d) * 1.6;
+  c = agxEotf(agxLook(agx(c)));
+  c = clamp(c, 0.0, 1.0);
+  // luminance grain (film-like, stronger in mid-tones) + triangular dither against banding
+  float n = hash(vUv * 1931.7 + fract(uTime * 7.31)) + hash(vUv * 1173.3 + fract(uTime * 3.17)) - 1.0;
+  float l = dot(c, vec3(0.2126, 0.7152, 0.0722));
+  c += n * uGrain * (1.0 + 1.6 * uNight) * (0.35 + 4.0 * l * (1.0 - l));
+  c += (hash(gl_FragCoord.xy + fract(uTime) * 91.0) - 0.5) / 255.0;
+  o = vec4(c, 1.0);
+}`;
+
+export class Post {
+  constructor(gl) {
+    this.gl = gl;
+    this.pDown = new Program(gl, FULLSCREEN_VS, DOWN_FS, { label: 'bloom.down' });
+    this.pUp = new Program(gl, FULLSCREEN_VS, UP_FS, { label: 'bloom.up' });
+    this.pLum = new Program(gl, FULLSCREEN_VS, LUM_FS, { label: 'lum' });
+    this.pAdapt = new Program(gl, FULLSCREEN_VS, ADAPT_FS, { label: 'adapt' });
+    this.pComp = new Program(gl, FULLSCREEN_VS, COMPOSITE_FS, { label: 'composite' });
+    this.lum = new Texture(gl, { w: 256, h: 256, format: 'rgba16f', mips: true });
+    this.lumTarget = new Target(gl, [this.lum]);
+    this.adapt = [0, 1].map(() => new Texture(gl, { w: 1, h: 1, format: 'rgba32f', filter: 'nearest' }));
+    this.adaptTargets = this.adapt.map((t) => new Target(gl, [t]));
+    for (const t of this.adaptTargets) { t.bind(); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT); }
+    this.adaptCur = 0;
+    this.levels = [];
+  }
+
+  resize(w, h) {
+    const gl = this.gl;
+    for (const lv of this.levels) { lv.target.dispose(); lv.tex.dispose(); }
+    this.levels = [];
+    let lw = w >> 1, lh = h >> 1;
+    for (let i = 0; i < 7 && lw > 4 && lh > 4; i++) {
+      const tex = new Texture(gl, { w: lw, h: lh, format: 'rgba16f' });
+      this.levels.push({ tex, target: new Target(gl, [tex]) });
+      lw >>= 1; lh >>= 1;
+    }
+  }
+
+  run(hdr, dt, opts) {
+    const gl = this.gl;
+    // bloom pyramid
+    let src = hdr;
+    this.levels.forEach((lv, i) => {
+      fullscreen(gl, this.pDown, { uSrc: src, uTexel: [1 / src.w, 1 / src.h], uFirst: i === 0 ? 1 : 0 }, lv.target);
+      src = lv.tex;
+    });
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.ONE, gl.ONE);
+    for (let i = this.levels.length - 1; i > 0; i--) {
+      const from = this.levels[i].tex;
+      // geometric level weights (2^-1.5 per level): a lens PSF with a tight core and a faint wide skirt
+      fullscreen(gl, this.pUp, { uSrc: from, uTexel: [1 / from.w, 1 / from.h], uRadius: 1.0, uWeight: 0.354 }, this.levels[i - 1].target);
+    }
+    gl.disable(gl.BLEND);
+    // normalise accumulated bloom: sum of levels -> average
+    // eye adaptation
+    fullscreen(gl, this.pLum, { uSrc: hdr }, this.lumTarget);
+    this.lum.genMips();
+    const next = 1 - this.adaptCur;
+    fullscreen(gl, this.pAdapt, {
+      ...opts.skyU, uCloudShadow: opts.cloudShadow, uIncident: opts.incident ?? 0.75, uWhiteBalance: opts.whiteBalance ?? 0.55,
+      uLum: this.lum, uPrev: this.adapt[this.adaptCur], uDt: dt, uSpeed: opts.adaptSpeed ?? 1.5, uLevel: 8,
+    }, this.adaptTargets[next]);
+    this.adaptCur = next;
+
+    fullscreen(gl, this.pComp, {
+      uHdr: hdr,
+      uBloom: this.levels[0].tex,
+      uAdapt: this.adapt[this.adaptCur],
+      uBloomStrength: (opts.bloom ?? 0.04),
+      uExposureBias: opts.exposureBias ?? 0,
+      uMinLum: opts.minLum ?? 0.0003,
+      uMaxLum: opts.maxLum ?? 10,
+      uTime: opts.time,
+      uGrain: opts.grain ?? 0.006,
+      uLook: opts.look ?? [1.5, 0.4, 1.0, 0.004], uLook2: opts.look2 ?? [1.8, 1.15],
+      uVignette: opts.vignette ?? 0.18,
+      uFlashExposure: opts.flashExposure ?? 0,
+      uManualExposure: opts.manualExposure ?? 0,
+      uFade: opts.fade ?? 1,
+      uNight: opts.night ?? 0,
+    }, null);
+  }
+}
