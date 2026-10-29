@@ -480,13 +480,13 @@ if (!RENDER_MODE) {
   // dynamic resolution: keep the frame time near 30 fps on slow GPUs, sharpen on fast ones
   let avg = 1 / 60, settle = 0;
   const maxScale = params.has('scale') ? app.scale : Math.min(window.devicePixelRatio || 1, 1.5);
-  let active = true;
+  let active = true, readyFrames = 0;
   window.addEventListener('message', event => { if (event.origin === location.origin && event.source === parent && event.data?.type === 'mommirror-ocean-visibility') active = !!event.data.active; });
   const loop = (now) => {
     const dt = Math.min((now - last) / 1000, 0.1);
     last = now;
     if (active) app.frame(dt);
-    if (active && !window.__invitationReady) { window.__invitationReady = true; parent.postMessage({type:'mommirror-ocean-ready'}, location.origin); }
+    if (active && !window.__invitationReady && ++readyFrames >= 12) { window.__invitationReady = true; parent.postMessage({type:'mommirror-ocean-ready'}, location.origin); }
     avg += (dt - avg) * 0.05;
     if (!params.has('scale') && (settle += dt) > 2.5 && !document.hidden) {
       const next = avg > 1 / 26 ? Math.max(app.scale * 0.88, 0.5) : avg < 1 / 50 ? Math.min(app.scale * 1.08, maxScale) : app.scale;
